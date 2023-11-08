@@ -9,12 +9,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import { TypeFormatFlags } from 'typescript';
 import { Typography } from '@mui/material';
+import { ButtonNavigationLabel } from '../constants/Constants';
 
-const LabelBottomNavigation = () => {
-  const [currentButtonNavigation, setCurrentButtonNavigation] = React.useState('home');
+const LabelBottomNavigation = ({value, setValue}: {value: ButtonNavigationLabel, setValue: React.Dispatch<React.SetStateAction<ButtonNavigationLabel>>}) => {
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setCurrentButtonNavigation(newValue);
+  const handleChange = (event: React.SyntheticEvent, newValue: ButtonNavigationLabel) => {
+    setValue(newValue);
   };
 
   const style = {
@@ -26,20 +26,20 @@ const LabelBottomNavigation = () => {
 
   return (
     <>
-      <BottomNavigation sx={style} value={currentButtonNavigation} onChange={handleChange}>
+      <BottomNavigation sx={style} value={value} onChange={handleChange}>
         <BottomNavigationAction
           label="Home"
-          value="home"
+          value={ButtonNavigationLabel.Home}
           icon={<HomeIcon />}
         />
         <BottomNavigationAction
           label="Favorites"
-          value="favorites"
+          value={ButtonNavigationLabel.Favorite}
           icon={<FavoriteIcon />}
         />
         <BottomNavigationAction
           label="Search"
-          value="search"
+          value={ButtonNavigationLabel.Search}
           icon={<SearchIcon />}
         />
         
