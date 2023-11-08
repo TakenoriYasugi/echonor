@@ -1,10 +1,13 @@
 import { ReactNode } from "react";
 import ButtonMenu from "../uiparts/ButtonMenu";
+import { Paper } from "@mui/material";
 
 const Layout = ({children}: {children: ReactNode}) => {
     return (
         <>
-            {children}
+            <Paper>
+                {children}
+            </Paper>
             <ButtonMenu />
         </>
     );
