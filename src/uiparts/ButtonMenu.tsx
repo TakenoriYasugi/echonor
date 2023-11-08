@@ -7,12 +7,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
+import { TypeFormatFlags } from 'typescript';
+import { Typography } from '@mui/material';
 
-export default function LabelBottomNavigation() {
-  const [value, setValue] = React.useState('recents');
+const LabelBottomNavigation = () => {
+  const [currentButtonNavigation, setCurrentButtonNavigation] = React.useState('home');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+    setCurrentButtonNavigation(newValue);
   };
 
   const style = {
@@ -23,23 +25,27 @@ export default function LabelBottomNavigation() {
   }
 
   return (
-    <BottomNavigation sx={style} value={value} onChange={handleChange}>
-      <BottomNavigationAction
-        label="Home"
-        value="home"
-        icon={<HomeIcon />}
-      />
-      <BottomNavigationAction
-        label="Favorites"
-        value="favorites"
-        icon={<FavoriteIcon />}
-      />
-      <BottomNavigationAction
-        label="Search"
-        value="search"
-        icon={<SearchIcon />}
-      />
-      
-    </BottomNavigation>
+    <>
+      <BottomNavigation sx={style} value={currentButtonNavigation} onChange={handleChange}>
+        <BottomNavigationAction
+          label="Home"
+          value="home"
+          icon={<HomeIcon />}
+        />
+        <BottomNavigationAction
+          label="Favorites"
+          value="favorites"
+          icon={<FavoriteIcon />}
+        />
+        <BottomNavigationAction
+          label="Search"
+          value="search"
+          icon={<SearchIcon />}
+        />
+        
+      </BottomNavigation>
+    </>
   );
 }
+
+export default LabelBottomNavigation;
