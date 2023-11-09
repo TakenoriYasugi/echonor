@@ -7,6 +7,7 @@ import Post from './uiparts/Post';
 import { ButtonNavigationLabel } from './constants/Constants';
 import ButtonMenu from './uiparts/ButtonMenu';
 import Home from './pages/Home';
+import ButtonAppBar from './uiparts/ButtonAppBar';
 
 
 
@@ -17,7 +18,7 @@ function App() {
     <div className="App">
       <CssBaseline/>
       <header className="App-header">
-        
+        <ButtonAppBar/>
       </header>
       <main>
         <Layout>
