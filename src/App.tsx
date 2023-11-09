@@ -30,7 +30,7 @@ function App() {
       <div className="App">
         <CssBaseline/>
         <header className="App-header">
-          <ButtonAppBar/>
+          <ButtonAppBar title="EchoNor"/>
         </header>
         <main>
           <Layout>
