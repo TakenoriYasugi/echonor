@@ -20,7 +20,7 @@ function App() {
         
       </header>
       <main>
-      <Layout>
+        <Layout>
           {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
           {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
           {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}

@@ -34,10 +34,13 @@ const Post = ({text} : {text: string}) => {
       };
     }, []);
   
-    // Growコンポーネントを使用してアニメーションを適用
+    const rand = Math.floor(Math.random() * 2);
+    const transformOrigin: string = rand === 0 ? 'right' : 'left';
+    
+    // Zoomコンポーネントを使用してアニメーションを適用
     return (
       <div ref={cardRef}>
-        <Zoom in={checked} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
+        <Zoom in={checked} style={{ transformOrigin: transformOrigin }} timeout={800}>
             <Card className="post" sx={{p: 4, m: 3}}>
                 <CardContent>
                     {text}
