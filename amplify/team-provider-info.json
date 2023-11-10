@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-echonor-dev-85432-authRole",
+      "UnauthRoleArn": "arn:aws:iam::733250743313:role/amplify-echonor-dev-85432-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::733250743313:role/amplify-echonor-dev-85432-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-echonor-dev-85432-deployment",
+      "UnauthRoleName": "amplify-echonor-dev-85432-unauthRole",
+      "StackName": "amplify-echonor-dev-85432",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:733250743313:stack/amplify-echonor-dev-85432/7f0c8910-8024-11ee-8890-0e606554f081",
+      "AmplifyAppId": "d1ig4he0v1p80g"
+    }
+  }
+}
