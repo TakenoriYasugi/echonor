@@ -38,14 +38,11 @@ const Post = ({text} : {text: string}) => {
         observer.disconnect();
       };
     }, []);
-  
-    const rand = Math.floor(Math.random() * 2);
-    const transformOrigin: string = rand === 0 ? 'right' : 'left';
     
     // Zoomコンポーネントを使用してアニメーションを適用
     return (
       <div ref={cardRef}>
-        <Zoom in={checked} style={{ transformOrigin: transformOrigin }} timeout={800}>
+        <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
             <Card className="post" sx={{p: 2, m: 3}}>
                 <CardContent>
                     {text}
