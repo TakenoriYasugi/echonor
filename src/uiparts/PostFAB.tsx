@@ -13,7 +13,7 @@ const PostFAB = () => {
 
     const style = {
         position: 'absolute',
-        bottom: 0,
+        top: '30%',
         left: '50%',
         transform: 'translateX(-50%)',
         width: 400,
