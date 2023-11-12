@@ -38,7 +38,7 @@ const PostFAB = () => {
             text: postText
         }
         try {
-            API.graphql(graphqlOperation(createPost, { input: newPost }));
+            // API.graphql(graphqlOperation(createPost, { input: newPost }));
         } catch (e) {
             console.log(e);
         }
