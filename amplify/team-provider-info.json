@@ -10,6 +10,11 @@
       "StackName": "amplify-echonor-dev-85432",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:733250743313:stack/amplify-echonor-dev-85432/7f0c8910-8024-11ee-8890-0e606554f081",
       "AmplifyAppId": "d1ig4he0v1p80g"
+    },
+    "categories": {
+      "api": {
+        "echonor": {}
+      }
     }
   }
 }
