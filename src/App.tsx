@@ -8,7 +8,12 @@ import { ButtonNavigationLabel } from './constants/Constants';
 import ButtonMenu from './uiparts/ButtonMenu';
 import Home from './pages/Home';
 import ButtonAppBar from './uiparts/ButtonAppBar';
+import { withAuthenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
+import awsExports from "./aws-exports";
+import { Amplify } from 'aws-amplify';
+Amplify.configure(awsExports);
 
 
 function App() {

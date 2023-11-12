@@ -5,6 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Divider, Fab, Slide, Stack, TextField } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
+import { useState } from 'react';
+import { API, graphqlOperation } from '@aws-amplify/api';
+import { createPost } from '../graphql/mutations';
 
 const PostFAB = () => {
     const [open, setOpen] = React.useState(false);
@@ -22,7 +25,26 @@ const PostFAB = () => {
         boxShadow: 24,
         p: 4,
     };
+    
+    const [postText, setPostText] = useState<string>("test");
+    
+    const handlePost = () => {
+        console.log(postText)
+        setPostText("");
+        handleClose();
+        
+        const newPost = {
+            id: "000000",
+            text: postText
+        }
+        try {
+            API.graphql(graphqlOperation(createPost, { input: newPost }));
+        } catch (e) {
+            console.log(e);
+        }
 
+    }
+    
 return (
     <>
         <Fab color="primary" aria-label="add" onClick={handleOpen}>
@@ -39,12 +61,12 @@ return (
         >
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {/* モーダルのタイトル */}
+                    {/* タイトル */}
                 </Typography>
                 <Divider/>
-                <TextField multiline fullWidth size="medium" label="今はどんな気分？"/>
+                <TextField multiline fullWidth size="medium" label="今はどんな気分？" value={postText} onChange={(e) => setPostText(e.target.value)}/>
                 <Stack direction={'row-reverse'}>
-                    <Button variant="contained" sx={{m: 1}} onClick={handleClose}>エコー！</Button>
+                    <Button variant="contained" sx={{m: 1}} onClick={handlePost}>エコー！</Button>
                     <Button variant="outlined" sx={{m: 1}} onClick={handleClose}>キャンセル</Button>
                 </Stack>
             </Box>
