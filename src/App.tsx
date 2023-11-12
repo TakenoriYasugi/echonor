@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { Box, Button, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
 import Layout from './layout/Layout';
 import Post from './uiparts/Post';
 import { ButtonNavigationLabel } from './constants/Constants';
@@ -33,11 +33,14 @@ function App() {
           <ButtonAppBar title="EchoNor"/>
         </header>
         <main>
-          <Layout>
-            {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
-            {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
-            {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
-          </Layout>
+          {/* AppBarの高さ分paddingを調整 */}
+          <Box sx={{pt: 7}}>
+            <Layout>
+              {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
+              {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
+              {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+            </Layout>
+          </Box>
         </main>
         <footer>
           <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
