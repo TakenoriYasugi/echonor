@@ -6,7 +6,6 @@ import Zoom from "@mui/material/Zoom";
 const Home = () => {
     return (
         <>
-        
           {dummyPosts}
           <Zoom in={true}>
             <Box sx={{position: "fixed", right: 20, bottom: 80}}>
