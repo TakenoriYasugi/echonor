@@ -15,6 +15,7 @@ const ReactionButton = (
 
     const [iconColor, setIconColor] = useState("gray");
     var icon: ReactNode = null;
+    const [isPushed, setIsPushed] = useState<boolean>(false);
 
     // TODO: 処理に無駄が多そうなので何とかする
     switch(variant) {
@@ -48,46 +49,70 @@ const ReactionButton = (
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         switch(variant) {
             case ReactionType.Heart:
-                setIconColor(ReactionColor.Heart);
-                setReactionCounts({...reactionCounts, heart: reactionCounts.heart + 1});
-                icon = <FavoriteIcon/>;
+                if (isPushed) {
+                    setIconColor(ReactionColor.Default);
+                    setReactionCounts({...reactionCounts, heart: reactionCounts.heart - 1});
+                } else {
+                    setIconColor(ReactionColor.Heart);
+                    setReactionCounts({...reactionCounts, heart: reactionCounts.heart + 1});
+                }
                 break;
             
             case ReactionType.Good:
-                setIconColor(ReactionColor.Good);
-                setReactionCounts({...reactionCounts, good: reactionCounts.good + 1});                
-                icon = <ThumbUpAltIcon/>;
+                if (isPushed) {
+                    setIconColor(ReactionColor.Default);
+                    setReactionCounts({...reactionCounts, good: reactionCounts.good - 1});                
+                } else {
+                    setIconColor(ReactionColor.Good);
+                    setReactionCounts({...reactionCounts, good: reactionCounts.good + 1});                
+                }
                 break;
             
             case ReactionType.Smile:
-                setIconColor(ReactionColor.Smile);
-                setReactionCounts({...reactionCounts, smile: reactionCounts.smile + 1});                
-
-                icon = <EmojiEmotionsIcon/>;
+                if (isPushed) {
+                    setIconColor(ReactionColor.Default);
+                    setReactionCounts({...reactionCounts, smile: reactionCounts.smile - 1}); 
+                } else {
+                    setIconColor(ReactionColor.Smile);
+                    setReactionCounts({...reactionCounts, smile: reactionCounts.smile + 1});                
+                }
                 break;
             
             case ReactionType.Sad:
-                setIconColor(ReactionColor.Sad);
-                icon = <SentimentVeryDissatisfiedIcon/>;
-                setReactionCounts({...reactionCounts, sad: reactionCounts.sad + 1});                
+                if (isPushed) {
+                    setIconColor(ReactionColor.Default);
+                    setReactionCounts({...reactionCounts, sad: reactionCounts.sad - 1});                
+                } else {
+                    setIconColor(ReactionColor.Sad);
+                    setReactionCounts({...reactionCounts, sad: reactionCounts.sad + 1});                
+                }
                 break;
             
             case ReactionType.Surprise:
-                setIconColor(ReactionColor.Surprise);
-                setReactionCounts({...reactionCounts, surprise: reactionCounts.surprise + 1});               
-                icon = <PriorityHighIcon/>;
+                if (isPushed) {
+                    setIconColor(ReactionColor.Default);
+                    setReactionCounts({...reactionCounts, surprise: reactionCounts.surprise - 1});
+                } else {
+                    setIconColor(ReactionColor.Surprise);
+                    setReactionCounts({...reactionCounts, surprise: reactionCounts.surprise + 1});               
+                }
                 break;
 
             case ReactionType.Bad:
-                setIconColor(ReactionColor.Bad);
-                setReactionCounts({...reactionCounts, bad: reactionCounts.bad + 1});                
-
-                icon = <ThumbDownAltIcon/>;
+                if (isPushed) {
+                    setIconColor(ReactionColor.Default);
+                    setReactionCounts({...reactionCounts, bad: reactionCounts.bad - 1});                
+                } else {
+                    setIconColor(ReactionColor.Bad);
+                    setReactionCounts({...reactionCounts, bad: reactionCounts.bad + 1});                
+                }
                 break;
             default:
                 console.log("リアクションアイコン押下時エラー")
                 break;
         }
+
+        setIsPushed(!isPushed);
     }
 
     return (

@@ -19,7 +19,8 @@ export enum ReactionColor {
     Smile = "#ff9800",
     Sad = "#ff9800",
     Surprise = "red",
-    Bad = "blue"
+    Bad = "blue",
+    Default = "gray",
 }
 
 export type ReactionCounts = {
