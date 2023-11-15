@@ -1,9 +1,9 @@
 // タイムラインに流れる投稿
 
-import { Card, CardActionArea, CardContent, Collapse, Divider, Grow, IconButton, Popover, Zoom } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Collapse, Divider, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
 import ReactionButton from "./ReactionButton";
-import { ReactionType } from "../constants/Constants";
+import { ReactionCounts, ReactionType } from "../constants/Constants";
 
 const Post = ({text} : {text: string}) => {
 
@@ -48,6 +48,10 @@ const Post = ({text} : {text: string}) => {
       setAnchorEl(null);
     }
 
+    
+
+    const [reactionCounts, setReactionCounts] = useState<ReactionCounts>({heart: 1, good: 0, smile: 0, sad: 0, surprise: 0, bad: 0});
+
     // Zoomコンポーネントを使用してアニメーションを適用
     return (
       <>
@@ -60,6 +64,34 @@ const Post = ({text} : {text: string}) => {
                   </CardContent>
                   <Divider/>
                 </CardActionArea>
+                <Stack direction={"row"}>
+                  {reactionCounts.heart > 0 && <>
+                        <ReactionButton variant={ReactionType.Heart} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+                        <Typography fontSize={"small"}>{reactionCounts.heart}</Typography>
+                    </>}
+                  {reactionCounts.good > 0 && <>
+                        <ReactionButton variant={ReactionType.Good} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+                        <Typography fontSize={"small"}>{reactionCounts.good}</Typography>
+                    </>}
+                  {reactionCounts.smile > 0 && <>
+                        <ReactionButton variant={ReactionType.Smile} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+                        <Typography fontSize={"small"}>{reactionCounts.smile}</Typography>
+                    </>}
+                  {reactionCounts.sad > 0 && <>
+                        <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+                        <Typography fontSize={"small"}>{reactionCounts.sad}</Typography>
+                    </>}
+                  {reactionCounts.surprise > 0 && <>
+                        <ReactionButton variant={ReactionType.Surprise} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+                        <Typography fontSize={"small"}>{reactionCounts.surprise}</Typography>
+                    </>}
+                  {reactionCounts.bad > 0 && <>
+                        <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+                        <Typography fontSize={"small"}>{reactionCounts.bad}</Typography>
+                    </>}
+                  
+                  
+                </Stack>
               </Card>
           </Zoom>
         </div>
@@ -80,12 +112,12 @@ const Post = ({text} : {text: string}) => {
           {/* リアクション用のポップ */}
           <Card>
             <CardContent>
-              <ReactionButton variant={ReactionType.Heart}/>
-              <ReactionButton variant={ReactionType.Good}/>
-              <ReactionButton variant={ReactionType.Smile}/>
-              <ReactionButton variant={ReactionType.Sad}/>
-              <ReactionButton variant={ReactionType.Surprise}/>
-              <ReactionButton variant={ReactionType.Bad}/>
+              <ReactionButton variant={ReactionType.Heart} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+              <ReactionButton variant={ReactionType.Good} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+              <ReactionButton variant={ReactionType.Smile} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+              <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+              <ReactionButton variant={ReactionType.Surprise} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
+              <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts}/>
             </CardContent>
           </Card>
         </Popover>

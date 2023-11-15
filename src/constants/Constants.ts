@@ -21,3 +21,12 @@ export enum ReactionColor {
     Surprise = "red",
     Bad = "blue"
 }
+
+export type ReactionCounts = {
+    heart: number,
+    good: number,
+    smile: number,
+    sad: number,
+    surprise: number,
+    bad: number
+  }
