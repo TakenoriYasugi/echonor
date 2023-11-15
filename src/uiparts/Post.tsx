@@ -1,15 +1,7 @@
 // タイムラインに流れる投稿
 
 import { Card, CardActionArea, CardContent, Collapse, Divider, Grow, IconButton, Popover, Zoom } from "@mui/material";
-// import '../css/post.css';
 import { useState, useRef, useEffect } from "react";
-
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import ReactionButton from "./ReactionButton";
 import { ReactionType } from "../constants/Constants";
 
