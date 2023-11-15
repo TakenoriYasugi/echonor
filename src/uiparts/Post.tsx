@@ -10,6 +10,8 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import ReactionButton from "./ReactionButton";
+import { ReactionType } from "../constants/Constants";
 
 const Post = ({text} : {text: string}) => {
 
@@ -82,14 +84,16 @@ const Post = ({text} : {text: string}) => {
             vertical: 'top',
             horizontal: 'left',
           }}>
+
+          {/* リアクション用のポップ */}
           <Card>
             <CardContent>
-              <IconButton><FavoriteIcon sx={{color: "#ff1744"}}/></IconButton>
-              <IconButton><ThumbUpAltIcon sx={{color: "#ffc107"}}/></IconButton>
-              <IconButton><EmojiEmotionsIcon sx={{color: "#ff9800"}}/></IconButton>
-              <IconButton><SentimentVeryDissatisfiedIcon sx={{color: "#ff9800"}}/></IconButton>
-              <IconButton><PriorityHighIcon sx={{color: "red"}}/></IconButton>
-              <IconButton><ThumbDownAltIcon sx={{color: "blue"}}/></IconButton>
+              <ReactionButton variant={ReactionType.Heart}/>
+              <ReactionButton variant={ReactionType.Good}/>
+              <ReactionButton variant={ReactionType.Smile}/>
+              <ReactionButton variant={ReactionType.Sad}/>
+              <ReactionButton variant={ReactionType.Surprise}/>
+              <ReactionButton variant={ReactionType.Bad}/>
             </CardContent>
           </Card>
         </Popover>
