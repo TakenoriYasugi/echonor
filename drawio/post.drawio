@@ -95,14 +95,14 @@
                 <mxCell id="43" value="お気に入り取得" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="320" y="1300" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="49" value="user_idとpost_idはスレッドと通常投稿にまたがって一意" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-                    <mxGeometry x="200" y="290" width="230" height="30" as="geometry"/>
+                <mxCell id="49" value="user_idとpost_idはスレッドと通常投稿にまたがってユニーク" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="184" y="250" width="230" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="60" value="Reactioned Posts&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font color=&quot;#ff0000&quot;&gt;- user_id&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- reactioned_posts[]&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;[{post_id, ReactionType},&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;{post_id, ReactionType}&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;{post_id, ReactionType}...]&lt;/span&gt;&lt;/div&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="480" y="80" width="150" height="140" as="geometry"/>
+                    <mxGeometry x="339" y="440" width="150" height="140" as="geometry"/>
                 </mxCell>
                 <mxCell id="61" value="&lt;span style=&quot;background-color: initial;&quot;&gt;Bookmarks&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial; color: rgb(255, 0, 0);&quot;&gt;- user_id&lt;/span&gt;&lt;/div&gt;&lt;/span&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- post_ids [post_id]&lt;/span&gt;&lt;/div&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="640" y="80" width="120" height="140" as="geometry"/>
+                    <mxGeometry x="510" y="440" width="120" height="140" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
