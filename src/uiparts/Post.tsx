@@ -57,10 +57,13 @@ const Post = ({text} : {text: string}) => {
       <>
         <div ref={cardRef}>
           <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
-              <Card className="post" sx={{p: 2, m: 3}}>
+              <Card className="post" sx={{p: 1, m: 3}}>
                 <CardActionArea onClick={handleClick}>
                   <CardContent>
-                      {text}
+                    <Stack direction="column">
+                      <Typography fontSize={"small"}>{"2023/10/2"}</Typography>
+                      <Typography fontSize={"medium"}>{text}</Typography>
+                    </Stack>
                   </CardContent>
                   <Divider/>
                 </CardActionArea>
