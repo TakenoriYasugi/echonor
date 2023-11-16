@@ -1,16 +1,19 @@
 import { IconButton } from "@mui/material";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import { ReactNode, useState } from "react";
 import { ReactionColor, ReactionCounts, ReactionType } from "../constants/Constants";
+import TagFacesIcon from '@mui/icons-material/TagFaces';
 
 const ReactionButton = (
-    {variant, reactionCounts, setReactionCounts}: 
-    {variant: ReactionType, reactionCounts: ReactionCounts, setReactionCounts: React.Dispatch<React.SetStateAction<ReactionCounts>>
+    {variant, reactionCounts, setReactionCounts, setIsReactionOpen}: 
+    {variant: ReactionType,
+        reactionCounts: ReactionCounts,
+        setReactionCounts: React.Dispatch<React.SetStateAction<ReactionCounts>>,
+        setIsReactionOpen: React.Dispatch<React.SetStateAction<boolean>>
     }) => {
 
     const [iconColor, setIconColor] = useState("gray");
@@ -27,7 +30,7 @@ const ReactionButton = (
             break;
         
         case ReactionType.Smile:
-            icon = <EmojiEmotionsIcon sx={{color: iconColor}}/>;
+            icon = <TagFacesIcon sx={{color: iconColor}}/>;
             break;
         
         case ReactionType.Sad:
@@ -113,6 +116,7 @@ const ReactionButton = (
         }
 
         setIsPushed(!isPushed);
+        setIsReactionOpen(false);
     }
 
     return (
