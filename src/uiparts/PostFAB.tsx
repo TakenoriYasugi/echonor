@@ -8,6 +8,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import { useState } from 'react';
 import { API, graphqlOperation } from '@aws-amplify/api';
 import { createPost } from '../graphql/mutations';
+import { v4 as uuidv4 } from 'uuid';
 
 const PostFAB = () => {
     const [open, setOpen] = React.useState(false);
@@ -26,15 +27,17 @@ const PostFAB = () => {
         p: 4,
     };
     
-    const [postText, setPostText] = useState<string>("test");
+    const [postText, setPostText] = useState<string>("");
     
     const handlePost = () => {
         console.log(postText)
         setPostText("");
+        const postId = uuidv4();
+        console.log(postId)
         handleClose();
         
         const newPost = {
-            id: "000000",
+            id: postId,
             text: postText
         }
         try {
