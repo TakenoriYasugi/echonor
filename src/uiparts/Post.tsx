@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import ReactionButton from "./ReactionButton";
 import { ReactionCounts, ReactionType } from "../constants/Constants";
 
-const Post = ({text} : {text: string}) => {
+const Post = ({text, date} : {text: string, date: string}) => {
 
     const [checked, setChecked] = useState(false);
     const cardRef = useRef(null);
@@ -62,7 +62,7 @@ const Post = ({text} : {text: string}) => {
                 <CardActionArea onClick={handleClick}>
                   <CardContent>
                     <Stack direction="column">
-                      <Typography fontSize={"small"}>{"2023/10/2"}</Typography>
+                      <Typography fontSize={"small"}>{date}</Typography>
                       <Typography fontSize={"medium"}>{text}</Typography>
                     </Stack>
                   </CardContent>
