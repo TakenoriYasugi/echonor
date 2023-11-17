@@ -21,6 +21,7 @@ const Home = () => {
       const postData = await API.graphql(graphqlOperation(listPosts));
       // @ts-ignore
       const posts = postData.data.listPosts.items;
+      posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
       setPosts(posts);
     } catch (err) {
       console.error('Error fetching posts', err);
