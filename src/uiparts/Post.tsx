@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import ReactionButton from "./ReactionButton";
 import { ReactionCounts, ReactionType } from "../constants/Constants";
 
-const Post = ({text} : {text: string}) => {
+const Post = ({text, date} : {text: string, date: string}) => {
 
     const [checked, setChecked] = useState(false);
     const cardRef = useRef(null);
@@ -48,10 +48,11 @@ const Post = ({text} : {text: string}) => {
       setAnchorEl(null);
     }
 
+    const [reactionCounts, setReactionCounts] = useState<ReactionCounts>({heart: 0, good: 0, smile: 0, sad: 0, surprise: 0, bad: 0});
+    const isReactioned = () => {
+      return (reactionCounts.heart > 0 || reactionCounts.good || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
+    }
     
-
-    const [reactionCounts, setReactionCounts] = useState<ReactionCounts>({heart: 1, good: 0, smile: 0, sad: 0, surprise: 0, bad: 0});
-
     // Zoomコンポーネントを使用してアニメーションを適用
     return (
       <>
@@ -61,12 +62,12 @@ const Post = ({text} : {text: string}) => {
                 <CardActionArea onClick={handleClick}>
                   <CardContent>
                     <Stack direction="column">
-                      <Typography fontSize={"small"}>{"2023/10/2"}</Typography>
+                      <Typography fontSize={"small"}>{date}</Typography>
                       <Typography fontSize={"medium"}>{text}</Typography>
                     </Stack>
                   </CardContent>
-                  <Divider/>
                 </CardActionArea>
+                {isReactioned() && <Divider/>}
                 <Stack direction={"row"}>
                   {reactionCounts.heart > 0 && <>
                         <ReactionButton variant={ReactionType.Heart} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
@@ -93,7 +94,7 @@ const Post = ({text} : {text: string}) => {
                         <Typography fontSize={"small"}>{reactionCounts.bad}</Typography>
                     </>}
                   
-                  
+
                 </Stack>
               </Card>
           </Zoom>
