@@ -2,18 +2,48 @@ import Box from "@mui/material/Box";
 import Post from "../uiparts/Post";
 import PostFAB from "../uiparts/PostFAB";
 import Zoom from "@mui/material/Zoom";
+import { useEffect, useState } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+import { getPost, listPosts } from "../graphql/queries";
+import { GraphQLResult } from "@aws-amplify/api";
 
 const Home = () => {
-    return (
-        <>
-          {dummyPosts}
-          <Zoom in={true}>
-            <Box sx={{position: "fixed", right: 20, bottom: 80}}>
-                <PostFAB/>
-            </Box>
-          </Zoom>
-        </>
-    );
+
+  const [posts, setPosts] = useState([]);
+  
+  useEffect(() => {
+    fetchPosts();
+  },[]);
+
+  const fetchPosts = async () => {
+    try {
+
+      const postData = await API.graphql(graphqlOperation(listPosts));
+      // @ts-ignore
+      const posts = postData.data.listPosts.items;
+      setPosts(posts);
+      console.log(posts);
+    } catch (err) {
+      console.error('Error fetching posts', err);
+    }
+  }
+
+  return (
+      <>
+        {posts.map( (post) => {
+          // @ts-ignore
+          console.log(post.content);
+          // @ts-ignore
+          return <Post key={post.postId} text={post.content}/>
+        })}
+        {/* {dummyPosts} */}
+        <Zoom in={true}>
+          <Box sx={{position: "fixed", right: 20, bottom: 80}}>
+              <PostFAB/>
+          </Box>
+        </Zoom>
+      </>
+  );
 }
 
 const dummyPosts = (

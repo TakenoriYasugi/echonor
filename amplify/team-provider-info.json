@@ -14,6 +14,9 @@
     "categories": {
       "auth": {
         "echonorc9e152e6": {}
+      },
+      "api": {
+        "echonor": {}
       }
     }
   }

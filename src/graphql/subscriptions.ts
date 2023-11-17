@@ -10,8 +10,10 @@ type GeneratedSubscription<InputType, OutputType> = string & {
 
 export const onCreatePost = /* GraphQL */ `subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
   onCreatePost(filter: $filter) {
+    postId
+    userId
+    content
     id
-    text
     createdAt
     updatedAt
     __typename
@@ -23,8 +25,10 @@ export const onCreatePost = /* GraphQL */ `subscription OnCreatePost($filter: Mo
 >;
 export const onUpdatePost = /* GraphQL */ `subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
   onUpdatePost(filter: $filter) {
+    postId
+    userId
+    content
     id
-    text
     createdAt
     updatedAt
     __typename
@@ -36,8 +40,10 @@ export const onUpdatePost = /* GraphQL */ `subscription OnUpdatePost($filter: Mo
 >;
 export const onDeletePost = /* GraphQL */ `subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
   onDeletePost(filter: $filter) {
+    postId
+    userId
+    content
     id
-    text
     createdAt
     updatedAt
     __typename
