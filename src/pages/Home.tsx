@@ -36,7 +36,7 @@ const Home = () => {
           // @ts-ignore
           return <Post key={post.postId} text={post.content}/>
         })}
-        {/* {dummyPosts} */}
+        {dummyPosts}
         <Zoom in={true}>
           <Box sx={{position: "fixed", right: 20, bottom: 80}}>
               <PostFAB/>
