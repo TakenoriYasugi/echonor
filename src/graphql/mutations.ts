@@ -13,8 +13,10 @@ export const createPost = /* GraphQL */ `mutation CreatePost(
   $condition: ModelPostConditionInput
 ) {
   createPost(input: $input, condition: $condition) {
+    postId
+    userId
+    content
     id
-    text
     createdAt
     updatedAt
     __typename
@@ -29,8 +31,10 @@ export const updatePost = /* GraphQL */ `mutation UpdatePost(
   $condition: ModelPostConditionInput
 ) {
   updatePost(input: $input, condition: $condition) {
+    postId
+    userId
+    content
     id
-    text
     createdAt
     updatedAt
     __typename
@@ -45,8 +49,10 @@ export const deletePost = /* GraphQL */ `mutation DeletePost(
   $condition: ModelPostConditionInput
 ) {
   deletePost(input: $input, condition: $condition) {
+    postId
+    userId
+    content
     id
-    text
     createdAt
     updatedAt
     __typename

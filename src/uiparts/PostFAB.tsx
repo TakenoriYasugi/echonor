@@ -3,12 +3,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Divider, Fab, Slide, Stack, TextField } from "@mui/material";
+import { Divider, Fab, Stack, TextField } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
 import { useState } from 'react';
-import { API, graphqlOperation } from '@aws-amplify/api';
-import { createPost } from '../graphql/mutations';
 import { v4 as uuidv4 } from 'uuid';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createPost } from '../graphql/mutations';
+import { useUser } from '../util/UserProvider';
 
 const PostFAB = () => {
     const [open, setOpen] = React.useState(false);
@@ -28,6 +29,7 @@ const PostFAB = () => {
     };
     
     const [postText, setPostText] = useState<string>("");
+    const {user} = useUser();
     
     const handlePost = () => {
         console.log(postText)
@@ -36,12 +38,18 @@ const PostFAB = () => {
         console.log(postId)
         handleClose();
         
+        if (user === null) {
+            console.log("ERROR: ユーザデータがnullです");
+            return;
+        }
+        
         const newPost = {
-            id: postId,
-            text: postText
+            postId: postId,
+            userId: user.getUsername(),
+            content: postText
         }
         try {
-            // API.graphql(graphqlOperation(createPost, { input: newPost }));
+            API.graphql(graphqlOperation(createPost, { input: newPost }));
         } catch (e) {
             console.log(e);
         }

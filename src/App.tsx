@@ -14,6 +14,7 @@ import "@aws-amplify/ui-react/styles.css";
 import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify';
+import { UserProvider } from './util/UserProvider';
 
 Amplify.configure(awsExports);
 
@@ -90,25 +91,27 @@ function App() {
   
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <CssBaseline/>
-        <header className="App-header">
-          <ButtonAppBar title="EchoNor"/>
-        </header>
-        <main>
-          {/* AppBarの高さ分paddingを調整 */}
-          <Box sx={{pt: 7}}>
-            <Layout>
-              {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
-              {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
-              {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
-            </Layout>
-          </Box>
-        </main>
-        <footer>
-          <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
-        </footer>
-      </div>
+      <UserProvider>
+        <div className="App">
+          <CssBaseline/>
+          <header className="App-header">
+            <ButtonAppBar title="EchoNor"/>
+          </header>
+          <main>
+            {/* AppBarの高さ分paddingを調整 */}
+            <Box sx={{pt: 7}}>
+              <Layout>
+                {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
+                {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
+                {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+              </Layout>
+            </Box>
+          </main>
+          <footer>
+            <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
+          </footer>
+        </div>
+      </UserProvider>
     </ThemeProvider>
   );
 }

@@ -3,18 +3,22 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreatePostInput = {
+  postId: string,
+  userId: string,
+  content: string,
   id?: string | null,
-  text: string,
 };
 
 export type ModelPostConditionInput = {
-  text?: ModelStringInput | null,
+  postId?: ModelIDInput | null,
+  userId?: ModelStringInput | null,
+  content?: ModelStringInput | null,
   and?: Array< ModelPostConditionInput | null > | null,
   or?: Array< ModelPostConditionInput | null > | null,
   not?: ModelPostConditionInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -54,32 +58,7 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Post = {
-  __typename: "Post",
-  id: string,
-  text: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdatePostInput = {
-  id: string,
-  text?: string | null,
-};
-
-export type DeletePostInput = {
-  id: string,
-};
-
-export type ModelPostFilterInput = {
-  id?: ModelIDInput | null,
-  text?: ModelStringInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
-};
-
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -95,6 +74,36 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type Post = {
+  __typename: "Post",
+  postId: string,
+  userId: string,
+  content: string,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdatePostInput = {
+  postId?: string | null,
+  userId?: string | null,
+  content?: string | null,
+  id: string,
+};
+
+export type DeletePostInput = {
+  id: string,
+};
+
+export type ModelPostFilterInput = {
+  postId?: ModelIDInput | null,
+  userId?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  and?: Array< ModelPostFilterInput | null > | null,
+  or?: Array< ModelPostFilterInput | null > | null,
+  not?: ModelPostFilterInput | null,
+};
+
 export type ModelPostConnection = {
   __typename: "ModelPostConnection",
   items:  Array<Post | null >,
@@ -102,8 +111,9 @@ export type ModelPostConnection = {
 };
 
 export type ModelSubscriptionPostFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  text?: ModelSubscriptionStringInput | null,
+  postId?: ModelSubscriptionIDInput | null,
+  userId?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPostFilterInput | null > | null,
   or?: Array< ModelSubscriptionPostFilterInput | null > | null,
 };
@@ -146,8 +156,10 @@ export type CreatePostMutationVariables = {
 export type CreatePostMutation = {
   createPost?:  {
     __typename: "Post",
+    postId: string,
+    userId: string,
+    content: string,
     id: string,
-    text: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -161,8 +173,10 @@ export type UpdatePostMutationVariables = {
 export type UpdatePostMutation = {
   updatePost?:  {
     __typename: "Post",
+    postId: string,
+    userId: string,
+    content: string,
     id: string,
-    text: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -176,8 +190,10 @@ export type DeletePostMutationVariables = {
 export type DeletePostMutation = {
   deletePost?:  {
     __typename: "Post",
+    postId: string,
+    userId: string,
+    content: string,
     id: string,
-    text: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -190,8 +206,10 @@ export type GetPostQueryVariables = {
 export type GetPostQuery = {
   getPost?:  {
     __typename: "Post",
+    postId: string,
+    userId: string,
+    content: string,
     id: string,
-    text: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -208,8 +226,10 @@ export type ListPostsQuery = {
     __typename: "ModelPostConnection",
     items:  Array< {
       __typename: "Post",
+      postId: string,
+      userId: string,
+      content: string,
       id: string,
-      text: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -224,8 +244,10 @@ export type OnCreatePostSubscriptionVariables = {
 export type OnCreatePostSubscription = {
   onCreatePost?:  {
     __typename: "Post",
+    postId: string,
+    userId: string,
+    content: string,
     id: string,
-    text: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -238,8 +260,10 @@ export type OnUpdatePostSubscriptionVariables = {
 export type OnUpdatePostSubscription = {
   onUpdatePost?:  {
     __typename: "Post",
+    postId: string,
+    userId: string,
+    content: string,
     id: string,
-    text: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -252,8 +276,10 @@ export type OnDeletePostSubscriptionVariables = {
 export type OnDeletePostSubscription = {
   onDeletePost?:  {
     __typename: "Post",
+    postId: string,
+    userId: string,
+    content: string,
     id: string,
-    text: string,
     createdAt: string,
     updatedAt: string,
   } | null,

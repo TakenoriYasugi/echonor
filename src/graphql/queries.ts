@@ -10,8 +10,10 @@ type GeneratedQuery<InputType, OutputType> = string & {
 
 export const getPost = /* GraphQL */ `query GetPost($id: ID!) {
   getPost(id: $id) {
+    postId
+    userId
+    content
     id
-    text
     createdAt
     updatedAt
     __typename
@@ -25,8 +27,10 @@ export const listPosts = /* GraphQL */ `query ListPosts(
 ) {
   listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      postId
+      userId
+      content
       id
-      text
       createdAt
       updatedAt
       __typename
