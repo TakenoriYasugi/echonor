@@ -10,19 +10,17 @@ import { GraphQLResult } from "@aws-amplify/api";
 const Home = () => {
 
   const [posts, setPosts] = useState([]);
-  
+
   useEffect(() => {
     fetchPosts();
   },[]);
 
   const fetchPosts = async () => {
     try {
-
       const postData = await API.graphql(graphqlOperation(listPosts));
       // @ts-ignore
       const posts = postData.data.listPosts.items;
       setPosts(posts);
-      console.log(posts);
     } catch (err) {
       console.error('Error fetching posts', err);
     }
@@ -32,14 +30,12 @@ const Home = () => {
       <>
         {posts.map( (post) => {
           // @ts-ignore
-          console.log(post.content);
-          // @ts-ignore
           return <Post key={post.postId} text={post.content}/>
         })}
         {dummyPosts}
         <Zoom in={true}>
           <Box sx={{position: "fixed", right: 20, bottom: 80}}>
-              <PostFAB/>
+              <PostFAB fetchPosts={fetchPosts}/>
           </Box>
         </Zoom>
       </>

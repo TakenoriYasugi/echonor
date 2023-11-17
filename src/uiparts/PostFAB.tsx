@@ -11,7 +11,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { createPost } from '../graphql/mutations';
 import { useUser } from '../util/UserProvider';
 
-const PostFAB = () => {
+const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -53,6 +53,7 @@ const PostFAB = () => {
         } catch (e) {
             console.log(e);
         }
+        fetchPosts();
 
     }
     
