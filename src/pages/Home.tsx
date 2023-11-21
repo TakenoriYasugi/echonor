@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { getPost, listPosts } from "../graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api";
+import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
 
 const Home = () => {
@@ -34,11 +35,15 @@ const Home = () => {
 
   return (
       <>
-        {posts.map( (post) => {
-          // @ts-ignore
-          return <Post key={post.postId} text={post.content} date={formatDate(post.createdAt)}/>
-        })}
-        {dummyPosts}
+      <PullToRefresh onRefresh={fetchPosts}>
+        <>
+          {posts.map( (post) => {
+            // @ts-ignore
+            return <Post key={post.postId} text={post.content} date={formatDate(post.createdAt)}/>
+          })}
+          {dummyPosts}
+        </>
+      </PullToRefresh>
         <Zoom in={true}>
           <Box sx={{position: "fixed", right: 20, bottom: 80}}>
               <PostFAB fetchPosts={fetchPosts}/>
