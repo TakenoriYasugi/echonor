@@ -34,8 +34,8 @@ const Home = () => {
     return dayjs(createdAt).format("YYYY/MM/DD hh:mm");
   }
 
+  // 更新時に表示するテキスト
   const pullingContent = <>
-  
     <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
         <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Typography>Refresh</Typography>
