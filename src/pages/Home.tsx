@@ -8,6 +8,7 @@ import { getPost, listPosts } from "../graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api";
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
+import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 
 const Home = () => {
 
@@ -33,9 +34,18 @@ const Home = () => {
     return dayjs(createdAt).format("YYYY/MM/DD hh:mm");
   }
 
+  const pullingContent = <>
+  
+    <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography>Refresh</Typography>
+        </Container>
+    </Paper>
+  
+  </>
   return (
       <>
-      <PullToRefresh onRefresh={fetchPosts}>
+      <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
         <>
           {posts.map( (post) => {
             // @ts-ignore
