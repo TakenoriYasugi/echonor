@@ -12,6 +12,7 @@ import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
 import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
 import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import echonorLogo from '../images/echonor_logo_resize_comp.png'
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
@@ -44,26 +45,33 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   const navItems = [
     "会員情報",
-    "利用規約"
+    "利用規約",
+    "ヘルプ",
+    "お問い合せ"
   ]
-  // スマホで閲覧した際に表示するハンバーガーメニュー
+
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography fontSize={15} sx={{ my: 2 }}>
-        {userEmail}
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item}/>
-              </ListItemButton>
-           </ListItem>
-        ))}
-      </List>
-      {isLoggedIn ? <LogoutButton/> : <Button variant="contained">Login</Button>}
-    </Box>
+    <>
+      <Box sx={{p: 2}}>
+        <img src={echonorLogo} style={{ width: '100%', height: '100%' }} />
+      </Box>
+      <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+        <Typography fontSize={15} sx={{ my: 2 }}>
+          {userEmail}
+        </Typography>
+        <Divider />
+        <List>
+          {navItems.map((item) => (
+            <ListItem key={item} disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }}>
+                  <ListItemText primary={item}/>
+                </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        {isLoggedIn ? <LogoutButton/> : <Button variant="contained">Login</Button>}
+      </Box>
+    </>
   );
 
   return (
@@ -96,7 +104,6 @@ const ButtonAppBar = ({title}: {title: string}) => {
         keepMounted: true, // Better open performance on mobile.
       }}
       sx={{
-        display: { xs: 'block', sm: 'none' },
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
       }}
       >
