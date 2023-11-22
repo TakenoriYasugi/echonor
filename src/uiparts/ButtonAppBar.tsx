@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { useEffect, useState } from 'react';
-import { CheckUserLoggedIn } from '../util/Authenticator';
+import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
 import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
 import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
@@ -25,6 +25,15 @@ const ButtonAppBar = ({title}: {title: string}) => {
       isMounted = false; // アンマウント時にフラグを変更
     };
   }, []);
+
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect( () => {
+    const user = GetUserInfo().then((user) => {
+      setUserEmail(user.attributes.email)
+    })
+  }, [])
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -40,8 +49,8 @@ const ButtonAppBar = ({title}: {title: string}) => {
   // スマホで閲覧した際に表示するハンバーガーメニュー
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        Menu
+      <Typography fontSize={15} sx={{ my: 2 }}>
+        {userEmail}
       </Typography>
       <Divider />
       <List>
