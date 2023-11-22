@@ -6,9 +6,7 @@ import { ButtonNavigationLabel } from "../constants/Constants";
 const Layout = ({children}: {children: ReactNode}) => {
     return (
         <>
-            <Paper>
-                {children}
-            </Paper>
+            {children}
         </>
     );
 }

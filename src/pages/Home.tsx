@@ -8,6 +8,7 @@ import { getPost, listPosts } from "../graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api";
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
+import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 
 const Home = () => {
 
@@ -30,18 +31,29 @@ const Home = () => {
   }
 
   const formatDate = (createdAt: string) => {
-    return dayjs(createdAt).format("YYYY/MM/DD hh:mm");
+    const timezone = require("dayjs/plugin/timezone");
+    dayjs.extend(timezone);
+    return dayjs(createdAt).format("YYYY/MM/DD HH:MM");
   }
 
+  // 更新時に表示するテキスト
+  const pullingContent = <>
+    <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography>Refresh</Typography>
+        </Container>
+    </Paper>
+  
+  </>
   return (
       <>
-      <PullToRefresh onRefresh={fetchPosts}>
+      <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
         <>
           {posts.map( (post) => {
             // @ts-ignore
             return <Post key={post.postId} text={post.content} date={formatDate(post.createdAt)}/>
           })}
-          {dummyPosts}
+          {/* {dummyPosts} */}
         </>
       </PullToRefresh>
         <Zoom in={true}>

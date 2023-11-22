@@ -12,8 +12,20 @@ import { Auth } from 'aws-amplify';
 export const CheckUserLoggedIn = async () => {
   try {
     const user = await Auth.currentAuthenticatedUser();
+    console.log(user);
     return true; // ユーザーはログイン済み
   } catch (error) {
+    console.log(error);
+    return false; // ユーザーはログインしていない
+  }
+};
+
+export const GetUserInfo = async () => {
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    return user; // ユーザーはログイン済み
+  } catch (error) {
+    console.log(error);
     return false; // ユーザーはログインしていない
   }
 };

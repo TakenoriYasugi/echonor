@@ -98,8 +98,8 @@ function App() {
             <ButtonAppBar title="EchoNor"/>
           </header>
           <main>
-            {/* AppBarの高さ分paddingを調整 */}
-            <Box sx={{pt: 7}}>
+            {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
+            <Box sx={{pt: 7, pb: 7}}>
               <Layout>
                 {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
                 {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}

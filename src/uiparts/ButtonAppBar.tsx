@@ -8,9 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { useEffect, useState } from 'react';
-import { CheckUserLoggedIn } from '../util/Authenticator';
+import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
 import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
+import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import echonorLogo from '../images/echonor_logo_resize_comp.png'
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
@@ -25,26 +27,89 @@ const ButtonAppBar = ({title}: {title: string}) => {
     };
   }, []);
 
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect( () => {
+    const user = GetUserInfo().then((user) => {
+      setUserEmail(user.attributes.email)
+    })
+  }, [])
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+
+  const drawerWidth = 240;
+
+  const navItems = [
+    "会員情報",
+    "利用規約",
+    "ヘルプ",
+    "お問い合せ"
+  ]
+
+  const drawer = (
+    <>
+      <Box sx={{p: 2}}>
+        <img src={echonorLogo} style={{ width: '100%', height: '100%' }} />
+      </Box>
+      <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+        <Typography fontSize={15} sx={{ my: 2 }}>
+          {userEmail}
+        </Typography>
+        <Divider />
+        <List>
+          {navItems.map((item) => (
+            <ListItem key={item} disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }}>
+                  <ListItemText primary={item}/>
+                </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        {isLoggedIn ? <LogoutButton/> : <Button variant="contained">Login</Button>}
+      </Box>
+    </>
+  );
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {title}
-          </Typography>
-          {isLoggedIn ? <LogoutButton/> : <Button variant="contained">Login</Button>}
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={handleDrawerToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              {title}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
+      <Drawer
+      variant="temporary"
+      open={mobileOpen}
+      onClose={handleDrawerToggle}
+      ModalProps={{
+        keepMounted: true, // Better open performance on mobile.
+      }}
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+      }}
+      >
+        {drawer}
+      </Drawer>
+    </>
   );
 }
 
