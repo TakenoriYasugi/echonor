@@ -41,7 +41,7 @@ const Home = () => {
             // @ts-ignore
             return <Post key={post.postId} text={post.content} date={formatDate(post.createdAt)}/>
           })}
-          {dummyPosts}
+          {/* {dummyPosts} */}
         </>
       </PullToRefresh>
         <Zoom in={true}>
