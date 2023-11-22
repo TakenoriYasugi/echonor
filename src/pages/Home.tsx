@@ -31,7 +31,9 @@ const Home = () => {
   }
 
   const formatDate = (createdAt: string) => {
-    return dayjs(createdAt).format("YYYY/MM/DD hh:mm");
+    const timezone = require("dayjs/plugin/timezone");
+    dayjs.extend(timezone);
+    return dayjs(createdAt).format("YYYY/MM/DD HH:MM");
   }
 
   // 更新時に表示するテキスト
