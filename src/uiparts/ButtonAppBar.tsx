@@ -33,6 +33,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   useEffect( () => {
     const user = GetUserInfo().then((user) => {
+      console.log(user)
       setUserEmail(user.attributes.email)
     })
   }, [])
