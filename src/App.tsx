@@ -99,7 +99,8 @@ function App() {
         {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
         {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
         {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
-        </>,
+        <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
+      </>,
     },
     {
       path: "/profile",
@@ -126,7 +127,7 @@ function App() {
             </Box>
           </main>
           <footer>
-            <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
+            
           </footer>
         </div>
       </UserProvider>
