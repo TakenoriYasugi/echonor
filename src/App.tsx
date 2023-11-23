@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-import { Box, Button, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
 import Layout from './layout/Layout';
-import Post from './uiparts/Post';
 import { ButtonNavigationLabel } from './constants/Constants';
 import ButtonMenu from './uiparts/ButtonMenu';
 import Home from './pages/Home';
@@ -15,7 +13,6 @@ import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify';
 import { UserProvider } from './util/UserProvider';
-import { Route, Router, Routes } from 'react-router';
 import Profile from './pages/Profile';
 import {
   createBrowserRouter,
