@@ -11,9 +11,10 @@ import { useEffect, useState } from 'react';
 import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
 import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Avatar, Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
 import { Link as RouterLink, useNavigate} from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
@@ -50,7 +51,8 @@ const ButtonAppBar = ({title}: {title: string}) => {
   }
 
   const navItems: NavItem[] = [
-    {text: "プロフィール", url: "/profile"},
+    {text: "ホーム", url: "/"},
+    {text: "集会場", url: "/"},
     {text: "利用規約", url: "/"},
     {text: "サポート", url: "/"},
   ]
@@ -103,6 +105,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
+            <Button variant='contained' onClick={() => handleLinkClick("/profile")}>プロフィール</Button>
           </Toolbar>
         </AppBar>
       </Box>

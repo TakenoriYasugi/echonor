@@ -124,7 +124,6 @@ function App() {
           </header>
           <main>
             {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
-            
             <Box sx={{pt: 7, pb: 7}}>
               <Layout>
                 <RouterProvider router={router} />
