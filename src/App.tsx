@@ -18,6 +18,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import MeetingPlace from './pages/MeetingPlace';
 
 Amplify.configure(awsExports);
 
@@ -111,7 +112,14 @@ function App() {
         <ButtonAppBar title="EchoNor"/>
         <Profile/>
       </>
-    }
+    },
+    {
+      path: "/meetingplace",
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        <MeetingPlace/>
+      </>
+    },
   ]);
 
   return (

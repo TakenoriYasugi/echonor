@@ -52,7 +52,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   const navItems: NavItem[] = [
     {text: "ホーム", url: "/"},
-    {text: "集会場", url: "/"},
+    {text: "集会場", url: "/meetingplace"},
     {text: "利用規約", url: "/"},
     {text: "サポート", url: "/"},
   ]
