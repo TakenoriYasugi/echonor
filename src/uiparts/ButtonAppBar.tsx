@@ -11,8 +11,10 @@ import { useEffect, useState } from 'react';
 import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
 import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Avatar, Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
+import { Link as RouterLink, useNavigate} from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
@@ -31,6 +33,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   useEffect( () => {
     const user = GetUserInfo().then((user) => {
+      console.log(user)
       setUserEmail(user.attributes.email)
     })
   }, [])
@@ -43,12 +46,23 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   const drawerWidth = 240;
 
-  const navItems = [
-    "会員情報",
-    "利用規約",
-    "ヘルプ",
-    "お問い合せ"
+  interface NavItem {
+    text: string,
+    url: string,
+  }
+
+  const navItems: NavItem[] = [
+    {text: "ホーム", url: "/"},
+    {text: "集会場", url: "/meetingplace"},
+    {text: "利用規約", url: "/"},
+    {text: "サポート", url: "/"},
   ]
+
+  const navigate = useNavigate();
+
+  const handleLinkClick = (url: string) => {
+    navigate(url);
+  }
 
   const drawer = (
     <>
@@ -62,9 +76,9 @@ const ButtonAppBar = ({title}: {title: string}) => {
         <Divider />
         <List>
           {navItems.map((item) => (
-            <ListItem key={item} disablePadding>
-                <ListItemButton sx={{ textAlign: 'center' }}>
-                  <ListItemText primary={item}/>
+            <ListItem key={item.text} disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }} onClick={() => handleLinkClick(item.url)}>
+                  <ListItemText primary={item.text}/>
                 </ListItemButton>
             </ListItem>
           ))}
@@ -92,6 +106,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
+            <Button variant='contained' onClick={() => handleLinkClick("/profile")}>プロフィール</Button>
           </Toolbar>
         </AppBar>
       </Box>

@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-import { Box, Button, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
 import Layout from './layout/Layout';
-import Post from './uiparts/Post';
 import { ButtonNavigationLabel } from './constants/Constants';
 import ButtonMenu from './uiparts/ButtonMenu';
 import Home from './pages/Home';
@@ -15,6 +13,12 @@ import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify';
 import { UserProvider } from './util/UserProvider';
+import Profile from './pages/Profile';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import MeetingPlace from './pages/MeetingPlace';
 
 Amplify.configure(awsExports);
 
@@ -88,27 +92,54 @@ function App() {
       }
     }
   );
-  
+
+  // TODO: ButtonAppBarの記述をまとめたい。
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
+        {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+        <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
+      </>,
+    },
+    {
+      path: "/profile",
+
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        <Profile/>
+      </>
+    },
+    {
+      path: "/meetingplace",
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        <MeetingPlace/>
+      </>
+    },
+  ]);
+
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
+      
         <div className="App">
           <CssBaseline/>
           <header className="App-header">
-            <ButtonAppBar title="EchoNor"/>
           </header>
           <main>
             {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
             <Box sx={{pt: 7, pb: 7}}>
               <Layout>
-                {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
-                {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
-                {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+                <RouterProvider router={router} />
               </Layout>
             </Box>
           </main>
           <footer>
-            <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
+            
           </footer>
         </div>
       </UserProvider>

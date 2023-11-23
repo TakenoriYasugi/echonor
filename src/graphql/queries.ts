@@ -40,3 +40,25 @@ export const listPosts = /* GraphQL */ `query ListPosts(
   }
 }
 ` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
+
+export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
+  $userId: String
+  $limit: Int
+  $nextToken: String
+) {
+  listPosts(filter: {userId: {eq: $userId}}, limit: $limit, nextToken: $nextToken) {
+    items {
+      postId
+      userId
+      content
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
+
