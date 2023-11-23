@@ -15,6 +15,12 @@ import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify';
 import { UserProvider } from './util/UserProvider';
+import { Route, Router, Routes } from 'react-router';
+import Profile from './pages/Profile';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 Amplify.configure(awsExports);
 
@@ -88,10 +94,26 @@ function App() {
       }
     }
   );
-  
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <>
+        {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
+        {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+        </>,
+    },
+    {
+      path: "/profile",
+      element: <Profile/>
+    }
+  ]);
+
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
+      
         <div className="App">
           <CssBaseline/>
           <header className="App-header">
@@ -99,11 +121,10 @@ function App() {
           </header>
           <main>
             {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
+            
             <Box sx={{pt: 7, pb: 7}}>
               <Layout>
-                {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
-                {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
-                {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+                <RouterProvider router={router} />
               </Layout>
             </Box>
           </main>
