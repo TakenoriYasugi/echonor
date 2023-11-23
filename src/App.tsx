@@ -92,10 +92,12 @@ function App() {
     }
   );
 
+  // TODO: ButtonAppBarの記述をまとめたい。
   const router = createBrowserRouter([
     {
       path: "/",
       element: <>
+        <ButtonAppBar title="EchoNor"/>
         {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
         {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
         {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
@@ -104,7 +106,11 @@ function App() {
     },
     {
       path: "/profile",
-      element: <Profile/>
+
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        <Profile/>
+      </>
     }
   ]);
 
@@ -115,7 +121,6 @@ function App() {
         <div className="App">
           <CssBaseline/>
           <header className="App-header">
-            <ButtonAppBar title="EchoNor"/>
           </header>
           <main>
             {/* AppBarとButtomNavigationの高さ分paddingを調整 */}

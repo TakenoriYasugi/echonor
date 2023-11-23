@@ -13,6 +13,7 @@ import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
 import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
+import { Link as RouterLink, useNavigate} from 'react-router-dom';
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
@@ -43,12 +44,22 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   const drawerWidth = 240;
 
-  const navItems = [
-    "会員情報",
-    "利用規約",
-    "ヘルプ",
-    "お問い合せ"
+  interface NavItem {
+    text: string,
+    url: string,
+  }
+
+  const navItems: NavItem[] = [
+    {text: "プロフィール", url: "/profile"},
+    {text: "利用規約", url: "/"},
+    {text: "サポート", url: "/"},
   ]
+
+  const navigate = useNavigate();
+
+  const handleLinkClick = (url: string) => {
+    navigate(url);
+  }
 
   const drawer = (
     <>
@@ -62,9 +73,9 @@ const ButtonAppBar = ({title}: {title: string}) => {
         <Divider />
         <List>
           {navItems.map((item) => (
-            <ListItem key={item} disablePadding>
-                <ListItemButton sx={{ textAlign: 'center' }}>
-                  <ListItemText primary={item}/>
+            <ListItem key={item.text} disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }} onClick={() => handleLinkClick(item.url)}>
+                  <ListItemText primary={item.text}/>
                 </ListItemButton>
             </ListItem>
           ))}
