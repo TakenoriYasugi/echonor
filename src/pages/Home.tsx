@@ -10,6 +10,7 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
 import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 import { formatDate } from "../util/Format";
+import { MAX_POST_COUNT } from "../constants/Constants";
 
 const Home = () => {
 
@@ -21,7 +22,7 @@ const Home = () => {
 
   const fetchPosts = async () => {
     try {
-      const postData = await API.graphql(graphqlOperation(listPosts));
+      const postData = await API.graphql(graphqlOperation(listPosts, {limit: MAX_POST_COUNT}));
       // @ts-ignore
       const posts = postData.data.listPosts.items;
       posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
