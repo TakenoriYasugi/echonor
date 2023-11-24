@@ -10,8 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createPost } from '../graphql/mutations';
 import { useUser } from '../util/UserProvider';
-import { MAX_POST_LENGTH } from '../constants/Constants';
-import { z } from 'zod';
 import { PostSchema } from '../varidations/VaridationSchema';
 
 const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
@@ -94,7 +92,7 @@ const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
                     <Divider/>
                     <TextField multiline fullWidth size="medium" label="今はどんな気分？" value={postText} onChange={handleChange}/>
                     
-                    <Typography>{postText.length}</Typography><Typography sx={isPostLengthMax ? {color: "red"} : {color: "black"}}> / 140</Typography>
+                    <Typography textAlign={"right"} sx={isPostLengthMax ? {color: "red"} : {color: "black"}}>{postText.length} / 140</Typography>
                     <Stack direction={'row-reverse'}>
                         <Button variant="contained" sx={{m: 1}} onClick={handlePost}>エコー！</Button>
                         <Button variant="outlined" sx={{m: 1}} onClick={handleClose}>キャンセル</Button>
