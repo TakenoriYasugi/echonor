@@ -33,11 +33,9 @@ const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
     const {user} = useUser();
     
     const handlePost = () => {
-        console.log(postText)
         setPostText("");
         setIsPostLengthMax(false);
         const postId = uuidv4();
-        console.log(postId)
         handleClose();
         
         if (user === null) {

@@ -22,11 +22,6 @@ function MyPage() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log("Got Posts. : " + usersPosts);
-  }, [usersPosts]);
-
-
   const fetchPosts = async (userId: string) => {
     try {
       // @ts-ignore
