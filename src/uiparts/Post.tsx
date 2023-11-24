@@ -1,10 +1,12 @@
 // タイムラインに流れる投稿
 
-import { Box, Card, CardActionArea, CardContent, Collapse, Divider, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
 import ReactionButton from "./ReactionButton";
 import { ReactionCounts, ReactionType } from "../constants/Constants";
-import dayjs from "dayjs";
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import { Gradient } from "@mui/icons-material";
+
 
 const Post = ({text, date} : {text: string, date: string}) => {
 
@@ -60,14 +62,22 @@ const Post = ({text, date} : {text: string, date: string}) => {
         <div ref={cardRef}>
           <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
               <Card className="post" sx={{p: 1, m: 3}}>
-                <CardActionArea onClick={handleClick}>
-                  <CardContent>
-                    <Stack direction="column">
+                <CardContent>
+                  <Grid container>
+                    <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
                       <Typography fontSize={"small"}>{date}</Typography>
-                      <Typography fontSize={"medium"}>{text}</Typography>
-                    </Stack>
-                  </CardContent>
-                </CardActionArea>
+                    </Grid>
+                    <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
+                      <IconButton><BookmarksIcon/></IconButton>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CardActionArea onClick={handleClick}>
+                          <Typography fontSize={"medium"}>{text}</Typography>
+                      </CardActionArea>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+    
                 {isReactioned() && <Divider/>}
                 <Stack direction={"row"}>
                   {reactionCounts.heart > 0 && <>
@@ -94,8 +104,6 @@ const Post = ({text, date} : {text: string, date: string}) => {
                         <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
                         <Typography fontSize={"small"}>{reactionCounts.bad}</Typography>
                     </>}
-                  
-
                 </Stack>
               </Card>
           </Zoom>

@@ -10,6 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { TypeFormatFlags } from 'typescript';
 import { Typography } from '@mui/material';
 import { ButtonNavigationLabel } from '../constants/Constants';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
 const LabelBottomNavigation = ({value, setValue}: {value: ButtonNavigationLabel, setValue: React.Dispatch<React.SetStateAction<ButtonNavigationLabel>>}) => {
 
@@ -33,9 +34,9 @@ const LabelBottomNavigation = ({value, setValue}: {value: ButtonNavigationLabel,
           icon={<HomeIcon />}
         />
         <BottomNavigationAction
-          label="Favorites"
+          label="Bookmarks"
           value={ButtonNavigationLabel.Favorite}
-          icon={<FavoriteIcon />}
+          icon={<BookmarksIcon />}
         />
         <BottomNavigationAction
           label="Search"
