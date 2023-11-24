@@ -1,7 +1,8 @@
 export enum ButtonNavigationLabel {
     Home = 'home',
     Favorite = 'favorite',
-    Search = 'search'
+    Search = 'search',
+    Notifications = 'notifications'
 }
 
 export enum ReactionType {
