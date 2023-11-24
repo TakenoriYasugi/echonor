@@ -111,7 +111,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
-            <Button variant='contained' onClick={() => handleLinkClick("/mypage")}>マイページ</Button>
+            <Button sx={{textTransform: 'none'}} color='secondary' variant='outlined' onClick={() => handleLinkClick("/mypage")}>MyPage</Button>
           </Toolbar>
         </AppBar>
       </Box>
