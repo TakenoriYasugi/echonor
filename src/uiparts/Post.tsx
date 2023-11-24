@@ -4,6 +4,7 @@ import { Box, Card, CardActionArea, CardContent, Collapse, Divider, Grow, IconBu
 import { useState, useRef, useEffect } from "react";
 import ReactionButton from "./ReactionButton";
 import { ReactionCounts, ReactionType } from "../constants/Constants";
+import dayjs from "dayjs";
 
 const Post = ({text, date} : {text: string, date: string}) => {
 
