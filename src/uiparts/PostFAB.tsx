@@ -83,7 +83,12 @@ const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
                 // モーダルのスタイルを調整して全画面を占めるようにする
-                sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
+                sx={{
+                    display: 'flex', 
+                    alignItems: 'center', // 垂直方向の位置を中央に設定
+                    justifyContent: 'center', // 水平方向の位置を中央に設定
+                    mt: -20 // マージントップをマイナス値にすることで、中央より上にずらす
+                }}
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
