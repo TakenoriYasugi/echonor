@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { getPost, listPosts, listPostsByUserId} from "../graphql/queries";
 import { useUser } from "../util/UserProvider";
 import Post from "../uiparts/Post";
+import { formatDate } from "../util/Format";
 
 const Profile = () => {
 
@@ -29,9 +30,6 @@ const Profile = () => {
     const fetchPosts = async (userId: string) => {
         try {
             // @ts-ignore
-            console.log("profile test : " +  user?.username);
-            // @ts-ignore
-
             const postData = await API.graphql(graphqlOperation(listPostsByUserId, {userId}));
             // @ts-ignore
             const posts = postData.data.listPosts.items;
@@ -79,12 +77,6 @@ const Profile = () => {
       const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
-
-    const formatDate = (createdAt: string) => {
-        const timezone = require("dayjs/plugin/timezone");
-        dayjs.extend(timezone);
-        return dayjs(createdAt).format("YYYY/MM/DD HH:MM");
-      }
 
     return (
         <>
