@@ -6,4 +6,29 @@ type Post @model {
   postId: ID!
   userId: String!
   content: String!
+  reactionCounts: ReactionCounts
+}
+
+type ReactionCounts {
+  good: Int
+  heart: Int
+  smile: Int
+  sad: Int
+  bad: Int
+  bookmark: Int
+}
+
+type Reaction @model {
+  userId: String!
+  postId: String!
+  reactionStates: ReactionStates
+}
+
+type ReactionStates {
+  good: Boolean
+  heart: Boolean
+  smile: Boolean
+  sad: Boolean
+  bad: Boolean
+  bookmark: Boolean
 }

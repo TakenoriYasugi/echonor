@@ -13,6 +13,15 @@ export const onCreatePost = /* GraphQL */ `subscription OnCreatePost($filter: Mo
     postId
     userId
     content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
     id
     createdAt
     updatedAt
@@ -28,6 +37,15 @@ export const onUpdatePost = /* GraphQL */ `subscription OnUpdatePost($filter: Mo
     postId
     userId
     content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
     id
     createdAt
     updatedAt
@@ -43,6 +61,15 @@ export const onDeletePost = /* GraphQL */ `subscription OnDeletePost($filter: Mo
     postId
     userId
     content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
     id
     createdAt
     updatedAt
@@ -52,4 +79,73 @@ export const onDeletePost = /* GraphQL */ `subscription OnDeletePost($filter: Mo
 ` as GeneratedSubscription<
   APITypes.OnDeletePostSubscriptionVariables,
   APITypes.OnDeletePostSubscription
+>;
+export const onCreateReaction = /* GraphQL */ `subscription OnCreateReaction($filter: ModelSubscriptionReactionFilterInput) {
+  onCreateReaction(filter: $filter) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateReactionSubscriptionVariables,
+  APITypes.OnCreateReactionSubscription
+>;
+export const onUpdateReaction = /* GraphQL */ `subscription OnUpdateReaction($filter: ModelSubscriptionReactionFilterInput) {
+  onUpdateReaction(filter: $filter) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateReactionSubscriptionVariables,
+  APITypes.OnUpdateReactionSubscription
+>;
+export const onDeleteReaction = /* GraphQL */ `subscription OnDeleteReaction($filter: ModelSubscriptionReactionFilterInput) {
+  onDeleteReaction(filter: $filter) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteReactionSubscriptionVariables,
+  APITypes.OnDeleteReactionSubscription
 >;

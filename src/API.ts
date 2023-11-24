@@ -6,7 +6,17 @@ export type CreatePostInput = {
   postId: string,
   userId: string,
   content: string,
+  reactionCounts?: ReactionCountsInput | null,
   id?: string | null,
+};
+
+export type ReactionCountsInput = {
+  good?: number | null,
+  heart?: number | null,
+  smile?: number | null,
+  sad?: number | null,
+  bad?: number | null,
+  bookmark?: number | null,
 };
 
 export type ModelPostConditionInput = {
@@ -79,19 +89,86 @@ export type Post = {
   postId: string,
   userId: string,
   content: string,
+  reactionCounts?: ReactionCounts | null,
   id: string,
   createdAt: string,
   updatedAt: string,
+};
+
+export type ReactionCounts = {
+  __typename: "ReactionCounts",
+  good?: number | null,
+  heart?: number | null,
+  smile?: number | null,
+  sad?: number | null,
+  bad?: number | null,
+  bookmark?: number | null,
 };
 
 export type UpdatePostInput = {
   postId?: string | null,
   userId?: string | null,
   content?: string | null,
+  reactionCounts?: ReactionCountsInput | null,
   id: string,
 };
 
 export type DeletePostInput = {
+  id: string,
+};
+
+export type CreateReactionInput = {
+  userId: string,
+  postId: string,
+  reactionStates?: ReactionStatesInput | null,
+  id?: string | null,
+};
+
+export type ReactionStatesInput = {
+  good?: boolean | null,
+  heart?: boolean | null,
+  smile?: boolean | null,
+  sad?: boolean | null,
+  bad?: boolean | null,
+  bookmark?: boolean | null,
+};
+
+export type ModelReactionConditionInput = {
+  userId?: ModelStringInput | null,
+  postId?: ModelStringInput | null,
+  and?: Array< ModelReactionConditionInput | null > | null,
+  or?: Array< ModelReactionConditionInput | null > | null,
+  not?: ModelReactionConditionInput | null,
+};
+
+export type Reaction = {
+  __typename: "Reaction",
+  userId: string,
+  postId: string,
+  reactionStates?: ReactionStates | null,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ReactionStates = {
+  __typename: "ReactionStates",
+  good?: boolean | null,
+  heart?: boolean | null,
+  smile?: boolean | null,
+  sad?: boolean | null,
+  bad?: boolean | null,
+  bookmark?: boolean | null,
+};
+
+export type UpdateReactionInput = {
+  userId?: string | null,
+  postId?: string | null,
+  reactionStates?: ReactionStatesInput | null,
+  id: string,
+};
+
+export type DeleteReactionInput = {
   id: string,
 };
 
@@ -107,6 +184,20 @@ export type ModelPostFilterInput = {
 export type ModelPostConnection = {
   __typename: "ModelPostConnection",
   items:  Array<Post | null >,
+  nextToken?: string | null,
+};
+
+export type ModelReactionFilterInput = {
+  userId?: ModelStringInput | null,
+  postId?: ModelStringInput | null,
+  and?: Array< ModelReactionFilterInput | null > | null,
+  or?: Array< ModelReactionFilterInput | null > | null,
+  not?: ModelReactionFilterInput | null,
+};
+
+export type ModelReactionConnection = {
+  __typename: "ModelReactionConnection",
+  items:  Array<Reaction | null >,
   nextToken?: string | null,
 };
 
@@ -148,6 +239,13 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionReactionFilterInput = {
+  userId?: ModelSubscriptionStringInput | null,
+  postId?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionReactionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionReactionFilterInput | null > | null,
+};
+
 export type CreatePostMutationVariables = {
   input: CreatePostInput,
   condition?: ModelPostConditionInput | null,
@@ -159,6 +257,15 @@ export type CreatePostMutation = {
     postId: string,
     userId: string,
     content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -176,6 +283,15 @@ export type UpdatePostMutation = {
     postId: string,
     userId: string,
     content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -193,6 +309,90 @@ export type DeletePostMutation = {
     postId: string,
     userId: string,
     content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateReactionMutationVariables = {
+  input: CreateReactionInput,
+  condition?: ModelReactionConditionInput | null,
+};
+
+export type CreateReactionMutation = {
+  createReaction?:  {
+    __typename: "Reaction",
+    userId: string,
+    postId: string,
+    reactionStates?:  {
+      __typename: "ReactionStates",
+      good?: boolean | null,
+      heart?: boolean | null,
+      smile?: boolean | null,
+      sad?: boolean | null,
+      bad?: boolean | null,
+      bookmark?: boolean | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateReactionMutationVariables = {
+  input: UpdateReactionInput,
+  condition?: ModelReactionConditionInput | null,
+};
+
+export type UpdateReactionMutation = {
+  updateReaction?:  {
+    __typename: "Reaction",
+    userId: string,
+    postId: string,
+    reactionStates?:  {
+      __typename: "ReactionStates",
+      good?: boolean | null,
+      heart?: boolean | null,
+      smile?: boolean | null,
+      sad?: boolean | null,
+      bad?: boolean | null,
+      bookmark?: boolean | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteReactionMutationVariables = {
+  input: DeleteReactionInput,
+  condition?: ModelReactionConditionInput | null,
+};
+
+export type DeleteReactionMutation = {
+  deleteReaction?:  {
+    __typename: "Reaction",
+    userId: string,
+    postId: string,
+    reactionStates?:  {
+      __typename: "ReactionStates",
+      good?: boolean | null,
+      heart?: boolean | null,
+      smile?: boolean | null,
+      sad?: boolean | null,
+      bad?: boolean | null,
+      bookmark?: boolean | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -209,6 +409,15 @@ export type GetPostQuery = {
     postId: string,
     userId: string,
     content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -237,6 +446,51 @@ export type ListPostsQuery = {
   } | null,
 };
 
+export type GetReactionQueryVariables = {
+  id: string,
+};
+
+export type GetReactionQuery = {
+  getReaction?:  {
+    __typename: "Reaction",
+    userId: string,
+    postId: string,
+    reactionStates?:  {
+      __typename: "ReactionStates",
+      good?: boolean | null,
+      heart?: boolean | null,
+      smile?: boolean | null,
+      sad?: boolean | null,
+      bad?: boolean | null,
+      bookmark?: boolean | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListReactionsQueryVariables = {
+  filter?: ModelReactionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListReactionsQuery = {
+  listReactions?:  {
+    __typename: "ModelReactionConnection",
+    items:  Array< {
+      __typename: "Reaction",
+      userId: string,
+      postId: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type OnCreatePostSubscriptionVariables = {
   filter?: ModelSubscriptionPostFilterInput | null,
 };
@@ -247,6 +501,15 @@ export type OnCreatePostSubscription = {
     postId: string,
     userId: string,
     content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -263,6 +526,15 @@ export type OnUpdatePostSubscription = {
     postId: string,
     userId: string,
     content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -279,6 +551,87 @@ export type OnDeletePostSubscription = {
     postId: string,
     userId: string,
     content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateReactionSubscriptionVariables = {
+  filter?: ModelSubscriptionReactionFilterInput | null,
+};
+
+export type OnCreateReactionSubscription = {
+  onCreateReaction?:  {
+    __typename: "Reaction",
+    userId: string,
+    postId: string,
+    reactionStates?:  {
+      __typename: "ReactionStates",
+      good?: boolean | null,
+      heart?: boolean | null,
+      smile?: boolean | null,
+      sad?: boolean | null,
+      bad?: boolean | null,
+      bookmark?: boolean | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateReactionSubscriptionVariables = {
+  filter?: ModelSubscriptionReactionFilterInput | null,
+};
+
+export type OnUpdateReactionSubscription = {
+  onUpdateReaction?:  {
+    __typename: "Reaction",
+    userId: string,
+    postId: string,
+    reactionStates?:  {
+      __typename: "ReactionStates",
+      good?: boolean | null,
+      heart?: boolean | null,
+      smile?: boolean | null,
+      sad?: boolean | null,
+      bad?: boolean | null,
+      bookmark?: boolean | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteReactionSubscriptionVariables = {
+  filter?: ModelSubscriptionReactionFilterInput | null,
+};
+
+export type OnDeleteReactionSubscription = {
+  onDeleteReaction?:  {
+    __typename: "Reaction",
+    userId: string,
+    postId: string,
+    reactionStates?:  {
+      __typename: "ReactionStates",
+      good?: boolean | null,
+      heart?: boolean | null,
+      smile?: boolean | null,
+      sad?: boolean | null,
+      bad?: boolean | null,
+      bookmark?: boolean | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
