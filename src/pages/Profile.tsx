@@ -10,31 +10,33 @@ import Post from "../uiparts/Post";
 
 const Profile = () => {
 
-    const [posts, setPosts] = useState([]);
+    const [usersPosts, setUsersPosts] = useState([]);
     const [user, setUser] = useState();
-
-    useEffect(() => {
-        fetchPosts();
-    }, [user]);
 
     useEffect( () => {
         GetUserInfo().then((user) => {
-            setUser(user)
+            setUser(user);
+            // @ts-ignore
+            fetchPosts(user.username);
         })
     }, [])
+
+    useEffect( () => {
+        console.log("Got Posts. : " +  usersPosts);
+    }, [usersPosts])
     
     
-    const fetchPosts = async () => {
+    const fetchPosts = async (userId: string) => {
         try {
             // @ts-ignore
             console.log("profile test : " +  user?.username);
             // @ts-ignore
 
-            const postData = await API.graphql(graphqlOperation(listPostsByUserId, {userId: user?.username}));
+            const postData = await API.graphql(graphqlOperation(listPostsByUserId, {userId}));
             // @ts-ignore
             const posts = postData.data.listPosts.items;
             posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-            setPosts(posts);
+            setUsersPosts(posts);
         } catch (err) {
             console.error('Error fetching posts', err);
         }
@@ -96,9 +98,9 @@ const Profile = () => {
                 </Box>
 
                 <CustomTabPanel value={value} index={0}>
-                    {posts.map( (post) => (
+                    {usersPosts.map( (usersPost) => (
                         // @ts-ignore
-                        <Post key={post.postId} text={post.content} date={formatDate(post.createdAt)}/>
+                        <Post key={usersPost.postId} text={usersPost.content} date={formatDate(usersPost.createdAt)}/>
                     ))}
                 </CustomTabPanel>
                 
