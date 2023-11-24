@@ -1,12 +1,10 @@
 // タイムラインに流れる投稿
 
-import { Box, Button, Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
+import { Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
 import ReactionButton from "./ReactionButton";
 import { ReactionCounts, ReactionType } from "../constants/Constants";
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
-import { Gradient } from "@mui/icons-material";
-
 
 const Post = ({text, date} : {text: string, date: string}) => {
 
@@ -56,19 +54,23 @@ const Post = ({text, date} : {text: string, date: string}) => {
       return (reactionCounts.heart > 0 || reactionCounts.good || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
     }
     
+    const [isBookmarked, setIsBookmarked] = useState(false);
+
     // Zoomコンポーネントを使用してアニメーションを適用
     return (
       <>
         <div ref={cardRef}>
           <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
-              <Card className="post" sx={{p: 1, m: 3}}>
+              <Card className="post" sx={{p: 0.5, m: 3}}>
                 <CardContent>
                   <Grid container>
                     <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
                       <Typography fontSize={"small"}>{date}</Typography>
                     </Grid>
                     <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                      <IconButton><BookmarksIcon/></IconButton>
+                      <IconButton onClick={() => {setIsBookmarked(!isBookmarked)}}>
+                        <BookmarksIcon sx={ isBookmarked ? {color: "orange"} : {color: "gray"}}/>
+                      </IconButton>
                     </Grid>
                     <Grid item xs={12}>
                       <CardActionArea onClick={handleClick}>
