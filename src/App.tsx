@@ -13,13 +13,13 @@ import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify';
 import { I18n } from 'aws-amplify';
 import { UserProvider } from './util/UserProvider';
-import Profile from './pages/Profile';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import MeetingPlace from './pages/MeetingPlace';
 import { dict } from './config/Dictionary';
+import MyPage from './pages/MyPage';
 
 Amplify.configure(awsExports);
 
@@ -54,11 +54,11 @@ function App() {
       </>,
     },
     {
-      path: "/profile",
+      path: "/mypage",
 
       element: <>
         <ButtonAppBar title="EchoNor"/>
-        <Profile/>
+        <MyPage/>
       </>
     },
     {

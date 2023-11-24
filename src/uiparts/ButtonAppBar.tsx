@@ -13,7 +13,7 @@ import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
 import { Avatar, Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
-import { Link as RouterLink, useNavigate} from 'react-router-dom';
+import { Link, Link as RouterLink, useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const ButtonAppBar = ({title}: {title: string}) => {
@@ -71,7 +71,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
       </Box>
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <Typography fontSize={15} sx={{ my: 2 }}>
-          {userEmail}
+          <Link to={"/mypage"}>{userEmail}</Link>
         </Typography>
         <Divider />
         <List>
@@ -106,7 +106,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
-            <Button variant='contained' onClick={() => handleLinkClick("/profile")}>プロフィール</Button>
+            <Button variant='contained' onClick={() => handleLinkClick("/mypage")}>マイページ</Button>
           </Toolbar>
         </AppBar>
       </Box>
