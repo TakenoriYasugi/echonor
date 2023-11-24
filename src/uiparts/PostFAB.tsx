@@ -10,6 +10,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createPost } from '../graphql/mutations';
 import { useUser } from '../util/UserProvider';
+import { MAX_POST_LENGTH } from '../constants/Constants';
+import { z } from 'zod';
+import { PostSchema } from '../varidations/VaridationSchema';
 
 const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
     const [open, setOpen] = React.useState(false);
@@ -34,6 +37,7 @@ const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
     const handlePost = () => {
         console.log(postText)
         setPostText("");
+        setIsPostLengthMax(false);
         const postId = uuidv4();
         console.log(postId)
         handleClose();
@@ -56,35 +60,49 @@ const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
         fetchPosts();
 
     }
-    
-return (
-    <>
-        <Fab color="primary" aria-label="add" onClick={handleOpen}>
-            <ChatIcon />
-        </Fab>
 
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            // モーダルのスタイルを調整して全画面を占めるようにする
-            sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
-        >
-            <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {/* タイトル */}
-                </Typography>
-                <Divider/>
-                <TextField multiline fullWidth size="medium" label="今はどんな気分？" value={postText} onChange={(e) => setPostText(e.target.value)}/>
-                <Stack direction={'row-reverse'}>
-                    <Button variant="contained" sx={{m: 1}} onClick={handlePost}>エコー！</Button>
-                    <Button variant="outlined" sx={{m: 1}} onClick={handleClose}>キャンセル</Button>
-                </Stack>
-            </Box>
-        </Modal>
-    </>
-);
+    const [isPostLengthMax, setIsPostLengthMax] = useState(false);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        try {
+            PostSchema.parse(event.target.value);
+            setPostText(event.target.value);
+            setIsPostLengthMax(false);
+        } catch (error) {
+            setIsPostLengthMax(true);
+        }
+    }
+    
+    return (
+        <>
+            <Fab color="primary" aria-label="add" onClick={handleOpen}>
+                <ChatIcon />
+            </Fab>
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                // モーダルのスタイルを調整して全画面を占めるようにする
+                sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {/* タイトル */}
+                    </Typography>
+                    <Divider/>
+                    <TextField multiline fullWidth size="medium" label="今はどんな気分？" value={postText} onChange={handleChange}/>
+                    
+                    <Typography>{postText.length}</Typography><Typography sx={isPostLengthMax ? {color: "red"} : {color: "black"}}> / 140</Typography>
+                    <Stack direction={'row-reverse'}>
+                        <Button variant="contained" sx={{m: 1}} onClick={handlePost}>エコー！</Button>
+                        <Button variant="outlined" sx={{m: 1}} onClick={handleClose}>キャンセル</Button>
+                    </Stack>
+                </Box>
+            </Modal>
+        </>
+    );
 
 }
 

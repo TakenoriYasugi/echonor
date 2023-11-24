@@ -31,3 +31,6 @@ export type ReactionCounts = {
     surprise: number,
     bad: number
   }
+
+
+export const MAX_POST_LENGTH = 140;
