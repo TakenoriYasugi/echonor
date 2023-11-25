@@ -4,50 +4,58 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import { ReactNode, useState } from "react";
-import { ReactionColor, ReactionCounts, ReactionType } from "../constants/Constants";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import { IsReactionedStates, ReactionColor, ReactionCounts, ReactionType } from "../constants/Constants";
 import TagFacesIcon from '@mui/icons-material/TagFaces';
+import { ReactionStatesListContext } from "../App";
 
 const ReactionButton = (
-    {variant, reactionCounts, setReactionCounts, setIsReactionOpen}: 
+    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, reactionStates, fetchUpdatePost}: 
     {variant: ReactionType,
         reactionCounts: ReactionCounts,
         setReactionCounts: React.Dispatch<React.SetStateAction<ReactionCounts>>,
-        setIsReactionOpen: React.Dispatch<React.SetStateAction<boolean>>
-    }) => {
+        setIsReactionOpen: React.Dispatch<React.SetStateAction<boolean>>,
+        postId: string,
+        reactionStates: IsReactionedStates,
+        fetchUpdatePost: () => Promise<void>
+    }) => {        
 
     const [iconColor, setIconColor] = useState("gray");
-    var icon: ReactNode = null;
     const [isPushed, setIsPushed] = useState<boolean>(false);
+    const [icon, setIcon] = useState<ReactNode>();
 
-    // TODO: 処理に無駄が多そうなので何とかする
-    switch(variant) {
-        case ReactionType.Heart:
-            icon = <FavoriteIcon sx={{color: iconColor}}/>;
-            break;
-        case ReactionType.Good:
-            icon = <ThumbUpAltIcon sx={{color: iconColor}}/>;
-            break;
-        
-        case ReactionType.Smile:
-            icon = <TagFacesIcon sx={{color: iconColor}}/>;
-            break;
-        
-        case ReactionType.Sad:
-            icon = <SentimentVeryDissatisfiedIcon sx={{color: iconColor}}/>;
-            break;
-        
-        case ReactionType.Surprise:
-            icon = <PriorityHighIcon sx={{color: iconColor}}/>;
-            break;
+    useEffect(() => {
+        // TODO: 処理に無駄が多そうなので何とかする
+        switch(variant) {
+            case ReactionType.Heart:
+                setIcon(<FavoriteIcon sx={{color: iconColor}}/>);
+                setIsPushed(reactionStates.heart)
+                break;
 
-        case ReactionType.Bad:
-            icon = <ThumbDownAltIcon sx={{color: iconColor}}/>;
-            break;
-        default:
-            console.log("リアクションアイコン表示エラー")
-            break;
-    }
+            case ReactionType.Good:
+                setIcon(<ThumbUpAltIcon sx={{color: iconColor}}/>);
+                setIsPushed(reactionStates.good)
+                break;
+            
+            case ReactionType.Smile:
+                setIcon(<TagFacesIcon sx={{color: iconColor}}/>);
+                setIsPushed(reactionStates.smile)
+                break;
+            
+            case ReactionType.Sad:
+                setIcon(<SentimentVeryDissatisfiedIcon sx={{color: iconColor}}/>);
+                setIsPushed(reactionStates.sad)
+                break;
+    
+            case ReactionType.Bad:
+                setIcon(<ThumbDownAltIcon sx={{color: iconColor}}/>);
+                setIsPushed(reactionStates.bad)
+                break;
+            default:
+                console.log("リアクションアイコン表示エラー")
+                break;
+        }
+    }, [])
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         switch(variant) {
@@ -107,6 +115,7 @@ const ReactionButton = (
 
         setIsPushed(!isPushed);
         setIsReactionOpen(false);
+        fetchUpdatePost();
     }
 
     return (

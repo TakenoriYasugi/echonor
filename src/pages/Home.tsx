@@ -72,7 +72,7 @@ const Home = () => {
             }
 
             // @ts-ignore
-            return <Post key={post.postId} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
+            return <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
           })}
         </>
       </PullToRefresh>
