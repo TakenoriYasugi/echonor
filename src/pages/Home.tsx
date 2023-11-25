@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Post from "../uiparts/Post";
 import PostFAB from "../uiparts/PostFAB";
 import Zoom from "@mui/material/Zoom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { getPost, listPosts } from "../graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api";
@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 import { formatDate } from "../util/Format";
 import { MAX_POST_COUNT } from "../constants/Constants";
+import { ReactionStatesListContext } from "../App";
 
 const Home = () => {
 
@@ -41,15 +42,23 @@ const Home = () => {
     </Paper>
   
   </>
+
+  const reactions = useContext(ReactionStatesListContext);
   return (
       <>
       <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
         <>
+          <Box>
+            {reactions.reactionStatesList.map((states) => {
+              return (
+                states.postId
+              );
+            })}
+          </Box>
           {posts.map( (post) => {
             // @ts-ignore
             return <Post key={post.postId} text={post.content} date={formatDate(post.createdAt)}/>
           })}
-          {/* {dummyPosts} */}
         </>
       </PullToRefresh>
         <Zoom in={true}>

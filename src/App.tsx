@@ -20,13 +20,21 @@ import {
 import MeetingPlace from './pages/MeetingPlace';
 import { dict } from './config/Dictionary';
 import MyPage from './pages/MyPage';
-import useReactionStatesList from './context/ReactionContext';
+import useReactionStatesList, { ReactionStatesListHook } from './context/ReactionContext';
+import ContextTest from './sandbox/ContextTest';
 
 Amplify.configure(awsExports);
 
 // Cognitoの日本語化対応
 I18n.putVocabularies(dict);
 I18n.setLanguage('ja');
+
+const defaultReactionStatesListHook: ReactionStatesListHook = {
+  reactionStatesList: [],
+  setReactionStatesList: () => {}
+};
+
+export const ReactionStatesListContext = createContext<ReactionStatesListHook>(defaultReactionStatesListHook);
 
 function App() {
   // 画面下部のナビゲーションの状態管理
@@ -75,7 +83,6 @@ function App() {
     },
   ]);
   
-  const ReactionStatesListContext = createContext({});
 
   return (
     <ReactionStatesListContext.Provider value={useReactionStatesList()}>
