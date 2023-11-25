@@ -7,9 +7,10 @@ import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { IsReactionedStates, ReactionColor, ReactionCounts, ReactionType } from "../constants/Constants";
 import TagFacesIcon from '@mui/icons-material/TagFaces';
+import { ReactionStatesListContext } from "../AppWrapper";
 
 const ReactionButton = (
-    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, reactionStates, setReactionStatus, fetchUpdatePost, fetchUpdateReactionStates}: 
+    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, reactionStates, setReactionStatus, fetchUpdatePost, fetchUpdateReactionStates, initialIsPushed}: 
     {variant: ReactionType,
         reactionCounts: ReactionCounts,
         setReactionCounts: React.Dispatch<React.SetStateAction<ReactionCounts>>,
@@ -18,10 +19,11 @@ const ReactionButton = (
         reactionStates: IsReactionedStates,
         setReactionStatus: React.Dispatch<React.SetStateAction<IsReactionedStates>>,
         fetchUpdatePost: (changedReactionCounts: ReactionCounts) => Promise<void>,
-        fetchUpdateReactionStates: (changedReactionStates: IsReactionedStates) => Promise<void>
+        fetchUpdateReactionStates: (changedReactionStates: IsReactionedStates) => Promise<void>,
+        initialIsPushed: boolean
     }) => {        
 
-    const [isPushed, setIsPushed] = useState<boolean>(false);
+    const [isPushed, setIsPushed] = useState<boolean>(initialIsPushed);
     const [icon, setIcon] = useState<ReactNode>();
 
     useEffect(() => {
@@ -31,7 +33,7 @@ const ReactionButton = (
                 setIcon(<FavoriteIcon sx={isPushed ? {color: ReactionColor.Heart} : {color: ReactionColor.Default}}/>);
                 setIsPushed(reactionStates.heart)
                 break;
-
+    
             case ReactionType.Good:
                 setIcon(<ThumbUpAltIcon sx={isPushed ? {color: ReactionColor.Good} : {color: ReactionColor.Default}}/>);
                 setIsPushed(reactionStates.good)
@@ -55,7 +57,8 @@ const ReactionButton = (
                 console.log("リアクションアイコン表示エラー")
                 break;
         }
-    }, [isPushed])
+    }, [isPushed, reactionStates]);
+    
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         var changedReactionCounts: ReactionCounts = {
