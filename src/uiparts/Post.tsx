@@ -6,7 +6,7 @@ import ReactionButton from "./ReactionButton";
 import { ReactionCounts, ReactionType } from "../constants/Constants";
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
-const Post = ({text, date} : {text: string, date: string}) => {
+const Post = ({postId, text, date, initialReactionCounts} : {postId: string, text: string, date: string, initialReactionCounts: ReactionCounts}) => {
 
     const [checked, setChecked] = useState(false);
     const cardRef = useRef(null);
@@ -49,9 +49,9 @@ const Post = ({text, date} : {text: string, date: string}) => {
       setAnchorEl(null);
     }
 
-    const [reactionCounts, setReactionCounts] = useState<ReactionCounts>({heart: 0, good: 0, smile: 0, sad: 0, surprise: 0, bad: 0});
+    const [reactionCounts, setReactionCounts] = useState<ReactionCounts>(initialReactionCounts);
     const isReactioned = () => {
-      return (reactionCounts.heart > 0 || reactionCounts.good || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
+      return (reactionCounts.heart > 0 || reactionCounts.good > 0 || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
     }
     
     const [isBookmarked, setIsBookmarked] = useState(false);
@@ -98,10 +98,6 @@ const Post = ({text, date} : {text: string, date: string}) => {
                         <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
                         <Typography fontSize={"small"}>{reactionCounts.sad}</Typography>
                     </>}
-                  {reactionCounts.surprise > 0 && <>
-                        <ReactionButton variant={ReactionType.Surprise} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
-                        <Typography fontSize={"small"}>{reactionCounts.surprise}</Typography>
-                    </>}
                   {reactionCounts.bad > 0 && <>
                         <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
                         <Typography fontSize={"small"}>{reactionCounts.bad}</Typography>
@@ -131,7 +127,6 @@ const Post = ({text, date} : {text: string, date: string}) => {
               <ReactionButton variant={ReactionType.Good} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
               <ReactionButton variant={ReactionType.Smile} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
               <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
-              <ReactionButton variant={ReactionType.Surprise} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
               <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen}/>
             </CardContent>
           </Card>

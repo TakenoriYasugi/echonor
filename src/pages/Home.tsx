@@ -10,7 +10,7 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
 import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 import { formatDate } from "../util/Format";
-import { MAX_POST_COUNT } from "../constants/Constants";
+import { MAX_POST_COUNT, ReactionCounts } from "../constants/Constants";
 import { ReactionStatesListContext } from "../App";
 
 const Home = () => {
@@ -56,8 +56,23 @@ const Home = () => {
             })}
           </Box>
           {posts.map( (post) => {
+            console.log(post);
             // @ts-ignore
-            return <Post key={post.postId} text={post.content} date={formatDate(post.createdAt)}/>
+            var reactionCounts: ReactionCounts;
+
+            // @ts-ignore
+            if (!post.reactionCounts) {
+              // @ts-ignore
+              reactionCounts = {good: 0, heart: 0, smile: 0, sad: 0, bad: 0} as ReactionCounts;
+            } else {
+              reactionCounts = {
+              // @ts-ignore
+                good: post.reactionCounts.good, heart: post.reactionCounts.heart, smile: post.reactionCounts.smile, sad: post.reactionCounts.sad, bad: post.reactionCounts.bad,
+              } as ReactionCounts;
+            }
+
+            // @ts-ignore
+            return <Post key={post.postId} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
           })}
         </>
       </PullToRefresh>
@@ -69,31 +84,5 @@ const Home = () => {
       </>
   );
 }
-
-const dummyPosts = (
-  <>
-    <Post text="今日の空は本当に青いなあ。" date={"2023/10/02"} />
-    <Post text="新しいカフェを試してみた。コーヒーが最高！"  date={"2023/10/02"} />
-    <Post text="昨夜見た映画が面白すぎた。"  date={"2023/10/02"} />
-    <Post text="今週末はハイキングに行こうかな。"  date={"2023/10/02"} />
-    <Post text="最近読んだ本がすごくいい。おすすめ！"  date={"2023/10/02"} />
-    <Post text="今日のランチは何にしようかな。"  date={"2023/10/02"} />
-    <Post text="この曲、ずっと頭の中でリピートされてる…"  date={"2023/10/02"} />
-    <Post text="花が咲き始めた！春が来たなあ。"  date={"2023/10/02"} />
-    <Post text="週末に友達とビーチに行くのが待ち遠しい！"  date={"2023/10/02"} />
-    <Post text="新しいゲームが出るらしい。楽しみ！"  date={"2023/10/02"} />
-    <Post text="今日のジョギングは最高の気分転換になった。"  date={"2023/10/02"} />
-    <Post text="手作りの料理って、なんでこんなにいいんだろう？"  date={"2023/10/02"} />
-    <Post text="仕事で大きなプロジェクトが終わった！達成感あり。"  date={"2023/10/02"} />
-    <Post text="今日は何もせずにのんびりしたい気分。"  date={"2023/10/02"} />
-    <Post text="子犬の動画を見ていると時間があっという間に過ぎる…"  date={"2023/10/02"} />
-    <Post text="このアプリ、使いやすくていいなあ。"  date={"2023/10/02"} />
-    <Post text="今日は全然眠れなかった。コーヒー必須。"  date={"2023/10/02"} />
-    <Post text="朝の散歩は一日をリフレッシュするのに最適。"  date={"2023/10/02"} />
-    <Post text="美味しいお菓子を見つけた！幸せ。"  date={"2023/10/02"} />
-    <Post text="週末は何をしようかな。計画を立てるのが楽しい。"  date={"2023/10/02"} />
-  </>
-);
-
 
 export default Home;

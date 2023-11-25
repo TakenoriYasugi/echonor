@@ -90,16 +90,6 @@ const ReactionButton = (
                     setReactionCounts({...reactionCounts, sad: reactionCounts.sad + 1});                
                 }
                 break;
-            
-            case ReactionType.Surprise:
-                if (isPushed) {
-                    setIconColor(ReactionColor.Default);
-                    setReactionCounts({...reactionCounts, surprise: reactionCounts.surprise - 1});
-                } else {
-                    setIconColor(ReactionColor.Surprise);
-                    setReactionCounts({...reactionCounts, surprise: reactionCounts.surprise + 1});               
-                }
-                break;
 
             case ReactionType.Bad:
                 if (isPushed) {

@@ -19,7 +19,6 @@ export enum ReactionColor {
     Good = "#ffc107",
     Smile = "#ff9800",
     Sad = "#ff9800",
-    Surprise = "red",
     Bad = "blue",
     Default = "gray",
 }
@@ -29,8 +28,7 @@ export type ReactionCounts = {
     good: number,
     smile: number,
     sad: number,
-    surprise: number,
-    bad: number
+    bad: number,
   }
 
 
@@ -38,3 +36,18 @@ export const MAX_POST_LENGTH = 140;
 
 // 一度に取得する投稿数
 export const MAX_POST_COUNT = 100;
+
+export type ReactionStates = {
+    postId: string,
+    states: IsReactionedStates
+}
+
+export type IsReactionedStates = {
+    good: boolean,
+    heart: boolean,
+    smile: boolean,
+    sad: boolean,
+    bad: boolean,
+    bookmark: boolean
+}
+
