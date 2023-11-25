@@ -6,10 +6,10 @@ import ReactionButton from "./ReactionButton";
 import { IsReactionedStates, ReactionCounts, ReactionType } from "../constants/Constants";
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import { GetUserInfo } from "../util/Authenticator";
-import { ReactionStatesListContext } from "../App";
 import { API, graphqlOperation } from "aws-amplify";
 import { createReaction, updatePost, updateReaction } from "../graphql/mutations";
 import { ReactionStates } from "../context/ReactionContext";
+import { ReactionStatesListContext } from "../AppWrapper";
 
 const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, postId: string, text: string, date: string, initialReactionCounts: ReactionCounts}) => {
 

@@ -7,7 +7,6 @@ import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { IsReactionedStates, ReactionColor, ReactionCounts, ReactionType } from "../constants/Constants";
 import TagFacesIcon from '@mui/icons-material/TagFaces';
-import { ReactionStatesListContext } from "../App";
 
 const ReactionButton = (
     {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, reactionStates, setReactionStatus, fetchUpdatePost, fetchUpdateReactionStates}: 

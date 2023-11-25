@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 import { formatDate } from "../util/Format";
 import { MAX_POST_COUNT, ReactionCounts } from "../constants/Constants";
-import { ReactionStatesListContext } from "../App";
+import { ReactionStatesListContext } from "../AppWrapper";
 
 const Home = () => {
 
@@ -48,13 +48,6 @@ const Home = () => {
       <>
       <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
         <>
-          <Box>
-            {reactions.reactionStatesList.map((states) => {
-              return (
-                states.postId
-              );
-            })}
-          </Box>
           {posts.map( (post) => {
             // @ts-ignore
             var reactionCounts: ReactionCounts;

@@ -23,19 +23,13 @@ import MyPage from './pages/MyPage';
 import useReactionStatesList, { ReactionStates, ReactionStatesListHook } from './context/ReactionContext';
 import { listReactions, listReactionsByUserId } from './graphql/queries';
 import { GetUserInfo } from './util/Authenticator';
+import { ReactionStatesListContext } from './AppWrapper';
 
 Amplify.configure(awsExports);
 
 // Cognitoの日本語化対応
 I18n.putVocabularies(dict);
 I18n.setLanguage('ja');
-
-const defaultReactionStatesListHook: ReactionStatesListHook = {
-  reactionStatesList: [],
-  setReactionStatesList: () => {}
-};
-
-export const ReactionStatesListContext = createContext<ReactionStatesListHook>(defaultReactionStatesListHook);
 
 function App() {
   // 画面下部のナビゲーションの状態管理
@@ -134,28 +128,26 @@ function App() {
   }
   
   return (
-    <ReactionStatesListContext.Provider value={reactionStatesListHook}>
-      <ThemeProvider theme={theme}>
-        <UserProvider>
-          <div className="App">
-            <CssBaseline/>
-            <header className="App-header">
-            </header>
-            <main>
-              {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
-              <Box sx={{pt: 7, pb: 7}}>
-                <Layout>
-                  <RouterProvider router={router} />
-                </Layout>
-              </Box>
-            </main>
-            <footer>
-              
-            </footer>
-          </div>
-        </UserProvider>
-      </ThemeProvider>
-    </ReactionStatesListContext.Provider>
+    <ThemeProvider theme={theme}>
+      <UserProvider>
+        <div className="App">
+          <CssBaseline/>
+          <header className="App-header">
+          </header>
+          <main>
+            {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
+            <Box sx={{pt: 7, pb: 7}}>
+              <Layout>
+                <RouterProvider router={router} />
+              </Layout>
+            </Box>
+          </main>
+          <footer>
+            
+          </footer>
+        </div>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 
