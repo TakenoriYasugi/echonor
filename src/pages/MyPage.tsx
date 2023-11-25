@@ -1,6 +1,6 @@
 import { Box, Container, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { GetUserInfo } from "../util/Authenticator";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import React from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
@@ -8,6 +8,8 @@ import { getPost, listPosts, listPostsByUserId} from "../graphql/queries";
 import { useUser } from "../util/UserProvider";
 import Post from "../uiparts/Post";
 import { formatDate } from "../util/Format";
+import { ReactionStatesListContext } from "../AppWrapper";
+import { ReactionCounts } from "../constants/Constants";
 
 function MyPage() {
 
@@ -73,6 +75,8 @@ function MyPage() {
     setValue(newValue);
   };
 
+  const reactions = useContext(ReactionStatesListContext);
+
   return (
     <>
       <Box sx={{ width: '100%' }}>
@@ -85,10 +89,23 @@ function MyPage() {
         </Box>
 
         <CustomTabPanel value={value} index={0}>
-          {usersPosts.map((usersPost) => (
+          {usersPosts.map((usersPost) => {
+             var reactionCounts: ReactionCounts;
+
+             // @ts-ignore
+             if (!usersPost.reactionCounts) {
+               // @ts-ignore
+               reactionCounts = {good: 0, heart: 0, smile: 0, sad: 0, bad: 0} as ReactionCounts;
+             } else {
+               reactionCounts = {
+               // @ts-ignore
+                 good: usersPost.reactionCounts.good, heart: usersPost.reactionCounts.heart, smile: usersPost.reactionCounts.smile, sad: usersPost.reactionCounts.sad, bad: usersPost.reactionCounts.bad,
+               } as ReactionCounts;
+             }
             // @ts-ignore
-            <Post key={usersPost.postId} text={usersPost.content} date={formatDate(usersPost.createdAt)} />
-          ))}
+            return <Post key={usersPost.postId} id={usersPost.id} postId={usersPost.postId} text={usersPost.content} date={formatDate(usersPost.createdAt)} initialReactionCounts={reactionCounts}/>
+          })}
+            
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={1}>
