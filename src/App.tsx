@@ -30,7 +30,7 @@ I18n.setLanguage('ja');
 function App() {
   // 画面下部のナビゲーションの状態管理
   const [currentButtonNavigation, setCurrentButtonNavigation] = useState<ButtonNavigationLabel>(ButtonNavigationLabel.Home);
-  
+
   const theme = createTheme(
     {
       palette: {
@@ -76,7 +76,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-      
         <div className="App">
           <CssBaseline/>
           <header className="App-header">
@@ -99,3 +98,4 @@ function App() {
 }
 
 export default withAuthenticator(App);
+
