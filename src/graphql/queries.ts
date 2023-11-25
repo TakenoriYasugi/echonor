@@ -115,3 +115,27 @@ export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
 }
 ` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
 
+export const listReactionsByUserId = /* GraphQL */ `query ListReactions(
+  $userId: String
+) {
+  listReactions(filter: {userId: {eq: $userId}}) {
+    items {
+      postId
+      reactionStates {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReactionsQueryVariables,
+  APITypes.ListReactionsQuery
+>;

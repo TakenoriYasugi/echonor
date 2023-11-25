@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import './App.css';
 import { Box, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
 import Layout from './layout/Layout';
@@ -10,7 +10,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 import awsExports from "./aws-exports";
-import { Amplify } from 'aws-amplify';
+import { API, Amplify, graphqlOperation } from 'aws-amplify';
 import { I18n } from 'aws-amplify';
 import { UserProvider } from './util/UserProvider';
 import {
@@ -22,6 +22,8 @@ import { dict } from './config/Dictionary';
 import MyPage from './pages/MyPage';
 import useReactionStatesList, { ReactionStatesListHook } from './context/ReactionContext';
 import ContextTest from './sandbox/ContextTest';
+import { listReactions, listReactionsByUserId } from './graphql/queries';
+import { GetUserInfo } from './util/Authenticator';
 
 Amplify.configure(awsExports);
 
@@ -82,6 +84,29 @@ function App() {
       </>
     },
   ]);
+
+  const [user, setUser] = useState();
+
+  useEffect( () => {
+    GetUserInfo().then((user) => {
+      setUser(user);
+      // @ts-ignore
+      fetchReactionStatesList(user.username);
+    });
+  }, []);
+
+  const reactions = useContext(ReactionStatesListContext);
+
+  const fetchReactionStatesList = async () => {
+    try {
+      const reactionData = await API.graphql(graphqlOperation(listReactionsByUserId, {}));
+      // @ts-ignore
+      console.log(reactionData.data)
+      
+    } catch (err) {
+      console.error('Error fetching reaction states', err);
+    }
+  }
   
 
   return (
