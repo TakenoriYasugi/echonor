@@ -96,11 +96,11 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
         }
     }
 
-    const fetchUpdatePost = async () => {
+    const fetchUpdatePost = async (changedReactionCounts: ReactionCounts) => {
       const input = {
         postId: postId,  // postIdを指定
         id: id,
-        reactionCounts: {...reactionCounts, bookmark: 0}  // 更新するreactionCountsの値
+        reactionCounts: {...changedReactionCounts, bookmark: 0}  // 更新するreactionCountsの値
       };
 
       console.log("input : " + input)

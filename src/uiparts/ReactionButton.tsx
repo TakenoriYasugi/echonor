@@ -17,7 +17,7 @@ const ReactionButton = (
         setIsReactionOpen: React.Dispatch<React.SetStateAction<boolean>>,
         postId: string,
         reactionStates: IsReactionedStates,
-        fetchUpdatePost: () => Promise<void>
+        fetchUpdatePost: (changedReactionCounts: ReactionCounts) => Promise<void>
     }) => {        
 
     const [iconColor, setIconColor] = useState("gray");
@@ -58,54 +58,61 @@ const ReactionButton = (
     }, [])
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        var changedReactionCounts: ReactionCounts = {
+            heart: 0,
+            good: 0,
+            smile: 0,
+            sad: 0,
+            bad: 0};
+        
         switch(variant) {
             case ReactionType.Heart:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    setReactionCounts({...reactionCounts, heart: reactionCounts.heart - 1});
+                    changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart - 1});
                 } else {
                     setIconColor(ReactionColor.Heart);
-                    setReactionCounts({...reactionCounts, heart: reactionCounts.heart + 1});
+                    changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart + 1});
                 }
                 break;
             
             case ReactionType.Good:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    setReactionCounts({...reactionCounts, good: reactionCounts.good - 1});                
+                    changedReactionCounts = ({...reactionCounts, good: reactionCounts.good - 1});                
                 } else {
                     setIconColor(ReactionColor.Good);
-                    setReactionCounts({...reactionCounts, good: reactionCounts.good + 1});                
+                    changedReactionCounts = ({...reactionCounts, good: reactionCounts.good + 1});                
                 }
                 break;
             
             case ReactionType.Smile:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    setReactionCounts({...reactionCounts, smile: reactionCounts.smile - 1}); 
+                    changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile - 1}); 
                 } else {
                     setIconColor(ReactionColor.Smile);
-                    setReactionCounts({...reactionCounts, smile: reactionCounts.smile + 1});                
+                    changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile + 1});                
                 }
                 break;
             
             case ReactionType.Sad:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    setReactionCounts({...reactionCounts, sad: reactionCounts.sad - 1});                
+                    changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad - 1});                
                 } else {
                     setIconColor(ReactionColor.Sad);
-                    setReactionCounts({...reactionCounts, sad: reactionCounts.sad + 1});                
+                    changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad + 1});                
                 }
                 break;
 
             case ReactionType.Bad:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    setReactionCounts({...reactionCounts, bad: reactionCounts.bad - 1});                
+                    changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad - 1});                
                 } else {
                     setIconColor(ReactionColor.Bad);
-                    setReactionCounts({...reactionCounts, bad: reactionCounts.bad + 1});                
+                    changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad + 1});                
                 }
                 break;
             default:
@@ -115,7 +122,8 @@ const ReactionButton = (
 
         setIsPushed(!isPushed);
         setIsReactionOpen(false);
-        fetchUpdatePost();
+        fetchUpdatePost(changedReactionCounts);
+        setReactionCounts(changedReactionCounts);
     }
 
     return (
