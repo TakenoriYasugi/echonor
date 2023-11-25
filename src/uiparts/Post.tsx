@@ -131,6 +131,17 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           console.log("reaction update: " + input.userId + " " + input.postId + " " + input.reactionStates);
           const updatedReactionData = await API.graphql(graphqlOperation(updateReaction, { input } ));
           console.log('Updated Reaction:', updatedReactionData);
+
+          const changedReactions = reactions.reactionStatesList.map( (reaction) => {
+            if (reaction.postId === postId) {
+              return {...reaction, states: {...changedReactionStates, bookmark: false}}
+            } else {
+              return reaction;
+            }
+          })
+
+          reactions.setReactionStatesList(changedReactions);
+
         } catch (error) {
           console.error('Error updated reaction state:', error);
         }
