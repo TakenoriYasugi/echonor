@@ -39,6 +39,15 @@ export const listPosts = /* GraphQL */ `query ListPosts(
       postId
       userId
       content
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
       id
       createdAt
       updatedAt
@@ -105,6 +114,15 @@ export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
       userId
       content
       id
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
       createdAt
       updatedAt
       __typename
