@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import './App.css';
 import { Box, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
 import Layout from './layout/Layout';
@@ -20,6 +20,7 @@ import {
 import MeetingPlace from './pages/MeetingPlace';
 import { dict } from './config/Dictionary';
 import MyPage from './pages/MyPage';
+import useReactionStatesList from './context/ReactionContext';
 
 Amplify.configure(awsExports);
 
@@ -44,6 +45,7 @@ function App() {
     }
   );
 
+  
   // TODO: ButtonAppBarの記述をまとめたい。
   const router = createBrowserRouter([
     {
@@ -58,7 +60,7 @@ function App() {
     },
     {
       path: "/mypage",
-
+      
       element: <>
         <ButtonAppBar title="EchoNor"/>
         <MyPage/>
@@ -72,28 +74,32 @@ function App() {
       </>
     },
   ]);
+  
+  const ReactionStatesListContext = createContext({});
 
   return (
-    <ThemeProvider theme={theme}>
-      <UserProvider>
-        <div className="App">
-          <CssBaseline/>
-          <header className="App-header">
-          </header>
-          <main>
-            {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
-            <Box sx={{pt: 7, pb: 7}}>
-              <Layout>
-                <RouterProvider router={router} />
-              </Layout>
-            </Box>
-          </main>
-          <footer>
-            
-          </footer>
-        </div>
-      </UserProvider>
-    </ThemeProvider>
+    <ReactionStatesListContext.Provider value={useReactionStatesList()}>
+      <ThemeProvider theme={theme}>
+        <UserProvider>
+          <div className="App">
+            <CssBaseline/>
+            <header className="App-header">
+            </header>
+            <main>
+              {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
+              <Box sx={{pt: 7, pb: 7}}>
+                <Layout>
+                  <RouterProvider router={router} />
+                </Layout>
+              </Box>
+            </main>
+            <footer>
+              
+            </footer>
+          </div>
+        </UserProvider>
+      </ThemeProvider>
+    </ReactionStatesListContext.Provider>
   );
 }
 
