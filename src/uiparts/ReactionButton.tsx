@@ -10,14 +10,12 @@ import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { ReactionStatesListContext } from "../AppWrapper";
 
 const ReactionButton = (
-    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, reactionStates, setReactionStatus, fetchUpdatePost, fetchUpdateReactionStates, initialIsPushed}: 
+    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, fetchUpdatePost, fetchUpdateReactionStates, initialIsPushed}: 
     {variant: ReactionType,
         reactionCounts: ReactionCounts,
         setReactionCounts: React.Dispatch<React.SetStateAction<ReactionCounts>>,
         setIsReactionOpen: React.Dispatch<React.SetStateAction<boolean>>,
         postId: string,
-        reactionStates: IsReactionedStates,
-        setReactionStatus: React.Dispatch<React.SetStateAction<IsReactionedStates>>,
         fetchUpdatePost: (changedReactionCounts: ReactionCounts) => Promise<void>,
         fetchUpdateReactionStates: (changedReactionStates: IsReactionedStates) => Promise<void>,
         initialIsPushed: boolean
@@ -26,38 +24,41 @@ const ReactionButton = (
     const [isPushed, setIsPushed] = useState<boolean>(initialIsPushed);
     const [icon, setIcon] = useState<ReactNode>();
 
+    const reactions = useContext(ReactionStatesListContext);
+    
     useEffect(() => {
+        const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
         // TODO: 処理に無駄が多そうなので何とかする
         switch(variant) {
             case ReactionType.Heart:
                 setIcon(<FavoriteIcon sx={isPushed ? {color: ReactionColor.Heart} : {color: ReactionColor.Default}}/>);
-                setIsPushed(reactionStates.heart)
+                setIsPushed(state?.states.heart || false)
                 break;
     
             case ReactionType.Good:
                 setIcon(<ThumbUpAltIcon sx={isPushed ? {color: ReactionColor.Good} : {color: ReactionColor.Default}}/>);
-                setIsPushed(reactionStates.good)
+                setIsPushed(state?.states.good || false)
                 break;
             
             case ReactionType.Smile:
                 setIcon(<TagFacesIcon sx={isPushed ? {color: ReactionColor.Smile} : {color: ReactionColor.Default}}/>);
-                setIsPushed(reactionStates.smile)
+                setIsPushed(state?.states.smile || false)
                 break;
             
             case ReactionType.Sad:
                 setIcon(<SentimentVeryDissatisfiedIcon sx={isPushed ? {color: ReactionColor.Sad} : {color: ReactionColor.Default}}/>);
-                setIsPushed(reactionStates.sad)
+                setIsPushed(state?.states.sad || false)
                 break;
     
             case ReactionType.Bad:
                 setIcon(<ThumbDownAltIcon sx={isPushed ? {color: ReactionColor.Bad} : {color: ReactionColor.Default}}/>);
-                setIsPushed(reactionStates.bad)
+                setIsPushed(state?.states.bad || false)
                 break;
             default:
                 console.log("リアクションアイコン表示エラー")
                 break;
         }
-    }, [isPushed, reactionStates]);
+    }, [isPushed, reactions]);
     
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,58 +68,68 @@ const ReactionButton = (
             smile: 0,
             sad: 0,
             bad: 0};
+        
+        const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
 
-        var changedReactionStates: IsReactionedStates = reactionStates;
+        const blankStates = {
+            good: false,
+            heart: false,
+            smile: false,
+            sad: false,
+            bad: false,
+            bookmark: false
+        }
+        var changedReactionStates: IsReactionedStates = state?.states || blankStates ;
         
         switch(variant) {
             case ReactionType.Heart:
                 if (isPushed) {
                     changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart - 1});
-                    changedReactionStates = {...reactionStates, heart: false}
+                    changedReactionStates = {...changedReactionStates, heart: false}
                 } else {
                     changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart + 1});
-                    changedReactionStates = {...reactionStates, heart: true}
+                    changedReactionStates = {...changedReactionStates, heart: true}
                 }
                 break;
             
             case ReactionType.Good:
                 if (isPushed) {
                     changedReactionCounts = ({...reactionCounts, good: reactionCounts.good - 1});
-                    changedReactionStates = {...reactionStates, good: false}
+                    changedReactionStates = {...changedReactionStates, good: false}
                 } else {
                     changedReactionCounts = ({...reactionCounts, good: reactionCounts.good + 1});
-                    changedReactionStates = {...reactionStates, good: true}
+                    changedReactionStates = {...changedReactionStates, good: true}
                 }
                 break;
             
             case ReactionType.Smile:
                 if (isPushed) {
                     changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile - 1});
-                    changedReactionStates = {...reactionStates, smile: false}
+                    changedReactionStates = {...changedReactionStates, smile: false}
                 } else {
                     changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile + 1});
-                    changedReactionStates = {...reactionStates, smile: true}
+                    changedReactionStates = {...changedReactionStates, smile: true}
                 }
                 break;
             
             case ReactionType.Sad:
                 if (isPushed) {
                     changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad - 1});
-                    changedReactionStates = {...reactionStates, sad: false}
+                    changedReactionStates = {...changedReactionStates, sad: false}
                 } else {
                     changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad + 1});
-                    changedReactionStates = {...reactionStates, sad: true}
+                    changedReactionStates = {...changedReactionStates, sad: true}
                 }
                 break;
 
             case ReactionType.Bad:
                 if (isPushed) {
                     changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad - 1});
-                    changedReactionStates = {...reactionStates, bad: false}
+                    changedReactionStates = {...changedReactionStates, bad: false}
 
                 } else {
                     changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad + 1});
-                    changedReactionStates = {...reactionStates, bad: true}
+                    changedReactionStates = {...changedReactionStates, bad: true}
                 }
                 break;
             default:
@@ -131,7 +142,14 @@ const ReactionButton = (
         fetchUpdatePost(changedReactionCounts);
         fetchUpdateReactionStates(changedReactionStates);
         setReactionCounts(changedReactionCounts);
-        setReactionStatus(changedReactionStates);
+        const changedReactions = reactions.reactionStatesList.map((reaction) => {
+            if (reaction.postId === postId) {
+                return {...reaction, states: changedReactionStates}
+            } else {
+                return reaction;
+            }
+        })
+        reactions.setReactionStatesList(changedReactions);
     }
 
     return (
