@@ -56,7 +56,6 @@ const Home = () => {
             })}
           </Box>
           {posts.map( (post) => {
-            console.log(post);
             // @ts-ignore
             var reactionCounts: ReactionCounts;
 

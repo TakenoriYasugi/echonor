@@ -148,6 +148,7 @@ export const listReactionsByUserId = /* GraphQL */ `query ListReactions(
         bookmark
         __typename
       }
+      id
     }
     nextToken
     __typename

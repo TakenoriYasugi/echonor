@@ -10,14 +10,16 @@ import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { ReactionStatesListContext } from "../App";
 
 const ReactionButton = (
-    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, reactionStates, fetchUpdatePost}: 
+    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, reactionStates, setReactionStatus, fetchUpdatePost, fetchUpdateReactionStates}: 
     {variant: ReactionType,
         reactionCounts: ReactionCounts,
         setReactionCounts: React.Dispatch<React.SetStateAction<ReactionCounts>>,
         setIsReactionOpen: React.Dispatch<React.SetStateAction<boolean>>,
         postId: string,
         reactionStates: IsReactionedStates,
-        fetchUpdatePost: (changedReactionCounts: ReactionCounts) => Promise<void>
+        setReactionStatus: React.Dispatch<React.SetStateAction<IsReactionedStates>>,
+        fetchUpdatePost: (changedReactionCounts: ReactionCounts) => Promise<void>,
+        fetchUpdateReactionStates: (changedReactionStates: IsReactionedStates) => Promise<void>
     }) => {        
 
     const [iconColor, setIconColor] = useState("gray");
@@ -64,55 +66,68 @@ const ReactionButton = (
             smile: 0,
             sad: 0,
             bad: 0};
+
+        var changedReactionStates: IsReactionedStates = reactionStates;
         
         switch(variant) {
             case ReactionType.Heart:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
                     changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart - 1});
+                    changedReactionStates = {...reactionStates, heart: false}
                 } else {
                     setIconColor(ReactionColor.Heart);
                     changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart + 1});
+                    changedReactionStates = {...reactionStates, heart: true}
                 }
                 break;
             
             case ReactionType.Good:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    changedReactionCounts = ({...reactionCounts, good: reactionCounts.good - 1});                
+                    changedReactionCounts = ({...reactionCounts, good: reactionCounts.good - 1});
+                    changedReactionStates = {...reactionStates, good: false}
                 } else {
                     setIconColor(ReactionColor.Good);
-                    changedReactionCounts = ({...reactionCounts, good: reactionCounts.good + 1});                
+                    changedReactionCounts = ({...reactionCounts, good: reactionCounts.good + 1});
+                    changedReactionStates = {...reactionStates, good: true}
                 }
                 break;
             
             case ReactionType.Smile:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile - 1}); 
+                    changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile - 1});
+                    changedReactionStates = {...reactionStates, smile: false}
                 } else {
                     setIconColor(ReactionColor.Smile);
-                    changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile + 1});                
+                    changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile + 1});
+                    changedReactionStates = {...reactionStates, smile: true}
                 }
                 break;
             
             case ReactionType.Sad:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad - 1});                
+                    changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad - 1});
+                    changedReactionStates = {...reactionStates, sad: false}
                 } else {
                     setIconColor(ReactionColor.Sad);
-                    changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad + 1});                
+                    changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad + 1});
+                    changedReactionStates = {...reactionStates, sad: true}
                 }
                 break;
 
             case ReactionType.Bad:
                 if (isPushed) {
                     setIconColor(ReactionColor.Default);
-                    changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad - 1});                
+                    changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad - 1});
+                    changedReactionStates = {...reactionStates, bad: false}
+
                 } else {
                     setIconColor(ReactionColor.Bad);
-                    changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad + 1});                
+                    changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad + 1});
+                    changedReactionStates = {...reactionStates, bad: true}
                 }
                 break;
             default:
@@ -123,7 +138,9 @@ const ReactionButton = (
         setIsPushed(!isPushed);
         setIsReactionOpen(false);
         fetchUpdatePost(changedReactionCounts);
+        fetchUpdateReactionStates(changedReactionStates);
         setReactionCounts(changedReactionCounts);
+        setReactionStatus(changedReactionStates);
     }
 
     return (

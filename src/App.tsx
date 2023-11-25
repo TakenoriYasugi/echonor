@@ -20,8 +20,7 @@ import {
 import MeetingPlace from './pages/MeetingPlace';
 import { dict } from './config/Dictionary';
 import MyPage from './pages/MyPage';
-import useReactionStatesList, { ReactionStatesListHook } from './context/ReactionContext';
-import ContextTest from './sandbox/ContextTest';
+import useReactionStatesList, { ReactionStates, ReactionStatesListHook } from './context/ReactionContext';
 import { listReactions, listReactionsByUserId } from './graphql/queries';
 import { GetUserInfo } from './util/Authenticator';
 
@@ -41,6 +40,7 @@ export const ReactionStatesListContext = createContext<ReactionStatesListHook>(d
 function App() {
   // 画面下部のナビゲーションの状態管理
   const [currentButtonNavigation, setCurrentButtonNavigation] = useState<ButtonNavigationLabel>(ButtonNavigationLabel.Home);
+  const reactionStatesListHook = useReactionStatesList();
 
   const theme = createTheme(
     {
@@ -97,20 +97,44 @@ function App() {
 
   const reactions = useContext(ReactionStatesListContext);
 
-  const fetchReactionStatesList = async () => {
+  useEffect( () => {
+    console.log("---- context updated ----");
+    console.log(reactions.reactionStatesList);
+  }, [reactions.reactionStatesList])
+
+  const fetchReactionStatesList = async (userId: string) => {
     try {
-      const reactionData = await API.graphql(graphqlOperation(listReactionsByUserId, {}));
+      const reactionData = await API.graphql(graphqlOperation(listReactionsByUserId, {userId}));
+      console.log("-- reactionData.data.listReactions.items --");
       // @ts-ignore
-      console.log(reactionData.data)
+      console.log(reactionData.data.listReactions.items)
+
+      var tempReactionStatesList: ReactionStates[] = [];
+      // @ts-ignore
+      reactionData.data.listReactions.items.map((reaction) => {
+        tempReactionStatesList = [...tempReactionStatesList, {
+          id: reaction.id,
+          postId: reaction.postId,
+          states: reaction.reactionStates
+        }]
+      })
+      
+      console.log("-- tempReactionStatesList  --");
+      console.log(tempReactionStatesList);
+      
+      // @ts-ignore
+      reactions.setReactionStatesList(tempReactionStatesList);
+
+      console.log("-- fetched context -- ");
+      console.log(reactions.reactionStatesList)
       
     } catch (err) {
       console.error('Error fetching reaction states', err);
     }
   }
   
-
   return (
-    <ReactionStatesListContext.Provider value={useReactionStatesList()}>
+    <ReactionStatesListContext.Provider value={reactionStatesListHook}>
       <ThemeProvider theme={theme}>
         <UserProvider>
           <div className="App">

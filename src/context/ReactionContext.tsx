@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export type ReactionStates = {
+    id: string,
     postId: string,
     states: IsReactionedStates
 }
