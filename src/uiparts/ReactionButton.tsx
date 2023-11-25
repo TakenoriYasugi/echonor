@@ -21,7 +21,6 @@ const ReactionButton = (
         fetchUpdateReactionStates: (changedReactionStates: IsReactionedStates) => Promise<void>
     }) => {        
 
-    const [iconColor, setIconColor] = useState("gray");
     const [isPushed, setIsPushed] = useState<boolean>(false);
     const [icon, setIcon] = useState<ReactNode>();
 
@@ -29,34 +28,34 @@ const ReactionButton = (
         // TODO: 処理に無駄が多そうなので何とかする
         switch(variant) {
             case ReactionType.Heart:
-                setIcon(<FavoriteIcon sx={{color: iconColor}}/>);
+                setIcon(<FavoriteIcon sx={isPushed ? {color: ReactionColor.Heart} : {color: ReactionColor.Default}}/>);
                 setIsPushed(reactionStates.heart)
                 break;
 
             case ReactionType.Good:
-                setIcon(<ThumbUpAltIcon sx={{color: iconColor}}/>);
+                setIcon(<ThumbUpAltIcon sx={isPushed ? {color: ReactionColor.Good} : {color: ReactionColor.Default}}/>);
                 setIsPushed(reactionStates.good)
                 break;
             
             case ReactionType.Smile:
-                setIcon(<TagFacesIcon sx={{color: iconColor}}/>);
+                setIcon(<TagFacesIcon sx={isPushed ? {color: ReactionColor.Smile} : {color: ReactionColor.Default}}/>);
                 setIsPushed(reactionStates.smile)
                 break;
             
             case ReactionType.Sad:
-                setIcon(<SentimentVeryDissatisfiedIcon sx={{color: iconColor}}/>);
+                setIcon(<SentimentVeryDissatisfiedIcon sx={isPushed ? {color: ReactionColor.Sad} : {color: ReactionColor.Default}}/>);
                 setIsPushed(reactionStates.sad)
                 break;
     
             case ReactionType.Bad:
-                setIcon(<ThumbDownAltIcon sx={{color: iconColor}}/>);
+                setIcon(<ThumbDownAltIcon sx={isPushed ? {color: ReactionColor.Bad} : {color: ReactionColor.Default}}/>);
                 setIsPushed(reactionStates.bad)
                 break;
             default:
                 console.log("リアクションアイコン表示エラー")
                 break;
         }
-    }, [])
+    }, [isPushed])
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         var changedReactionCounts: ReactionCounts = {
@@ -71,11 +70,9 @@ const ReactionButton = (
         switch(variant) {
             case ReactionType.Heart:
                 if (isPushed) {
-                    setIconColor(ReactionColor.Default);
                     changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart - 1});
                     changedReactionStates = {...reactionStates, heart: false}
                 } else {
-                    setIconColor(ReactionColor.Heart);
                     changedReactionCounts = ({...reactionCounts, heart: reactionCounts.heart + 1});
                     changedReactionStates = {...reactionStates, heart: true}
                 }
@@ -83,11 +80,9 @@ const ReactionButton = (
             
             case ReactionType.Good:
                 if (isPushed) {
-                    setIconColor(ReactionColor.Default);
                     changedReactionCounts = ({...reactionCounts, good: reactionCounts.good - 1});
                     changedReactionStates = {...reactionStates, good: false}
                 } else {
-                    setIconColor(ReactionColor.Good);
                     changedReactionCounts = ({...reactionCounts, good: reactionCounts.good + 1});
                     changedReactionStates = {...reactionStates, good: true}
                 }
@@ -95,11 +90,9 @@ const ReactionButton = (
             
             case ReactionType.Smile:
                 if (isPushed) {
-                    setIconColor(ReactionColor.Default);
                     changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile - 1});
                     changedReactionStates = {...reactionStates, smile: false}
                 } else {
-                    setIconColor(ReactionColor.Smile);
                     changedReactionCounts = ({...reactionCounts, smile: reactionCounts.smile + 1});
                     changedReactionStates = {...reactionStates, smile: true}
                 }
@@ -107,11 +100,9 @@ const ReactionButton = (
             
             case ReactionType.Sad:
                 if (isPushed) {
-                    setIconColor(ReactionColor.Default);
                     changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad - 1});
                     changedReactionStates = {...reactionStates, sad: false}
                 } else {
-                    setIconColor(ReactionColor.Sad);
                     changedReactionCounts = ({...reactionCounts, sad: reactionCounts.sad + 1});
                     changedReactionStates = {...reactionStates, sad: true}
                 }
@@ -119,12 +110,10 @@ const ReactionButton = (
 
             case ReactionType.Bad:
                 if (isPushed) {
-                    setIconColor(ReactionColor.Default);
                     changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad - 1});
                     changedReactionStates = {...reactionStates, bad: false}
 
                 } else {
-                    setIconColor(ReactionColor.Bad);
                     changedReactionCounts = ({...reactionCounts, bad: reactionCounts.bad + 1});
                     changedReactionStates = {...reactionStates, bad: true}
                 }
