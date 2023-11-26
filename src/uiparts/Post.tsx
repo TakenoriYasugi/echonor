@@ -166,19 +166,19 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
               <Card className="post" sx={{p: 0.5, m: 3}}>
                 <CardContent>
-                  <Grid container>
-                    <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
-                      <Typography fontSize={"small"}>{date}</Typography>
-                    </Grid>
-                    <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                      <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CardActionArea onClick={handleClick}>
+                    <CardActionArea onClick={handleClick}>
+                      <Grid container>
+                        <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
+                          <Typography fontSize={"small"}>{date}</Typography>
+                        </Grid>
+                        <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
+                          <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
+                        </Grid>
+                        <Grid item xs={12}>
                           <Typography fontSize={"medium"}>{text}</Typography>
-                      </CardActionArea>
-                    </Grid>
-                  </Grid>
+                        </Grid>
+                      </Grid>
+                    </CardActionArea>
                 </CardContent>
     
                 {isReactioned() && <Divider/>}

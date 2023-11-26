@@ -70,6 +70,9 @@ const ReactionButton = (
     
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        // クリックイベントが伝播しないようにする。
+        event.stopPropagation();
+
         var changedReactionCounts: ReactionCounts = {
             heart: 0,
             good: 0,
