@@ -55,7 +55,7 @@ function MyPage() {
         {...other}
       >
         {value === index && (
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 0 }}>
             <Typography>{children}</Typography>
           </Box>
         )}
@@ -88,7 +88,7 @@ function MyPage() {
           </Tabs>
         </Box>
 
-        <CustomTabPanel value={value} index={0}>
+        <CustomTabPanel value={value} index={0} >
           {usersPosts.map((usersPost) => {
              var reactionCounts: ReactionCounts;
 
