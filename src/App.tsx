@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import './App.css';
-import { Alert, AlertTitle, Box, CssBaseline, Slide, ThemeProvider, Typography, Zoom, createTheme } from '@mui/material';
+import { Alert, AlertTitle, Box, Card, CssBaseline, Slide, ThemeProvider, Typography, Zoom, createTheme } from '@mui/material';
 import Layout from './layout/Layout';
 import { ButtonNavigationLabel } from './constants/Constants';
 import ButtonMenu from './uiparts/ButtonMenu';
@@ -110,7 +110,26 @@ function App() {
     ).subscribe({
       next: (data: any) => {
         console.log('Post updated:', data);
-        appearAlert();
+        appearAlert(data.value.data.onUpdatePost.content);
+//         data
+// : 
+// onUpdatePost
+// : 
+// content
+// : 
+// "ブックマークが時系列にソートされるように修正"
+// postId
+// : 
+// "5bd96faf-37d8-4111-b42a-9970ff594f36"
+// reactionCounts
+// : 
+// {good: 2, heart: 2, smile: 0, sad: 0, bad: 0, …}
+// userId
+// : 
+// "cafc78d0-55d3-44af-90fe-6b86f566b195"
+// __typename
+// : 
+// "Post"
       },
       error: (error: any) => {
         console.error('Error with subscription:', error);
@@ -118,8 +137,11 @@ function App() {
     }) as ZenObservable.Subscription;
   }
 
+
+  const [alertContent, setAlertContent] = useState<string>("");
   // 通知用のAlertを表示する。５秒間表示し、その後非表示にする。
-  const appearAlert = () => {
+  const appearAlert = (content: string) => {
+    setAlertContent(content);
     setIsUpdatedPost(true);
     setTimeout(() => {
       setIsUpdatedPost(false);
@@ -180,8 +202,13 @@ function App() {
                   <Slide direction="down" in={isUpdatedPost} mountOnEnter unmountOnExit>
                     <div style={{ position: "fixed", top: 50, left: 0, right: 0, zIndex: 999 }}>
                       <Alert severity="info">
-                          <AlertTitle>リアクションされました</AlertTitle>
-                          あなたの投稿にリアクションがありました！
+                          <AlertTitle>リアクションされました！</AlertTitle>
+                          以下の投稿にリアクションがありました
+                          <Box sx={{m: 1, borderRadius: "10px", backgroundColor: "#FFFFFF"}}>
+                            <Typography variant="body2" fontSize={12} sx={{p: 1}}>
+                              {alertContent}
+                            </Typography>
+                          </Box>
                       </Alert>
                     </div>
                   </Slide>
