@@ -111,25 +111,6 @@ function App() {
       next: (data: any) => {
         console.log('Post updated:', data);
         appearAlert(data.value.data.onUpdatePost.content);
-//         data
-// : 
-// onUpdatePost
-// : 
-// content
-// : 
-// "ブックマークが時系列にソートされるように修正"
-// postId
-// : 
-// "5bd96faf-37d8-4111-b42a-9970ff594f36"
-// reactionCounts
-// : 
-// {good: 2, heart: 2, smile: 0, sad: 0, bad: 0, …}
-// userId
-// : 
-// "cafc78d0-55d3-44af-90fe-6b86f566b195"
-// __typename
-// : 
-// "Post"
       },
       error: (error: any) => {
         console.error('Error with subscription:', error);
