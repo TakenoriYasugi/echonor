@@ -28,6 +28,7 @@ import Bookmarks from './pages/Bookmarks';
 import { onUpdatePostByUserId } from './graphql/subscriptions';
 import ReactionedAlert from './uiparts/ReactionedAlert';
 import { Observable } from 'zen-observable-ts';
+import Notifications from './pages/Notifications';
 
 Amplify.configure(awsExports);
 
@@ -60,6 +61,7 @@ function App() {
       element: <>
         <ButtonAppBar title="EchoNor"/>
         {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
         {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
         {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
         <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
@@ -127,7 +129,7 @@ function App() {
     setTimeout(() => {
       setIsUpdatedPost(false);
      },
-      5000
+      3000
     );
   }
 
