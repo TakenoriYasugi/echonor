@@ -96,9 +96,9 @@ function App() {
     });
     return () => {
       // @ts-ignore
-      if (subscription) {
-        subscription.unsubscribe();
-      }
+      // if (subscription) {
+      //   subscription.unsubscribe();
+      // }
     }
   }, []);
 
