@@ -4,7 +4,7 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import { ReactNode, useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { IsReactionedStates, ReactionColor, ReactionCounts, ReactionType } from "../constants/Constants";
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { ReactionStatesListContext } from "../AppWrapper";
@@ -28,7 +28,7 @@ const ReactionButton = (
 
     const reactions = useContext(ReactionStatesListContext);
     
-    useEffect(() => {
+    useLayoutEffect(() => {
         const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
         // TODO: 処理に無駄が多そうなので何とかする
         switch(variant) {
