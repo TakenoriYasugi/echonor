@@ -6,6 +6,7 @@ import { set } from 'zod';
 import Post from '../uiparts/Post';
 import { getPost, listPostsByPostId } from '../graphql/queries';
 import { formatDate } from '../util/Format';
+import dayjs from 'dayjs';
 
 const Bookmarks = () => {
     const reactions = useContext(ReactionStatesListContext);
@@ -41,10 +42,9 @@ const Bookmarks = () => {
       });
       
       Promise.all(postPromises).then(() => {
-        console.log("-- tempPosts --");
-        console.log(tempPosts);
+        const sortedPosts = tempPosts.sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
         // @ts-ignore
-        setPosts(tempPosts);
+        setPosts(sortedPosts);
       });
     }
 
