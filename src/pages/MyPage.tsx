@@ -1,15 +1,15 @@
-import { Box, Container, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { GetUserInfo } from "../util/Authenticator";
 import { useContext, useEffect, useState } from "react";
 import React from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
-import { getPost, listPosts, listPostsByUserId} from "../graphql/queries";
-import { useUser } from "../util/UserProvider";
+import { listPostsByUserId} from "../graphql/queries";
 import Post from "../uiparts/Post";
 import { formatDate } from "../util/Format";
 import { ReactionStatesListContext } from "../AppWrapper";
 import { ReactionCounts } from "../constants/Constants";
+import Bookmarks from "./Bookmarks";
 
 function MyPage() {
 
@@ -113,7 +113,7 @@ function MyPage() {
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={2}>
-          Item Three
+          <Bookmarks/>
         </CustomTabPanel>
       </Box>
     </>
