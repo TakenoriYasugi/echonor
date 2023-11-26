@@ -4,7 +4,6 @@ import { Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconB
 import { useState, useRef, useEffect, useContext } from "react";
 import ReactionButton from "./ReactionButton";
 import { IsReactionedStates, ReactionCounts, ReactionType } from "../constants/Constants";
-import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import { GetUserInfo } from "../util/Authenticator";
 import { API, graphqlOperation } from "aws-amplify";
 import { createReaction, updatePost, updateReaction } from "../graphql/mutations";

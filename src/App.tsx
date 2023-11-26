@@ -24,6 +24,7 @@ import useReactionStatesList, { ReactionStates, ReactionStatesListHook } from '.
 import { listReactions, listReactionsByUserId } from './graphql/queries';
 import { GetUserInfo } from './util/Authenticator';
 import { ReactionStatesListContext } from './AppWrapper';
+import Bookmarks from './pages/Bookmarks';
 
 Amplify.configure(awsExports);
 
@@ -57,7 +58,7 @@ function App() {
       element: <>
         <ButtonAppBar title="EchoNor"/>
         {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Typography>Favo</Typography>}
+        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
         {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
         <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
       </>,
