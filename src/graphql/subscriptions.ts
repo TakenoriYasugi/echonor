@@ -149,3 +149,25 @@ export const onDeleteReaction = /* GraphQL */ `subscription OnDeleteReaction($fi
   APITypes.OnDeleteReactionSubscriptionVariables,
   APITypes.OnDeleteReactionSubscription
 >;
+
+export const onUpdatePostByUserId = /* GraphQL */ `
+subscription OnUpdatePostByUserId($userId: String!) {
+  onUpdatePost(filter: {userId: {eq: $userId}}) {
+    postId
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedSubscription<
+APITypes.OnUpdatePostSubscriptionVariables,
+APITypes.OnUpdatePostSubscription>;
