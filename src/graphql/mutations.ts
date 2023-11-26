@@ -16,6 +16,15 @@ export const createPost = /* GraphQL */ `mutation CreatePost(
     postId
     userId
     content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
     id
     createdAt
     updatedAt
@@ -34,6 +43,15 @@ export const updatePost = /* GraphQL */ `mutation UpdatePost(
     postId
     userId
     content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
     id
     createdAt
     updatedAt
@@ -52,6 +70,15 @@ export const deletePost = /* GraphQL */ `mutation DeletePost(
     postId
     userId
     content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
     id
     createdAt
     updatedAt
@@ -61,4 +88,82 @@ export const deletePost = /* GraphQL */ `mutation DeletePost(
 ` as GeneratedMutation<
   APITypes.DeletePostMutationVariables,
   APITypes.DeletePostMutation
+>;
+export const createReaction = /* GraphQL */ `mutation CreateReaction(
+  $input: CreateReactionInput!
+  $condition: ModelReactionConditionInput
+) {
+  createReaction(input: $input, condition: $condition) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateReactionMutationVariables,
+  APITypes.CreateReactionMutation
+>;
+export const updateReaction = /* GraphQL */ `mutation UpdateReaction(
+  $input: UpdateReactionInput!
+  $condition: ModelReactionConditionInput
+) {
+  updateReaction(input: $input, condition: $condition) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateReactionMutationVariables,
+  APITypes.UpdateReactionMutation
+>;
+export const deleteReaction = /* GraphQL */ `mutation DeleteReaction(
+  $input: DeleteReactionInput!
+  $condition: ModelReactionConditionInput
+) {
+  deleteReaction(input: $input, condition: $condition) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteReactionMutationVariables,
+  APITypes.DeleteReactionMutation
 >;

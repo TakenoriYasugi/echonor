@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
 import { Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
-import { Avatar, Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Avatar, Card, CardActionArea, Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
 import { Link as RouterLink, useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -33,7 +33,6 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   useEffect( () => {
     const user = GetUserInfo().then((user) => {
-      console.log(user)
       setUserEmail(user.attributes.email)
     })
   }, [])
@@ -70,11 +69,16 @@ const ButtonAppBar = ({title}: {title: string}) => {
         <img src={echonorLogo} style={{ width: '100%', height: '100%' }} />
       </Box>
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <Typography fontSize={15} sx={{ my: 2 }}>
-          {userEmail}
-        </Typography>
-        <Divider />
         <List>
+          <ListItem key={"userId"}>
+            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => handleLinkClick("/mypage")}>
+              <Typography fontSize={12}>
+                {userEmail}
+              </Typography>
+            </ListItemButton>
+          </ListItem>
+          
+          <Divider />
           {navItems.map((item) => (
             <ListItem key={item.text} disablePadding>
                 <ListItemButton sx={{ textAlign: 'center' }} onClick={() => handleLinkClick(item.url)}>
@@ -106,7 +110,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
-            <Button variant='contained' onClick={() => handleLinkClick("/profile")}>プロフィール</Button>
+            <Button sx={{textTransform: 'none'}} color='secondary' variant='outlined' onClick={() => handleLinkClick("/mypage")}>MyPage</Button>
           </Toolbar>
         </AppBar>
       </Box>

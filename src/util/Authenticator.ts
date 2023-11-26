@@ -1,4 +1,5 @@
 import { Auth } from 'aws-amplify';
+import { createContext } from 'react';
 
 /// ログイン済みかどうかを返却する関数
 /// 使用例
@@ -9,10 +10,11 @@ import { Auth } from 'aws-amplify';
 //       // ユーザーはログインしていない処理
 //     }
 //   });
+
+
 export const CheckUserLoggedIn = async () => {
   try {
     const user = await Auth.currentAuthenticatedUser();
-    console.log(user);
     return true; // ユーザーはログイン済み
   } catch (error) {
     console.log(error);
@@ -39,5 +41,3 @@ export const Logout = async () => {
     console.error('ログアウト中にエラーが発生しました', error);
   }
 };
-
-

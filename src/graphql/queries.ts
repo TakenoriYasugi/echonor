@@ -13,6 +13,15 @@ export const getPost = /* GraphQL */ `query GetPost($id: ID!) {
     postId
     userId
     content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
     id
     createdAt
     updatedAt
@@ -30,6 +39,15 @@ export const listPosts = /* GraphQL */ `query ListPosts(
       postId
       userId
       content
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
       id
       createdAt
       updatedAt
@@ -40,7 +58,51 @@ export const listPosts = /* GraphQL */ `query ListPosts(
   }
 }
 ` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
-
+export const getReaction = /* GraphQL */ `query GetReaction($id: ID!) {
+  getReaction(id: $id) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetReactionQueryVariables,
+  APITypes.GetReactionQuery
+>;
+export const listReactions = /* GraphQL */ `query ListReactions(
+  $filter: ModelReactionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReactions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      userId
+      postId
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReactionsQueryVariables,
+  APITypes.ListReactionsQuery
+>;
 export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
   $userId: String
   $limit: Int
@@ -52,6 +114,15 @@ export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
       userId
       content
       id
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -62,3 +133,57 @@ export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
 }
 ` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
 
+export const listPostsByPostId = /* GraphQL */ `query ListPostsByPostId(
+  $postId: ID!
+) {
+  listPosts(filter: {postId: {eq: $postId}}) {
+    items {
+      postId
+      userId
+      content
+      id
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
+
+
+export const listReactionsByUserId = /* GraphQL */ `query ListReactions(
+  $userId: String
+) {
+  listReactions(filter: {userId: {eq: $userId}}) {
+    items {
+      postId
+      reactionStates {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+      id
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReactionsQueryVariables,
+  APITypes.ListReactionsQuery
+>;
