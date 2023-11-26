@@ -11,7 +11,8 @@ export enum ReactionType {
     Smile = 'smile',
     Sad = 'sad',
     Surprise = 'surprise',
-    Bad = 'bad'
+    Bad = 'bad',
+    Bookmark = 'bookmark'
 }
 
 export enum ReactionColor {
@@ -21,6 +22,7 @@ export enum ReactionColor {
     Sad = "#ff9800",
     Bad = "blue",
     Default = "gray",
+    Bookmark = "orange"
 }
 
 export type ReactionCounts = {
@@ -29,6 +31,7 @@ export type ReactionCounts = {
     smile: number,
     sad: number,
     bad: number,
+    bookmark: number
   }
 
 

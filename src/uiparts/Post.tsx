@@ -145,7 +145,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
       const input = {
         postId: postId,  // postIdを指定
         id: id,
-        reactionCounts: {...changedReactionCounts, bookmark: 0}  // 更新するreactionCountsの値
+        reactionCounts: {...changedReactionCounts}  // 更新するreactionCountsの値
       };
 
       console.log("input : " + input)
@@ -171,9 +171,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
                       <Typography fontSize={"small"}>{date}</Typography>
                     </Grid>
                     <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                      <IconButton onClick={() => {setIsBookmarked(!isBookmarked)}}>
-                        <BookmarksIcon sx={ isBookmarked ? {color: "orange"} : {color: "gray"}}/>
-                      </IconButton>
+                      <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
                     </Grid>
                     <Grid item xs={12}>
                       <CardActionArea onClick={handleClick}>

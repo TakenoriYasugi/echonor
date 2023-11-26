@@ -8,6 +8,8 @@ import { ReactNode, useContext, useEffect, useState } from "react";
 import { IsReactionedStates, ReactionColor, ReactionCounts, ReactionType } from "../constants/Constants";
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { ReactionStatesListContext } from "../AppWrapper";
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+
 
 const ReactionButton = (
     {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, fetchUpdatePost, fetchUpdateReactionStates, initialIsPushed}: 
@@ -54,6 +56,12 @@ const ReactionButton = (
                 setIcon(<ThumbDownAltIcon sx={isPushed ? {color: ReactionColor.Bad} : {color: ReactionColor.Default}}/>);
                 setIsPushed(state?.states.bad || false)
                 break;
+            
+            case ReactionType.Bookmark:
+                setIcon(<BookmarksIcon sx={isPushed ? {color: ReactionColor.Bookmark} : {color: ReactionColor.Default}}/>);
+                setIsPushed(state?.states.bookmark || false)
+                break;
+                
             default:
                 console.log("リアクションアイコン表示エラー")
                 break;
@@ -67,7 +75,9 @@ const ReactionButton = (
             good: 0,
             smile: 0,
             sad: 0,
-            bad: 0};
+            bad: 0,
+            bookmark: 0
+        };
         
         const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
 
@@ -132,6 +142,17 @@ const ReactionButton = (
                     changedReactionStates = {...changedReactionStates, bad: true}
                 }
                 break;
+            
+            case ReactionType.Bookmark:
+            if (isPushed) {
+                changedReactionCounts = ({...reactionCounts, bookmark: reactionCounts.bookmark - 1});
+                changedReactionStates = {...changedReactionStates, bookmark: false}
+
+            } else {
+                changedReactionCounts = ({...reactionCounts, bookmark: reactionCounts.bookmark + 1});
+                changedReactionStates = {...changedReactionStates, bookmark: true}
+            }
+            break;
             default:
                 console.log("リアクションアイコン押下時エラー")
                 break;
