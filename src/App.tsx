@@ -27,6 +27,7 @@ import { ReactionStatesListContext } from './AppWrapper';
 import Bookmarks from './pages/Bookmarks';
 import { onUpdatePostByUserId } from './graphql/subscriptions';
 import ReactionedAlert from './uiparts/ReactionedAlert';
+import { Observable } from 'zen-observable-ts';
 
 Amplify.configure(awsExports);
 
@@ -86,24 +87,24 @@ function App() {
   const[isUpdatedPost, setIsUpdatedPost] = useState(false);
 
   useEffect( () => {
-    // @ts-ignore
-    let subscription;
+    let subscription: ZenObservable.Subscription | undefined;
     GetUserInfo().then((user) => {
       setUser(user);
       // @ts-ignore
       fetchReactionStatesList(user.username);
-      subscription = subscribePostUpdate(user.username);
+      subscribePostUpdate(user.username).then((sub) => {
+        subscription = sub;
+      });
     });
     return () => {
-      // @ts-ignore
-      // if (subscription) {
-      //   subscription.unsubscribe();
-      // }
+      if (subscription) {
+        subscription.unsubscribe();
+      }
     }
   }, []);
 
-  const subscribePostUpdate = async (userId: string) => {
-    const subscription = API.graphql(
+  const subscribePostUpdate = async (userId: string) : Promise<ZenObservable.Subscription> => {
+    return API.graphql(
       graphqlOperation(onUpdatePostByUserId, { userId: userId })
       // @ts-ignore
     ).subscribe({
@@ -114,7 +115,7 @@ function App() {
       error: (error: any) => {
         console.error('Error with subscription:', error);
       },
-    });
+    }) as ZenObservable.Subscription;
   }
 
   // 通知用のAlertを表示する。５秒間表示し、その後非表示にする。
