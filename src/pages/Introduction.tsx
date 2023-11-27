@@ -3,7 +3,7 @@ import 'swiper/css';
 import { Box, Button, Card, CardContent, Modal, Paper, Typography } from '@mui/material';
 import SwiperCore from 'swiper';
 import logo from "../images/echonor_logo_resize_comp.png";
-import { useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
@@ -27,6 +27,45 @@ const Introduction = () => {
         }
     };
 
+    const intoroductionContents: ReactNode[] = [<>
+        <Box>
+            <img src={logo} alt="logo" width="100%" height="100%"></img>
+        </Box>
+        <Typography variant='h5'>EchoNorへようこそ</Typography>
+        <Typography variant="body1">
+            EchoNor（エコノア）は「繋がらないSNS」というコンセプトを持つ匿名性を重視したSNSです。
+            EchoNorではユーザーのプライバシーと安全性が最優先され、自由に意見や感情を表現することができます。
+        </Typography>
+
+    </>,
+    <>
+        <Typography variant='h5'>EchoNorの特徴</Typography>
+        <Typography variant="body1">
+            EchoNorでは、ユーザーの名前や身元が他のユーザーに知られることはありません。
+            投稿の追跡も不可能であり、フォローやダイレクトメッセージのような直接的なつながりも存在しません。
+            これにより、安心して自分の思いを共有することが可能です。
+        </Typography>
+    </>,
+    <>
+        <Typography variant='h5'>EchoNorの使い方</Typography>
+        <Typography variant="body1">
+            EchoNorでは、投稿に対してリアクションを送ることができます。
+            リアクションは、投稿に対して「いいね」や「悲しい」などの感情を表すことができます。
+            また、リアクションを送ることで、投稿をブックマークすることもできます。
+        </Typography>
+    </>,
+    <>
+        <Typography variant='h5'>集会場（工事中）</Typography>
+        <Typography variant="body1">
+            集会場では１つのトピックについてユーザーが自由に意見を投稿することができます。
+            また、他のユーザーの意見に対してリアクションを送ることもできます。
+            トピックの作成は、ユーザーが自由に行うことができます。
+            作成されたトピックはしばらく更新がない場合、自動的に削除されます。
+        </Typography>
+    </>,
+    ]
+    
+
     return (
         <>
             <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button>
@@ -35,62 +74,22 @@ const Introduction = () => {
                     <Swiper
                     spaceBetween={50}
                     slidesPerView={1}
-                    onSlideChange={() => console.log('slide change')}
                     ref={swiperRef}
                     >
-                        <SwiperSlide>
-                            <Card>
-                                <CardContent>
-                                    <Box>
-                                        <img src={logo} alt="logo" width="100%" height="100%"></img>
-                                    </Box>
-                                    <Typography variant='h4'>EchoNorへようこそ</Typography>
-                                    <Typography>EchoNorは、匿名性を重視した「繋がらないSNS」です。</Typography>
-                                    <Typography>誰かがあなたの名前を知ることも、フォローしてくることもありません。</Typography>
-                                </CardContent>
-                            </Card>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card sx={{width: 300}}>
-                                <CardContent>
-                                    <h2>2</h2>
-                                </CardContent>
-                            </Card>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card sx={{width: 300}}>
-                                <CardContent>
-                                    <h2>3</h2>
-                                </CardContent>
-                            </Card>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card sx={{width: 300}}>
-                                <CardContent>
-                                    <h2>1</h2>
-                                </CardContent>
-                            </Card>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card sx={{width: 300}}>
-                                <CardContent>
-                                    <h2>2</h2>
-                                </CardContent>
-                            </Card>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Card sx={{width: 300}}>
-                                <CardContent>
-                                    <h2>3</h2>
-                                </CardContent>
-                            </Card>
-                        </SwiperSlide>
+                        {intoroductionContents.map((content) => (
+                            <SwiperSlide>
+                                <Card sx={{width: 300}}>
+                                    <CardContent>
+                                        {content}
+                                    </CardContent>
+                                </Card>
+                            </SwiperSlide>
+                        ))}
                     </Swiper>
 
                     <Button onClick={() => setIsOpen(false)}>閉じる</Button>
                     <Button onClick={goToPrevSlide}>前へ</Button>
                     <Button onClick={goToNextSlide}>次へ</Button>
-                    
                     
                 </Paper>
             </Modal>
