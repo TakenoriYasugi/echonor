@@ -161,21 +161,21 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
         <div ref={cardRef}>
           <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
               <Card className="post" sx={{p: 0.5, m: 3}}>
-                <CardContent>
+                <CardContent sx={{p: 1, pt: 0}}>
+                  <Grid container>
+                    <Grid item xs={10} sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography fontSize={"small"}>{date}</Typography>
+                    </Grid>
+                    <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                        <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
+                        <Typography fontSize={"small"}>{reactionCounts.bookmark || ""}</Typography>
+                    </Grid>
                     <CardActionArea onClick={handleClick}>
-                      <Grid container>
-                        <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
-                          <Typography fontSize={"small"}>{date}</Typography>
-                        </Grid>
-                        <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                            <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
-                            <Typography fontSize={"small"}>{reactionCounts.bookmark || ""}</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{minHeight: "50px"}}>
                           <Typography fontSize={"medium"}>{text}</Typography>
                         </Grid>
-                      </Grid>
                     </CardActionArea>
+                  </Grid>
                 </CardContent>
     
                 {isReactioned() && <Divider/>}
