@@ -30,6 +30,7 @@ import ReactionedAlert from './uiparts/ReactionedAlert';
 import { Observable } from 'zen-observable-ts';
 import Notifications from './pages/Notifications';
 import Introduction from './pages/Introduction';
+import DummyPage from './sandbox/DummyPage';
 
 Amplify.configure(awsExports);
 
@@ -87,6 +88,17 @@ function App() {
       element: <>
         <ButtonAppBar title="EchoNor"/>
         <Introduction/>
+      </>
+    },
+    {
+      path: "/dummypage",
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        {currentButtonNavigation === ButtonNavigationLabel.Home && <DummyPage/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+        <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
       </>
     }
   ]);
