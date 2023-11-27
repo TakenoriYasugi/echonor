@@ -1,9 +1,11 @@
 import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { Box, Button, Card, CardContent, Modal, Paper, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Grid, IconButton, Modal, Paper, Typography } from '@mui/material';
 import SwiperCore from 'swiper';
 import logo from "../images/echonor_logo_resize_comp.png";
 import { ReactNode, useRef, useState } from 'react';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
@@ -71,28 +73,40 @@ const Introduction = () => {
             <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button>
             <Modal open={isOpen} sx={{m: 2}}>
                 <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
-                    <Box sx={{p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <Swiper
-                        spaceBetween={50}
-                        slidesPerView={1}
-                        ref={swiperRef}
-                        >
-                            {intoroductionContents.map((content) => (
-                                <SwiperSlide>
-                                    <Card sx={{width: 300}}>
-                                        <CardContent>
-                                            {content}
-                                        </CardContent>
-                                    </Card>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    </Box>
-
-                    <Button onClick={() => setIsOpen(false)}>閉じる</Button>
-                    <Button onClick={goToPrevSlide}>前へ</Button>
-                    <Button onClick={goToNextSlide}>次へ</Button>
-                    
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Box sx={{p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", height: "100%"}}>
+                                <Swiper
+                                spaceBetween={50}
+                                slidesPerView={1}
+                                ref={swiperRef}
+                                >
+                                    {intoroductionContents.map((content) => (
+                                        <SwiperSlide>
+                                            <Card>
+                                                <CardContent>
+                                                    {content}
+                                                </CardContent>
+                                            </Card>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', px: 2 }}>
+                                <IconButton onClick={goToPrevSlide}>
+                                    <ArrowBackIosNewIcon />
+                                </IconButton>
+                                <IconButton onClick={goToNextSlide}>
+                                    <ArrowForwardIosIcon />
+                                </IconButton>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button onClick={() => setIsOpen(false)}>閉じる</Button>
+                        </Grid>
+                    </Grid>
                 </Paper>
             </Modal>
         </>
