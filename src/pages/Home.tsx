@@ -12,6 +12,7 @@ import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 import { formatDate } from "../util/Format";
 import { MAX_POST_COUNT, ReactionCounts } from "../constants/Constants";
 import { ReactionStatesListContext } from "../AppWrapper";
+import Timeline from "../uiparts/Timeline";
 
 const Home = () => {
 
@@ -47,26 +48,31 @@ const Home = () => {
   return (
       <>
       <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
-        <>
-          {posts.map( (post) => {
-            // @ts-ignore
-            var reactionCounts: ReactionCounts;
+      {/* @ts-ignore */}
+      {posts.map((post: any) => {
+        // @ts-ignore
+        var reactionCounts: ReactionCounts;
 
+        // @ts-ignore
+        if (!post.reactionCounts) {
             // @ts-ignore
-            if (!post.reactionCounts) {
-              // @ts-ignore
-              reactionCounts = {good: 0, heart: 0, smile: 0, sad: 0, bad: 0} as ReactionCounts;
-            } else {
-              reactionCounts = {
-              // @ts-ignore
-                good: post.reactionCounts.good, heart: post.reactionCounts.heart, smile: post.reactionCounts.smile, sad: post.reactionCounts.sad, bad: post.reactionCounts.bad,
-              } as ReactionCounts;
-            }
+            reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
+        } else {
+            reactionCounts = {
+            // @ts-ignore
+            good: post.reactionCounts.good,
+            heart: post.reactionCounts.heart,
+            smile: post.reactionCounts.smile,
+            sad: post.reactionCounts.sad,
+            bad: post.reactionCounts.bad,
+            bookmark: post.reactionCounts.bookmark
+            } as ReactionCounts;
+        }
 
-            // @ts-ignore
-            return <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
-          })}
-        </>
+        return (
+            <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
+        );
+    })}
       </PullToRefresh>
         <Zoom in={true}>
           <Box sx={{position: "fixed", right: 20, bottom: 80}}>

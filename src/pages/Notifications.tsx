@@ -7,11 +7,11 @@ import { ReactionStatesListContext } from "../AppWrapper";
 import { onUpdatePostByUserId } from "../graphql/subscriptions";
 import { GetUserInfo } from "../util/Authenticator";
 import dayjs from "dayjs";
-import { ReactionCounts } from "../API";
 import { Box, Typography } from "@mui/material";
 import Post from "../uiparts/Post";
 import { listPostsByUserId } from "../graphql/queries";
 import { formatDate } from "../util/Format";
+import { ReactionCounts } from "../constants/Constants";
 
 // この際、ReactionCountsが全て0のPostは表示しない。
 const Notifications = () => {
@@ -70,24 +70,29 @@ const Notifications = () => {
                 </Typography>
             </Box>
             {/* @ts-ignore */}
-            {usersPosts.map((usersPost) => {
-                var reactionCounts: ReactionCounts;
-
+            {usersPosts.map((post: any) => {
                 // @ts-ignore
-                if (!usersPost.reactionCounts) {
+                var reactionCounts: ReactionCounts;
+        
+                // @ts-ignore
+                if (!post.reactionCounts) {
                     // @ts-ignore
-                    reactionCounts = {good: 0, heart: 0, smile: 0, sad: 0, bad: 0} as ReactionCounts;
-                    } else {
+                    reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
+                } else {
                     reactionCounts = {
                     // @ts-ignore
-                        good: usersPost.reactionCounts.good, heart: usersPost.reactionCounts.heart, smile: usersPost.reactionCounts.smile, sad: usersPost.reactionCounts.sad, bad: usersPost.reactionCounts.bad,
+                    good: post.reactionCounts.good,
+                    heart: post.reactionCounts.heart,
+                    smile: post.reactionCounts.smile,
+                    sad: post.reactionCounts.sad,
+                    bad: post.reactionCounts.bad,
+                    bookmark: post.reactionCounts.bookmark
                     } as ReactionCounts;
-                } 
-                if (reactionCounts.good === 0 && reactionCounts.heart === 0 && reactionCounts.smile === 0 && reactionCounts.sad === 0 && reactionCounts.bad === 0) {
-                    return <></>
                 }
-                // @ts-ignore
-                return <Post key={usersPost.postId} id={usersPost.id} postId={usersPost.postId} text={usersPost.content} date={formatDate(usersPost.createdAt)} initialReactionCounts={reactionCounts}/>
+        
+                return (
+                    <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
+                );
             })}
         </>
     )

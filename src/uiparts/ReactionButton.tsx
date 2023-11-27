@@ -147,12 +147,13 @@ const ReactionButton = (
                 break;
             
             case ReactionType.Bookmark:
+                const existsBookmarkCount = (reactionCounts.bookmark !== null && reactionCounts.bookmark !== undefined)
             if (isPushed) {
-                changedReactionCounts = ({...reactionCounts, bookmark: reactionCounts.bookmark ? reactionCounts.bookmark - 1 : 0});
+                changedReactionCounts = ({...reactionCounts, bookmark: existsBookmarkCount ? reactionCounts.bookmark - 1 : 0});
                 changedReactionStates = {...changedReactionStates, bookmark: false}
 
             } else {
-                changedReactionCounts = ({...reactionCounts, bookmark: reactionCounts.bookmark ? reactionCounts.bookmark + 1 : 1});
+                changedReactionCounts = ({...reactionCounts, bookmark: existsBookmarkCount ? reactionCounts.bookmark + 1 : 1});
                 changedReactionStates = {...changedReactionStates, bookmark: true}
             }
             break;
