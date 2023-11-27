@@ -1,6 +1,6 @@
 // タイムラインに流れる投稿
 
-import { Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
 import { useState, useRef, useEffect, useContext } from "react";
 import ReactionButton from "./ReactionButton";
 import { IsReactionedStates, ReactionCounts, ReactionType } from "../constants/Constants";
@@ -66,8 +66,6 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
     const isReactioned = () => {
       return (reactionCounts.heart > 0 || reactionCounts.good > 0 || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
     }
-    
-    const [isBookmarked, setIsBookmarked] = useState(false);
 
     const reactions = useContext(ReactionStatesListContext);
 
@@ -171,7 +169,8 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
                           <Typography fontSize={"small"}>{date}</Typography>
                         </Grid>
                         <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                          <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
+                            <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
+                            <Typography fontSize={"small"}>{reactionCounts.bookmark || "0"}</Typography>
                         </Grid>
                         <Grid item xs={12}>
                           <Typography fontSize={"medium"}>{text}</Typography>
