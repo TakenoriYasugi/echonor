@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+# EchoNor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+EchoNorは、つながらないSNSとして、ユーザ同士の直接的なコミュニケーションを廃し、匿名性を重視したプロジェクトです。
 
-## Available Scripts
+## 概要
 
-In the project directory, you can run:
+EchoNorは、ユーザが自分のアイデンティティを明かさずに、自由に情報を共有できるプラットフォームです。ユーザは投稿を行うことができますが、他のユーザとのフォローやダイレクトメッセージのやり取りはできません。これにより、ユーザは自分の意見や情報を自由に発信することができます。
 
-### `npm start`
+## 特徴
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 匿名性の確保: ユーザは自分のアイデンティティを明かさずに投稿できます。
+- 自由な情報共有: ユーザは自分の意見や情報を自由に発信することができます。
+- コミュニケーションの廃止: フォローやダイレクトメッセージの機能はありません。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## インストール
 
-### `npm test`
+以下の手順に従って、EchoNorをインストールしてください。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. リポジトリをクローンします。
+    ```shell
+    git clone https://github.com/YsFactory/echonor.git
+    ```
 
-### `npm run build`
+2. プロジェクトのディレクトリに移動します。
+    ```shell
+    cd echonor
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. 必要なパッケージをインストールします。
+    ```shell
+    npm install
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. アプリケーションを起動します。
+    ```shell
+    npm start
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 使用方法
 
-### `npm run eject`
+EchoNorの使用方法については、以下の手順を参考にしてください。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. アプリケーションを起動します。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. ブラウザで `http://localhost:3000` にアクセスします。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. ユーザ登録を行います。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. ログイン後、投稿を行うことができます。
 
-## Learn More
+## 貢献方法
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+EchoNorに貢献する方法については、以下の手順を参考にしてください。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. リポジトリをフォークします。
+
+2. ローカルにクローンします。
+    ```shell
+    git clone https://github.com/your-username/echonor.git
+    ```
+
+3. ブランチを作成します。
+    ```shell
+    git checkout -b feature/your-feature
+    ```
+
+4. 変更をコミットします。
+    ```shell
+    git commit -m "Add your feature"
+    ```
+
+5. 変更をプッシュします。
+    ```shell
+    git push origin feature/your-feature
+    ```
+
+6. プルリクエストを作成します。
+
+## ライセンス
+
+EchoNorは[MITライセンス](https://opensource.org/licenses/MIT)のもとで公開されています。
+
+## お問い合わせ
+
+- 開発者公式サイト: [Y's Factory](https://ysfactoryportal.com/)
