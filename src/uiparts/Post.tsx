@@ -170,7 +170,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
                         </Grid>
                         <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
                             <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
-                            <Typography fontSize={"small"}>{reactionCounts.bookmark || "0"}</Typography>
+                            <Typography fontSize={"small"}>{reactionCounts.bookmark || ""}</Typography>
                         </Grid>
                         <Grid item xs={12}>
                           <Typography fontSize={"medium"}>{text}</Typography>
