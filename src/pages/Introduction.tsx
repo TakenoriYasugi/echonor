@@ -1,15 +1,31 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Box, Button, Card, CardContent, Modal, Paper, Typography } from '@mui/material';
 import SwiperCore from 'swiper';
 import logo from "../images/echonor_logo_resize_comp.png";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
 const Introduction = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(true);
+
+    const swiperRef = useRef<SwiperRef>(null);
+
+    // スライドを次に移動する関数
+    const goToNextSlide = () => {
+        if (swiperRef) {
+        swiperRef.current?.swiper.slideNext();
+        }
+    };
+
+    // スライドを前に移動する関数
+    const goToPrevSlide = () => {
+        if (swiperRef) {
+        swiperRef.current?.swiper.slidePrev();
+        }
+    };
 
     return (
         <>
@@ -20,7 +36,7 @@ const Introduction = () => {
                     spaceBetween={50}
                     slidesPerView={1}
                     onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper: SwiperCore) => console.log(swiper)}
+                    ref={swiperRef}
                     >
                         <SwiperSlide>
                             <Card>
@@ -72,6 +88,10 @@ const Introduction = () => {
                     </Swiper>
 
                     <Button onClick={() => setIsOpen(false)}>閉じる</Button>
+                    <Button onClick={goToPrevSlide}>前へ</Button>
+                    <Button onClick={goToNextSlide}>次へ</Button>
+                    
+                    
                 </Paper>
             </Modal>
         </>
