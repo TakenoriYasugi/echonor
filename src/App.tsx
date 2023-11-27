@@ -29,6 +29,7 @@ import { onUpdatePostByUserId } from './graphql/subscriptions';
 import ReactionedAlert from './uiparts/ReactionedAlert';
 import { Observable } from 'zen-observable-ts';
 import Notifications from './pages/Notifications';
+import Introduction from './pages/Introduction';
 
 Amplify.configure(awsExports);
 
@@ -69,7 +70,6 @@ function App() {
     },
     {
       path: "/mypage",
-      
       element: <>
         <ButtonAppBar title="EchoNor"/>
         <MyPage/>
@@ -82,6 +82,13 @@ function App() {
         <MeetingPlace/>
       </>
     },
+    {
+      path: "/introduction",
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        <Introduction/>
+      </>
+    }
   ]);
 
   const [user, setUser] = useState();
