@@ -12,7 +12,6 @@ import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 import { formatDate } from "../util/Format";
 import { MAX_POST_COUNT, ReactionCounts } from "../constants/Constants";
 import { ReactionStatesListContext } from "../AppWrapper";
-import Timeline from "../uiparts/Timeline";
 
 const Home = () => {
 
