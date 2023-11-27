@@ -162,9 +162,6 @@ function App() {
       
       // @ts-ignore
       reactions.setReactionStatesList(tempReactionStatesList);
-
-      console.log("-- fetched context -- ");
-      console.log(reactions.reactionStatesList)
       
     } catch (err) {
       console.error('Error fetching reaction states', err);

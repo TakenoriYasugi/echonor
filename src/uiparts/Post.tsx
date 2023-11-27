@@ -88,7 +88,6 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
       if (states === null) {
         // リアクションが存在しない場合は新規作成。
         try {
-          console.log("null check")
           const input = {
             // @ts-ignore
             userId: user.username,
