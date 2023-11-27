@@ -69,7 +69,7 @@ const Introduction = () => {
     return (
         <>
             <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button>
-            <Modal open={isOpen}>
+            <Modal open={isOpen} sx={{m: 2}}>
                 <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
                     <Box sx={{p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <Swiper
