@@ -54,7 +54,14 @@ const Notifications = () => {
           const postData = await API.graphql(graphqlOperation(listPostsByUserId, { userId }));
           // @ts-ignore
           const posts = postData.data.listPosts.items;
-          const sortedPosts = posts.sort((a: { updatedAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { updatedAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.updatedAt).valueOf() - dayjs(a.updatedAt).valueOf());
+          const blankCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 };
+          const reactionedPosts = posts.filter((post: any) => {
+            
+            // 定義されていない場合は全て0とする。
+            const reactionCounts: ReactionCounts = post.reactionCounts ? post.reactionCounts : blankCounts;
+            return reactionCounts.good > 0 || reactionCounts.heart > 0 || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0 || reactionCounts.bookmark > 0;
+          });
+          const sortedPosts = reactionedPosts.sort((a: { updatedAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { updatedAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.updatedAt).valueOf() - dayjs(a.updatedAt).valueOf());
           setUsersPosts(sortedPosts);
         } catch (err) {
           console.error('Error fetching posts', err);
