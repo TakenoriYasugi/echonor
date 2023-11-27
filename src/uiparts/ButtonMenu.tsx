@@ -1,14 +1,8 @@
 import * as React from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import FolderIcon from '@mui/icons-material/Folder';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
-import { TypeFormatFlags } from 'typescript';
-import { Typography } from '@mui/material';
 import { ButtonNavigationLabel } from '../constants/Constants';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
