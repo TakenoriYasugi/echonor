@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import './App.css';
-import { Box, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { Alert, AlertTitle, Box, Card, CssBaseline, Slide, ThemeProvider, Typography, Zoom, createTheme } from '@mui/material';
 import Layout from './layout/Layout';
 import { ButtonNavigationLabel } from './constants/Constants';
 import ButtonMenu from './uiparts/ButtonMenu';
@@ -25,6 +25,10 @@ import { listReactions, listReactionsByUserId } from './graphql/queries';
 import { GetUserInfo } from './util/Authenticator';
 import { ReactionStatesListContext } from './AppWrapper';
 import Bookmarks from './pages/Bookmarks';
+import { onUpdatePostByUserId } from './graphql/subscriptions';
+import ReactionedAlert from './uiparts/ReactionedAlert';
+import { Observable } from 'zen-observable-ts';
+import Notifications from './pages/Notifications';
 
 Amplify.configure(awsExports);
 
@@ -50,7 +54,6 @@ function App() {
     }
   );
 
-  
   // TODO: ButtonAppBarの記述をまとめたい。
   const router = createBrowserRouter([
     {
@@ -58,6 +61,7 @@ function App() {
       element: <>
         <ButtonAppBar title="EchoNor"/>
         {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
         {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
         {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
         <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
@@ -82,13 +86,52 @@ function App() {
 
   const [user, setUser] = useState();
 
+  const[isUpdatedPost, setIsUpdatedPost] = useState(false);
+
   useEffect( () => {
+    let subscription: ZenObservable.Subscription | undefined;
     GetUserInfo().then((user) => {
       setUser(user);
       // @ts-ignore
       fetchReactionStatesList(user.username);
+      subscribePostUpdate(user.username).then((sub) => {
+        subscription = sub;
+      });
     });
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    }
   }, []);
+
+  const subscribePostUpdate = async (userId: string) : Promise<ZenObservable.Subscription> => {
+    return API.graphql(
+      graphqlOperation(onUpdatePostByUserId, { userId: userId })
+      // @ts-ignore
+    ).subscribe({
+      next: (data: any) => {
+        console.log('Post updated:', data);
+        appearAlert(data.value.data.onUpdatePost.content);
+      },
+      error: (error: any) => {
+        console.error('Error with subscription:', error);
+      },
+    }) as ZenObservable.Subscription;
+  }
+
+
+  const [alertContent, setAlertContent] = useState<string>("");
+  // 通知用のAlertを表示する。５秒間表示し、その後非表示にする。
+  const appearAlert = (content: string) => {
+    setAlertContent(content);
+    setIsUpdatedPost(true);
+    setTimeout(() => {
+      setIsUpdatedPost(false);
+     },
+      3000
+    );
+  }
 
   const reactions = useContext(ReactionStatesListContext);
 
@@ -119,9 +162,6 @@ function App() {
       
       // @ts-ignore
       reactions.setReactionStatesList(tempReactionStatesList);
-
-      console.log("-- fetched context -- ");
-      console.log(reactions.reactionStatesList)
       
     } catch (err) {
       console.error('Error fetching reaction states', err);
@@ -139,6 +179,19 @@ function App() {
             {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
             <Box sx={{pt: 7, pb: 7}}>
               <Layout>
+                  <Slide direction="down" in={isUpdatedPost} mountOnEnter unmountOnExit>
+                    <div style={{ position: "fixed", top: 50, left: 0, right: 0, zIndex: 999 }}>
+                      <Alert severity="info">
+                          <AlertTitle>リアクションされました！</AlertTitle>
+                          以下の投稿にリアクションがありました
+                          <Box sx={{m: 1, borderRadius: "10px", backgroundColor: "#FFFFFF"}}>
+                            <Typography variant="body2" fontSize={12} sx={{p: 1}}>
+                              {alertContent}
+                            </Typography>
+                          </Box>
+                      </Alert>
+                    </div>
+                  </Slide>
                 <RouterProvider router={router} />
               </Layout>
             </Box>

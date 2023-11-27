@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@types/uuid": "^9.0.7"
+    "@types/uuid": "^9.0.7",
+    "@types/zen-observable": "^0.8.7"
   }
 }

@@ -1,6 +1,6 @@
 // タイムラインに流れる投稿
 
-import { Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Collapse, Divider, Grid, Grow, IconButton, Popover, Stack, Typography, Zoom } from "@mui/material";
 import { useState, useRef, useEffect, useContext } from "react";
 import ReactionButton from "./ReactionButton";
 import { IsReactionedStates, ReactionCounts, ReactionType } from "../constants/Constants";
@@ -66,8 +66,6 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
     const isReactioned = () => {
       return (reactionCounts.heart > 0 || reactionCounts.good > 0 || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
     }
-    
-    const [isBookmarked, setIsBookmarked] = useState(false);
 
     const reactions = useContext(ReactionStatesListContext);
 
@@ -90,7 +88,6 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
       if (states === null) {
         // リアクションが存在しない場合は新規作成。
         try {
-          console.log("null check")
           const input = {
             // @ts-ignore
             userId: user.username,
@@ -164,20 +161,21 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
         <div ref={cardRef}>
           <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
               <Card className="post" sx={{p: 0.5, m: 3}}>
-                <CardContent>
+                <CardContent sx={{p: 1, pt: 0}}>
+                  <Grid container>
+                    <Grid item xs={10} sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography fontSize={"small"}>{date}</Typography>
+                    </Grid>
+                    <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                        <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
+                        <Typography fontSize={"small"}>{reactionCounts.bookmark || ""}</Typography>
+                    </Grid>
                     <CardActionArea onClick={handleClick}>
-                      <Grid container>
-                        <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
-                          <Typography fontSize={"small"}>{date}</Typography>
-                        </Grid>
-                        <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                          <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
-                        </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{minHeight: "50px"}}>
                           <Typography fontSize={"medium"}>{text}</Typography>
                         </Grid>
-                      </Grid>
                     </CardActionArea>
+                  </Grid>
                 </CardContent>
     
                 {isReactioned() && <Divider/>}

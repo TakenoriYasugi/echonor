@@ -4,5 +4,5 @@ import dayjs from "dayjs";
 export const formatDate = (createdAt: string) => {
     const timezone = require("dayjs/plugin/timezone");
     dayjs.extend(timezone);
-    return dayjs(createdAt).format("YYYY/MM/DD HH:MM");
+    return dayjs(createdAt).format("YYYY/MM/DD HH:mm");
 }

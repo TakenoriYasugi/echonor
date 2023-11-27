@@ -55,8 +55,8 @@ function MyPage() {
         {...other}
       >
         {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
+          <Box sx={{ p: 0 }}>
+            <Typography component={"div"}>{children}</Typography>
           </Box>
         )}
       </div>
@@ -88,23 +88,29 @@ function MyPage() {
           </Tabs>
         </Box>
 
-        <CustomTabPanel value={value} index={0}>
-          {usersPosts.map((usersPost) => {
-             var reactionCounts: ReactionCounts;
+        <CustomTabPanel value={value} index={0} >
+          {usersPosts.map((post: any) => {
+          // @ts-ignore
+          var reactionCounts: ReactionCounts;
 
-             // @ts-ignore
-             if (!usersPost.reactionCounts) {
-               // @ts-ignore
-               reactionCounts = {good: 0, heart: 0, smile: 0, sad: 0, bad: 0} as ReactionCounts;
-             } else {
-               reactionCounts = {
-               // @ts-ignore
-                 good: usersPost.reactionCounts.good, heart: usersPost.reactionCounts.heart, smile: usersPost.reactionCounts.smile, sad: usersPost.reactionCounts.sad, bad: usersPost.reactionCounts.bad,
-               } as ReactionCounts;
-             }
-            // @ts-ignore
-            return <Post key={usersPost.postId} id={usersPost.id} postId={usersPost.postId} text={usersPost.content} date={formatDate(usersPost.createdAt)} initialReactionCounts={reactionCounts}/>
-          })}
+          // @ts-ignore
+          if (!post.reactionCounts) {
+              // @ts-ignore
+              reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
+          } else {
+              reactionCounts = {
+              // @ts-ignore
+              good: post.reactionCounts.good,
+              heart: post.reactionCounts.heart,
+              smile: post.reactionCounts.smile,
+              sad: post.reactionCounts.sad,
+              bad: post.reactionCounts.bad,
+              bookmark: post.reactionCounts.bookmark
+              } as ReactionCounts;
+          }
+          return (
+            <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
+        )})}
             
         </CustomTabPanel>
 
