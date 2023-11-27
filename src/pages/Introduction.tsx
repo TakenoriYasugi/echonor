@@ -71,21 +71,23 @@ const Introduction = () => {
             <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button>
             <Modal open={isOpen}>
                 <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
-                    <Swiper
-                    spaceBetween={50}
-                    slidesPerView={1}
-                    ref={swiperRef}
-                    >
-                        {intoroductionContents.map((content) => (
-                            <SwiperSlide>
-                                <Card sx={{width: 300}}>
-                                    <CardContent>
-                                        {content}
-                                    </CardContent>
-                                </Card>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                    <Box sx={{p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <Swiper
+                        spaceBetween={50}
+                        slidesPerView={1}
+                        ref={swiperRef}
+                        >
+                            {intoroductionContents.map((content) => (
+                                <SwiperSlide>
+                                    <Card sx={{width: 300}}>
+                                        <CardContent>
+                                            {content}
+                                        </CardContent>
+                                    </Card>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </Box>
 
                     <Button onClick={() => setIsOpen(false)}>閉じる</Button>
                     <Button onClick={goToPrevSlide}>前へ</Button>
