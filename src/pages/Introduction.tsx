@@ -40,7 +40,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     // スライドを前に移動する関数
     const goToPrevSlide = () => {
         if (swiperRef) {
-        swiperRef.current?.swiper.slidePrev();
+            swiperRef.current?.swiper.slidePrev();
         }
     };
 
@@ -52,9 +52,12 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
         );
     }
 
-    // /introductionで表示している場合はホーム画面に遷移する。その他の場合はモーダルを閉じる。
     const handleClick = () => {
+        if (swiperRef) {
+            swiperRef.current?.swiper.slideTo(0);
+        }
         setIsOpen(false);
+
     }
 
     const [slideIndex, setSlideIndex] = useState<number>(0);
@@ -245,6 +248,9 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             <Typography>基本的な使い方は以上です</Typography>
             <Typography sx={{m: 5}}>よきEchoNorライフを!</Typography>
             <Button variant={"contained"} onClick={handleClick}>ホーム画面へ</Button>
+            <Box sx={{mt: 15}}>
+                <RemarksText text="※このガイドはメニューから「使い方ガイド」を選ぶと再度表示できます。"/>
+            </Box>
         </Container>
     </>,
     ]

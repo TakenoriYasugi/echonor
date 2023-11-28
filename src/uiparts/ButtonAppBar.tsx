@@ -15,10 +15,13 @@ import { Avatar, Card, CardActionArea, Divider, Drawer, List, ListItem, ListItem
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
 import { Link as RouterLink, useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Introduction from '../pages/Introduction';
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect( () => {
     let isMounted = true; // マウント状態を追跡するフラグ
@@ -55,7 +58,6 @@ const ButtonAppBar = ({title}: {title: string}) => {
     {text: "集会場", url: "/meetingplace"},
     {text: "利用規約", url: "/"},
     {text: "サポート", url: "/"},
-    {text: "使い方ガイド", url: "/introduction"},
   ]
 
   const navigate = useNavigate();
@@ -87,6 +89,11 @@ const ButtonAppBar = ({title}: {title: string}) => {
                 </ListItemButton>
             </ListItem>
           ))}
+          <ListItem key={"introduction"} disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }} onClick={() => {setIsOpen(true)}}>
+                  <ListItemText primary={"使い方ガイド"}/>
+                </ListItemButton>
+            </ListItem>
         </List>
         {isLoggedIn ? <LogoutButton/> : <Button variant="contained">Login</Button>}
       </Box>
@@ -129,6 +136,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
       >
         {drawer}
       </Drawer>
+      <Introduction isOpen={isOpen} setIsOpen={setIsOpen}/>
     </>
   );
 }
