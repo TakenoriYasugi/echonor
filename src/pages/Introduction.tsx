@@ -10,10 +10,17 @@ import homeimage from "../images/introduction/home.png";
 import mypageimage from "../images/introduction/mypage.png";
 import postimage from "../images/introduction/post.png";
 import alertimage from "../images/introduction/alert.png";
+import buttonmenuimage from "../images/introduction/buttonmenu.png";
 import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
 import PersonIcon from '@mui/icons-material/Person';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import ChatIcon from '@mui/icons-material/Chat';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
 const Introduction = () => {
@@ -85,8 +92,7 @@ const Introduction = () => {
         <Box sx={{m:1}}>
             <Typography component="div" variant="h6">プライベートな体験</Typography>
             <Typography>
-                EchoNorで行った全ての行動は他のユーザに知られることはありません。
-                投稿履歴や、自分がどの投稿にリアクションを送ったかは他のユーザーには知られることはありません。
+                EchoNorで行った全ての行動履歴は他のユーザに知られることはありません。
             </Typography>
         </Box>
         <Box sx={{m:1}}>
@@ -96,14 +102,65 @@ const Introduction = () => {
 
     </>,
     <>
-        <Typography variant='h5'>使い方: ホーム画面</Typography>
+        <Typography variant='h5'>使い方: ホーム画面1</Typography>
         <Box textAlign={"center"}>
             <img src={homeimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
         <Typography variant="body1">
             ホーム画面では、ユーザーが投稿した内容が表示されます。
-            他のユーザーの投稿に対してリアクションを送ることができます。
+            投稿内容をタップすることでリアクションを送ることができます。
+            画面右下の<ChatIcon/>ボタンをタップすることで、投稿を行うことができます。
         </Typography>
+    </>,
+    <>
+        <Typography variant='h5'>使い方: ホーム画面2</Typography>
+        <Box textAlign={"center"}>
+            <img src={buttonmenuimage} alt="homeimage" width="100%" height="100%"></img>
+        </Box>
+        <Box>
+            下部のメニューをタップすることで、画面を移動することができます。
+            <Grid container>
+                <Grid item xs={2}>
+                    <HomeIcon sx={{m: 1}}/>
+                </Grid>
+                <Grid item xs={3}>
+                    <Typography sx={{m: 1}}>ホーム</Typography>
+                </Grid>
+                <Grid item xs={7}>
+                    <Typography sx={{m: 1}}>ユーザが投稿した内容が表示されます。</Typography>
+                </Grid>
+
+                <Grid item xs={2}>
+                    <NotificationsActiveIcon sx={{m: 1}}/>
+                </Grid>
+                <Grid item xs={3}>
+                    <Typography sx={{m: 1}}>通知</Typography>
+                </Grid>
+                <Grid item xs={7}>
+                    <Typography sx={{m: 1}}>ユーザにリアクションされた投稿や、通知内容が表示されます。</Typography>
+                </Grid>
+
+                <Grid item xs={2}>
+                    <SearchIcon sx={{m: 1}}/>
+                </Grid>
+                <Grid item xs={3}>
+                    <Typography sx={{m: 1}}>検索</Typography>
+                </Grid>
+                <Grid item xs={7}>
+                    <Typography sx={{m: 1}}>検索ワードから投稿を検索することができます。</Typography>
+                </Grid>
+                
+                <Grid item xs={2}>
+                    <BookmarksIcon sx={{m: 1}}/>
+                </Grid>
+                <Grid item xs={3}>
+                    <Typography sx={{m: 1}}>ブックマーク</Typography>
+                </Grid>
+                <Grid item xs={7}>
+                    <Typography sx={{m: 1}}>ユーザがブックマークした投稿が表示されます。</Typography>
+                </Grid>
+            </Grid>
+        </Box>
     </>,
     <>
         <Typography variant='h5'>EchoNorの使い方</Typography>
