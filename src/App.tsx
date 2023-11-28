@@ -166,9 +166,6 @@ function App() {
   const fetchReactionStatesList = async (userId: string) => {
     try {
       const reactionData = await API.graphql(graphqlOperation(listReactionsByUserId, {userId}));
-      console.log("-- reactionData.data.listReactions.items --");
-      // @ts-ignore
-      console.log(reactionData.data.listReactions.items)
 
       var tempReactionStatesList: ReactionStates[] = [];
       // @ts-ignore
@@ -179,9 +176,6 @@ function App() {
           states: reaction.reactionStates
         }]
       })
-      
-      console.log("-- tempReactionStatesList  --");
-      console.log(tempReactionStatesList);
       
       // @ts-ignore
       reactions.setReactionStatesList(tempReactionStatesList);
