@@ -68,6 +68,12 @@ const Introduction = () => {
         }
     }
 
+    const [slideIndex, setSlideIndex] = useState<number>(0);
+
+    const handleSlideChanged = (swiper: SwiperClass) => {
+        setSlideIndex(swiper.activeIndex);
+    }
+
     const introductionContents: ReactNode[] = [
     <>
         <Box>
@@ -81,28 +87,6 @@ const Introduction = () => {
     </>,
     <>
         <Typography variant='h5'>EchoNorの特徴</Typography>
-        {/* <Box textAlign={"center"} sx={{m: 2}}>
-            <Grid container>
-                <Grid item xs={4}>
-                    <PersonIcon fontSize="large"/>
-                </Grid>
-                <Grid item xs={8}>
-                    全員が匿名
-                </Grid>
-                <Grid item xs={4}>
-                    <RemoveModeratorIcon fontSize='large'/>
-                </Grid>
-                <Grid item xs={8}>
-                    追跡不可
-                </Grid>
-                <Grid item xs={4}>
-                    <Diversity3Icon fontSize='large'/>
-                </Grid>
-                <Grid item xs={8}>
-                    平等なタイムライン
-                </Grid>
-            </Grid>
-        </Box> */}
         <Box sx={{m:1}}>
             <Typography component="div" variant="h6">匿名性保証</Typography>
             <Typography>
@@ -288,6 +272,7 @@ const Introduction = () => {
                                 spaceBetween={50}
                                 slidesPerView={1}
                                 ref={swiperRef}
+                                onSlideChange={handleSlideChanged}
                                 >
                                     {introductionContents.map((content) => (
                                         <SwiperSlide>
@@ -303,12 +288,21 @@ const Introduction = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', px: 2 }}>
-                                <IconButton onClick={goToPrevSlide}>
-                                    <ArrowBackIosNewIcon />
-                                </IconButton>
-                                <IconButton onClick={goToNextSlide}>
-                                    <ArrowForwardIosIcon />
-                                </IconButton>
+                                <Grid container>
+                                    <Grid item xs = {5} textAlign={"left"}>
+                                        <IconButton onClick={goToPrevSlide}>
+                                            {slideIndex > 0 && <ArrowBackIosNewIcon />}
+                                        </IconButton>
+                                    </Grid>
+                                    <Grid item xs = {2} textAlign={"center"}>
+                                        <Typography variant="body1">{slideIndex + 1}/{introductionContents.length}</Typography>
+                                    </Grid>
+                                    <Grid item xs = {5} textAlign={"right"}>
+                                        <IconButton onClick={goToNextSlide}>
+                                            {slideIndex < introductionContents.length - 1 && <ArrowForwardIosIcon />}
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
