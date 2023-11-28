@@ -83,12 +83,6 @@ function App() {
         <MeetingPlace/>
       </>
     },
-    {
-      path: "/introduction",
-      element: <>
-        <Introduction/>
-      </>
-    },
     // {
     //   path: "/dummypage",
     //   element: <>
@@ -106,8 +100,11 @@ function App() {
 
   const[isUpdatedPost, setIsUpdatedPost] = useState(false);
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   useEffect( () => {
     let subscription: ZenObservable.Subscription | undefined;
+    
     GetUserInfo().then((user) => {
       setUser(user);
       // @ts-ignore
@@ -116,12 +113,25 @@ function App() {
         subscription = sub;
       });
     });
+
+    checkFirstTime();
+
     return () => {
       if (subscription) {
         subscription.unsubscribe();
       }
     }
   }, []);
+
+  // 初回起動かどうかをチェックし、初回起動の場合はIntroductionを表示する
+  const checkFirstTime = () => {
+    const isFirstTime = localStorage.getItem('firstTime') === null;
+
+    if (isFirstTime) {
+      localStorage.setItem('firstTime', 'false'); // フラグをセット
+      setIsOpen(true);
+    }
+  }
 
   const subscribePostUpdate = async (userId: string) : Promise<ZenObservable.Subscription> => {
     return API.graphql(
@@ -217,6 +227,7 @@ function App() {
           <footer>
             
           </footer>
+          <Introduction isOpen={isOpen} setIsOpen={setIsOpen}/>
         </div>
       </UserProvider>
     </ThemeProvider>

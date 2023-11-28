@@ -26,12 +26,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
-const Introduction = () => {
-
-    const [isOpen, setIsOpen] = useState<boolean>(true);
-
-    const navigate = useNavigate();
-    const location = useLocation();
+const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
     const swiperRef = useRef<SwiperRef>(null);
 
@@ -58,14 +53,8 @@ const Introduction = () => {
     }
 
     // /introductionで表示している場合はホーム画面に遷移する。その他の場合はモーダルを閉じる。
-    const handleLinkClick = (url: string) => {
-        const currentUrl = location.pathname;
-
-        if (currentUrl === "/introduction") {
-            navigate(url);
-        } else {
-            setIsOpen(false);
-        }
+    const handleClick = () => {
+        setIsOpen(false);
     }
 
     const [slideIndex, setSlideIndex] = useState<number>(0);
@@ -255,7 +244,7 @@ const Introduction = () => {
             <Typography variant='h5' sx={{m: 5}}>始めましょう</Typography>
             <Typography>基本的な使い方は以上です</Typography>
             <Typography sx={{m: 5}}>よきEchoNorライフを!</Typography>
-            <Button variant={"contained"} onClick={() => handleLinkClick("/")}>ホーム画面へ</Button>
+            <Button variant={"contained"} onClick={handleClick}>ホーム画面へ</Button>
         </Container>
     </>,
     ]
@@ -307,7 +296,7 @@ const Introduction = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button onClick={() => {handleLinkClick("/")}}>閉じる</Button>
+                            <Button onClick={handleClick}>閉じる</Button>
                         </Grid>
                     </Grid>
                 </Paper>
