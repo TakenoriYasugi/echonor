@@ -1,12 +1,19 @@
 import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { Box, Button, Card, CardContent, Grid, IconButton, Modal, Paper, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Grid, IconButton, Modal, Paper, Stack, Typography } from '@mui/material';
 import SwiperCore from 'swiper';
 import logo from "../images/echonor_logo_resize_comp.png";
 import { ReactNode, useRef, useState } from 'react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
+import homeimage from "../images/introduction/home.png";
+import mypageimage from "../images/introduction/mypage.png";
+import postimage from "../images/introduction/post.png";
+import alertimage from "../images/introduction/alert.png";
+import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
+import PersonIcon from '@mui/icons-material/Person';
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
 const Introduction = () => {
@@ -29,23 +36,73 @@ const Introduction = () => {
         }
     };
 
-    const intoroductionContents: ReactNode[] = [<>
+    const introductionContents: ReactNode[] = [
+    <>
         <Box>
             <img src={logo} alt="logo" width="100%" height="100%"></img>
         </Box>
         <Typography variant='h5'>EchoNorへようこそ</Typography>
         <Typography variant="body1">
-            EchoNor（エコノア）は「繋がらないSNS」というコンセプトを持つ匿名性を重視したSNSです。
-            EchoNorではユーザーのプライバシーと安全性が最優先され、自由に意見や感情を表現することができます。
+            EchoNor（エコノア）は「繋がらないSNS」がコンセプトの、匿名性を重視したSNSです。
         </Typography>
 
     </>,
     <>
         <Typography variant='h5'>EchoNorの特徴</Typography>
+        {/* <Box textAlign={"center"} sx={{m: 2}}>
+            <Grid container>
+                <Grid item xs={4}>
+                    <PersonIcon fontSize="large"/>
+                </Grid>
+                <Grid item xs={8}>
+                    全員が匿名
+                </Grid>
+                <Grid item xs={4}>
+                    <RemoveModeratorIcon fontSize='large'/>
+                </Grid>
+                <Grid item xs={8}>
+                    追跡不可
+                </Grid>
+                <Grid item xs={4}>
+                    <Diversity3Icon fontSize='large'/>
+                </Grid>
+                <Grid item xs={8}>
+                    平等なタイムライン
+                </Grid>
+            </Grid>
+        </Box> */}
+        <Box sx={{m:1}}>
+            <Typography component="div" variant="h6">匿名性保証</Typography>
+            <Typography>
+                {/* EchoNorでは、ユーザーの名前や身元が他のユーザーに知られることはありません。 */}
+                あなたの名前や身元は、EchoNorでは完全に秘密です。
+            </Typography>
+        </Box>
+        <Box sx={{m:1}}>
+            <Typography component="div" variant="h6">ユーザ間の非接続性</Typography>
+            <Typography>ユーザ同士を直接繋げる機能はありません。フォローやダイレクトメッセージは存在しません。</Typography>
+        </Box>
+        <Box sx={{m:1}}>
+            <Typography component="div" variant="h6">プライベートな体験</Typography>
+            <Typography>
+                EchoNorで行った全ての行動は他のユーザに知られることはありません。
+                投稿履歴や、自分がどの投稿にリアクションを送ったかは他のユーザーには知られることはありません。
+            </Typography>
+        </Box>
+        <Box sx={{m:1}}>
+            <Typography component="div" variant="h6">タイムラインの均等性</Typography>
+            <Typography>ユーザーの投稿は全て同じタイムラインに表示されます。特定のユーザのみ目立つようなことはありません。</Typography>
+        </Box>
+
+    </>,
+    <>
+        <Typography variant='h5'>使い方: ホーム画面</Typography>
+        <Box textAlign={"center"}>
+            <img src={homeimage} alt="homeimage" width="50%" height="50%"></img>
+        </Box>
         <Typography variant="body1">
-            EchoNorでは、ユーザーの名前や身元が他のユーザーに知られることはありません。
-            投稿の追跡も不可能であり、フォローやダイレクトメッセージのような直接的なつながりも存在しません。
-            これにより、安心して自分の思いを共有することが可能です。
+            ホーム画面では、ユーザーが投稿した内容が表示されます。
+            他のユーザーの投稿に対してリアクションを送ることができます。
         </Typography>
     </>,
     <>
@@ -75,13 +132,13 @@ const Introduction = () => {
                 <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
                     <Grid container>
                         <Grid item xs={12}>
-                            <Box sx={{p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", height: "100%"}}>
+                            <Box sx={{p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", maxHeight: "100%"}}>
                                 <Swiper
                                 spaceBetween={50}
                                 slidesPerView={1}
                                 ref={swiperRef}
                                 >
-                                    {intoroductionContents.map((content) => (
+                                    {introductionContents.map((content) => (
                                         <SwiperSlide>
                                             <Card>
                                                 <CardContent>
