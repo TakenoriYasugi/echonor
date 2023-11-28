@@ -183,34 +183,34 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             <Box sx={{m: 1}}>
                 <Grid container>
                     <Grid item xs={4}>
-                        <Typography>ホーム</Typography>
+                        <Typography sx={{m: 1}}>ホーム</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>通常のホーム画面が表示されます。</Typography>
+                        <Typography sx={{m: 1}}>通常のホーム画面が表示されます。</Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography>集会場</Typography>
+                        <Typography sx={{m: 1}}>集会場</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>集会場画面へ移動します。</Typography>
+                        <Typography sx={{m: 1}}>集会場画面へ移動します。</Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography>利用規約</Typography>
+                        <Typography sx={{m: 1}}>利用規約</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>利用規約が表示されます。</Typography>
+                        <Typography sx={{m: 1}}>利用規約が表示されます。</Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography>サポート</Typography>
+                        <Typography sx={{m: 1}}>サポート</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>サポート画面へ移動します。</Typography>
+                        <Typography sx={{m: 1}}>サポート画面へ移動します。</Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography>ログアウト</Typography>
+                        <Typography sx={{m: 1}}>ログアウト</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>アカウントからログアウトします。</Typography>
+                        <Typography sx={{m: 1}}>アカウントからログアウトします。</Typography>
                     </Grid>
                 </Grid>
             </Box>
@@ -241,8 +241,8 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Typography variant='h5' sx={{m: 5}}>始めましょう</Typography>
             <Typography>以上が基本的な使い方です。</Typography>
-            <Typography sx={{m: 5}}>よきEchoNorライフをお楽しみください！</Typography>
-            <Button variant={"contained"} onClick={handleClick}>ホーム画面へ</Button>
+            <Typography sx={{m: 3}}>よきEchoNorライフを !</Typography>
+            <Button variant={"contained"} onClick={handleClick} sx={{mt: 5}}>ホーム画面へ</Button>
             <Box sx={{mt: 15}}>
                 <RemarksText text="※このガイドはいつでもメニューから「使い方ガイド」を選択して再表示できます。"/>
             </Box>
@@ -255,7 +255,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
         <>
             {/* <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button> */}
             <Modal open={isOpen} sx={{m: 2}}>
-                <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
+                <Paper sx={{backgroundColor: "#ADD8E6", p: 2, maxWidth: "500px"}}>
                     <Grid container>
                         <Grid item xs={12}>
                             <Box sx={{p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", maxHeight: "100%"}}>
@@ -267,7 +267,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
                                 >
                                     {introductionContents.map((content) => (
                                         <SwiperSlide>
-                                            <Card sx={{height: "550px"}}>
+                                            <Card sx={{maxWidth: "400px", height: "550px", overflowY: 'auto'}}>
                                                 <CardContent>
                                                     {content}
                                                 </CardContent>
