@@ -62,12 +62,12 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
 
     const introductionContents: ReactNode[] = [
     <>
-        <Box>
+        <Box sx={{m: 1}}>
             <img src={logo} alt="logo" width="100%" height="100%"></img>
         </Box>
         <Typography variant='h5'>EchoNorへようこそ</Typography>
         <Typography variant="body1">
-        EchoNor（エコノア）は、「繋がらないSNS」というコンセプトの下、匿名性を重視したSNSです。
+            EchoNor（エコノア）は、「繋がらないSNS」というコンセプトの下、匿名性を重視したSNSです。
         </Typography>
 
     </>,
@@ -86,7 +86,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
         <Box sx={{m:1}}>
             <Typography component="div" variant="h6">プライベートな体験</Typography>
             <Typography>
-            EchoNorでのあなたの全ての行動履歴は、他のユーザーには知られません。
+                EchoNorでのあなたの全ての行動履歴は、他のユーザーには知られません。
             </Typography>
         </Box>
         <Box sx={{m:1}}>
@@ -97,7 +97,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     </>,
     <>
         <Typography variant='h5'>使い方: ホーム画面 1/2</Typography>
-        <Box textAlign={"center"}>
+        <Box textAlign={"center"} sx={{m: 1}}>
             <img src={homeimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
         <Typography variant="body1">
@@ -107,7 +107,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     </>,
     <>
         <Typography variant='h5'>使い方: ホーム画面 2/2</Typography>
-        <Box textAlign={"center"}>
+        <Box textAlign={"center"} sx={{m: 1}}>
             <img src={buttonmenuimage} alt="homeimage" width="100%" height="100%"></img>
         </Box>
         <Box>
@@ -158,7 +158,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     </>,
     <>
         <Typography variant='h5'>使い方: マイページ</Typography>
-        <Box textAlign={"center"}>
+        <Box textAlign={"center"} sx={{m: 1}}>
             <img src={mypageimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
         <Typography variant="body1">
@@ -169,46 +169,46 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     </>,
     <>
         <Typography variant='h5'>使い方: メニュー</Typography>
-        <Box textAlign={"center"}>
+        <Box textAlign={"center"} sx={{m: 1}}>
             <img src={menuimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
         <Typography variant="body1">
             画面右上の<MenuIcon/>ボタンをタップするとメニューが表示されます。
-            <Box sx={{m: 1}}>
-                <Grid container>
-                    <Grid item xs={4}>
-                        <Typography sx={{m: 1}}>ホーム</Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Typography sx={{m: 1}}>通常のホーム画面が表示されます。</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography sx={{m: 1}}>集会場</Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Typography sx={{m: 1}}>集会場画面へ移動します。</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography sx={{m: 1}}>利用規約</Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Typography sx={{m: 1}}>利用規約が表示されます。</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography sx={{m: 1}}>サポート</Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Typography sx={{m: 1}}>サポート画面へ移動します。</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography sx={{m: 1}}>ログアウト</Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Typography sx={{m: 1}}>アカウントからログアウトします。</Typography>
-                    </Grid>
-                </Grid>
-            </Box>
         </Typography>
+        <Box sx={{m: 1}}>
+            <Grid container>
+                <Grid item xs={4}>
+                    <Typography sx={{m: 1}}>ホーム</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography sx={{m: 1}}>通常のホーム画面が表示されます。</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                    <Typography sx={{m: 1}}>集会場</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography sx={{m: 1}}>集会場画面へ移動します。</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                    <Typography sx={{m: 1}}>利用規約</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography sx={{m: 1}}>利用規約が表示されます。</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                    <Typography sx={{m: 1}}>サポート</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography sx={{m: 1}}>サポート画面へ移動します。</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                    <Typography sx={{m: 1}}>ログアウト</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography sx={{m: 1}}>アカウントからログアウトします。</Typography>
+                </Grid>
+            </Grid>
+        </Box>
     </>,
     <>
         <Typography variant='h5'>集会場（工事中）</Typography>
