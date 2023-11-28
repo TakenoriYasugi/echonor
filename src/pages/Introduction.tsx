@@ -1,20 +1,13 @@
 import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { Box, Button, Card, CardContent, Container, Grid, IconButton, Menu, Modal, Paper, Stack, Typography } from '@mui/material';
-import SwiperCore from 'swiper';
+import { Box, Button, Card, CardContent, Container, Grid, IconButton, Modal, Paper, Typography } from '@mui/material';
 import logo from "../images/echonor_logo_resize_comp.png";
 import { ReactNode, useRef, useState } from 'react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import homeimage from "../images/introduction/home.png";
 import mypageimage from "../images/introduction/mypage.png";
-import postimage from "../images/introduction/post.png";
-import alertimage from "../images/introduction/alert.png";
 import buttonmenuimage from "../images/introduction/buttonmenu.png";
-import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
-import PersonIcon from '@mui/icons-material/Person';
-import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
 import menuimage from "../images/introduction/menu.png";
 import ChatIcon from '@mui/icons-material/Chat';
 import HomeIcon from '@mui/icons-material/Home';
@@ -22,7 +15,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useLocation, useNavigate } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
+
 
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
@@ -271,15 +265,18 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
                                 ref={swiperRef}
                                 onSlideChange={handleSlideChanged}
                                 >
-                                    {introductionContents.map((content) => (
-                                        <SwiperSlide>
-                                            <Card sx={{maxWidth: "400px", height: "550px", overflowY: 'auto'}}>
-                                                <CardContent>
-                                                    {content}
-                                                </CardContent>
-                                            </Card>
-                                        </SwiperSlide>
-                                    ))}
+                                    {introductionContents.map((content) => {
+                                        let key = uuidv4();
+                                        return (
+                                            <SwiperSlide key={key}>
+                                                <Card sx={{maxWidth: "400px", height: "550px", overflowY: 'auto'}}>
+                                                    <CardContent>
+                                                        {content}
+                                                    </CardContent>
+                                                </Card>
+                                            </SwiperSlide>
+                                        )
+                                    })}
                                 </Swiper>
                             </Box>
                         </Grid>
