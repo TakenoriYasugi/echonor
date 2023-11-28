@@ -75,7 +75,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
         <List>
           <ListItem key={"userId"}>
             <ListItemButton sx={{ textAlign: 'center' }} onClick={() => handleLinkClick("/mypage")}>
-              <Typography fontSize={12}>
+              <Typography fontSize={12} textAlign={'center'} sx={{m: 'auto'}}>
                 {userEmail}
               </Typography>
             </ListItemButton>
