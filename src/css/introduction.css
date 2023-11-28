@@ -1,0 +1,23 @@
+h5 {
+    padding: 0 0 10px;
+    font-size: 26px;
+    background-image: repeating-linear-gradient(
+        #121858 0px, #121858 2px,
+        rgba(0 0 0 / 0) 0%, rgba(0 0 0 / 0) 50%
+        );
+    background-size: 8px 8px;
+    background-repeat: repeat-x;
+    background-position: center bottom;
+}
+
+h6 {
+    padding: 0 0 10px;
+    font-size: 22px;
+    background-image: repeating-linear-gradient(
+        #121858 0px, #121858 1px,
+        rgba(0 0 0 / 0) 0%, rgba(0 0 0 / 0) 50%
+        );
+    background-size: 8px 8px;
+    background-repeat: repeat-x;
+    background-position: center bottom;
+}

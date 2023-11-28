@@ -16,6 +16,7 @@ import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import MenuIcon from '@mui/icons-material/Menu';
 import { v4 as uuidv4 } from 'uuid';
+import "../css/introduction.css";
 
 
 // アプリ初回起動時にモーダル表示する画面。
@@ -74,23 +75,23 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     <>
         <Typography variant='h5'>EchoNorの特徴</Typography>
         <Box sx={{m:1}}>
-            <Typography component="div" variant="h6">匿名性保証</Typography>
+            <Typography variant="h6">匿名性保証</Typography>
             <Typography>
                 あなたの名前や身元は、EchoNorでは完全に秘密にされます。
             </Typography>
         </Box>
         <Box sx={{m:1}}>
-            <Typography component="div" variant="h6">ユーザ間の非接続性</Typography>
+            <Typography variant="h6">ユーザ間の非接続性</Typography>
             <Typography>ユーザ同士を直接繋げる機能はなく、フォローやダイレクトメッセージも存在しません。</Typography>
         </Box>
         <Box sx={{m:1}}>
-            <Typography component="div" variant="h6">プライベートな体験</Typography>
+            <Typography variant="h6">プライベートな体験</Typography>
             <Typography>
                 EchoNorでのあなたの全ての行動履歴は、他のユーザーには知られません。
             </Typography>
         </Box>
         <Box sx={{m:1}}>
-            <Typography component="div" variant="h6">タイムラインの均等性</Typography>
+            <Typography variant="h6">タイムラインの均等性</Typography>
             <Typography>すべてのユーザーの投稿は同じタイムライン上に表示され、特定のユーザーが目立つことはありません。</Typography>
         </Box>
 
@@ -233,7 +234,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     </>,
     <>
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Typography variant='h5' sx={{m: 5}}>始めましょう</Typography>
+            <Typography fontSize={30} sx={{m: 5}}>始めましょう</Typography>
             <Typography>以上が基本的な使い方です。</Typography>
             <Typography sx={{m: 3}}>よきEchoNorライフを !</Typography>
             <Button variant={"contained"} onClick={handleClick} sx={{mt: 5}}>ホーム画面へ</Button>
