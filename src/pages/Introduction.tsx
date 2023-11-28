@@ -111,7 +111,7 @@ const Introduction = () => {
 
     </>,
     <>
-        <Typography variant='h5'>使い方: ホーム画面1</Typography>
+        <Typography variant='h5'>使い方: ホーム画面 1/2</Typography>
         <Box textAlign={"center"}>
             <img src={homeimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
@@ -122,7 +122,7 @@ const Introduction = () => {
         </Typography>
     </>,
     <>
-        <Typography variant='h5'>使い方: ホーム画面2</Typography>
+        <Typography variant='h5'>使い方: ホーム画面 2/2</Typography>
         <Box textAlign={"center"}>
             <img src={buttonmenuimage} alt="homeimage" width="100%" height="100%"></img>
         </Box>
@@ -229,7 +229,7 @@ const Introduction = () => {
     </>,
     <>
         <Typography variant='h5'>集会場（工事中）</Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" sx={{m: 1}}>
             集会場では１つのトピックについてユーザーが自由に意見を投稿することができます。
             また、他のユーザーの意見に対してリアクションを送ることもできます。
             トピックの作成は、ユーザーが自由に行うことができます。
@@ -251,9 +251,10 @@ const Introduction = () => {
         </Typography>
     </>,
     <>
-        <Container>
-            <Typography variant='h5'>始めましょう</Typography>
-            <Typography variant="body1">基本的な使い方は以上です。よきEchoNorライフを!</Typography>
+        <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant='h5' sx={{m: 5}}>始めましょう</Typography>
+            <Typography>基本的な使い方は以上です</Typography>
+            <Typography sx={{m: 5}}>よきEchoNorライフを!</Typography>
             <Button variant={"contained"} onClick={() => handleLinkClick("/")}>ホーム画面へ</Button>
         </Container>
     </>,
