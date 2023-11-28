@@ -1,6 +1,6 @@
 import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { Box, Button, Card, CardContent, Grid, IconButton, Modal, Paper, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Container, Grid, IconButton, Menu, Modal, Paper, Stack, Typography } from '@mui/material';
 import SwiperCore from 'swiper';
 import logo from "../images/echonor_logo_resize_comp.png";
 import { ReactNode, useRef, useState } from 'react';
@@ -15,11 +15,13 @@ import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
 import PersonIcon from '@mui/icons-material/Person';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import menuimage from "../images/introduction/menu.png";
 import ChatIcon from '@mui/icons-material/Chat';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import MenuIcon from '@mui/icons-material/Menu';
 
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
@@ -42,6 +44,14 @@ const Introduction = () => {
         swiperRef.current?.swiper.slidePrev();
         }
     };
+
+    const RemarksText = ({text}: {text: string}) => {
+        return (
+            <Typography variant="body1" fontSize={10} color={"primary"}>
+               {text}
+            </Typography>
+        );
+    }
 
     const introductionContents: ReactNode[] = [
     <>
@@ -161,13 +171,61 @@ const Introduction = () => {
                 </Grid>
             </Grid>
         </Box>
+        <RemarksText text="※検索画面は現在工事中です。各コンテンツは変更される可能性があります。"/>
     </>,
     <>
-        <Typography variant='h5'>EchoNorの使い方</Typography>
+        <Typography variant='h5'>使い方: マイページ</Typography>
+        <Box textAlign={"center"}>
+            <img src={mypageimage} alt="homeimage" width="50%" height="50%"></img>
+        </Box>
         <Typography variant="body1">
-            EchoNorでは、投稿に対してリアクションを送ることができます。
-            リアクションは、投稿に対して「いいね」や「悲しい」などの感情を表すことができます。
-            また、リアクションを送ることで、投稿をブックマークすることもできます。
+            画面上部のMyPageボタンをタップすることで、マイページに移動することができます。
+            マイページでは、自分の投稿した内容を確認できます。
+            また、ここでもブックマークした投稿を確認できます。
+        </Typography>
+        <RemarksText text="※マイページは現在工事中です。各コンテンツは変更される可能性があります。"/>
+    </>,
+    <>
+        <Typography variant='h5'>使い方: メニュー</Typography>
+        <Box textAlign={"center"}>
+            <img src={menuimage} alt="homeimage" width="50%" height="50%"></img>
+        </Box>
+        <Typography variant="body1">
+            画面右上の<MenuIcon/>ボタンをタップすることで、メニューを表示することができます。
+            <Box sx={{m: 1}}>
+                <Grid container>
+                    <Grid item xs={4}>
+                        <Typography>ホーム</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Typography>通常のホーム画面です。</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography>集会場</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Typography>集会場画面に移動します。</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography>利用規約</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Typography>利用規約を表示します。</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography>サポート</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Typography>サポート画面に移動します。</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography>ログアウト</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Typography>ログアウトします。</Typography>
+                    </Grid>
+                </Grid>
+            </Box>
         </Typography>
     </>,
     <>
@@ -178,6 +236,26 @@ const Introduction = () => {
             トピックの作成は、ユーザーが自由に行うことができます。
             作成されたトピックはしばらく更新がない場合、自動的に削除されます。
         </Typography>
+        <RemarksText text="※集会場は現在工事中です。各コンテンツは変更される可能性があります。"/>
+    </>,
+    <>
+        <Typography variant='h5'>免責事項</Typography>
+        <Typography variant="body1" sx={{m: 1}}>
+            EchoNorは、ユーザーが投稿した内容について一切の責任を負いません。
+            また、ユーザーが投稿した内容によって生じた損害についても一切の責任を負いません。
+            ご利用の際は、自己責任にてご利用ください。
+        </Typography>
+        <Typography variant="body1" sx={{m: 1}}>
+            EchoNorは開発中のため、予告なく仕様が変更される可能性があります。
+            作業やメンテナンスによる不定期なデータのリセット、サーバーのダウンなどが発生する可能性があります。
+            ご利用の際は、予めご了承ください。
+        </Typography>
+    </>,
+    <>
+        <Container>
+            <Typography variant='h5'>始めましょう</Typography>
+            <Typography variant="body1">基本的な使い方は以上です。よきEchoNorライフを！</Typography>
+        </Container>
     </>,
     ]
     
