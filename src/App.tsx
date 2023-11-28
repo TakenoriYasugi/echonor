@@ -163,11 +163,6 @@ function App() {
 
   const reactions = useContext(ReactionStatesListContext);
 
-  useEffect( () => {
-    console.log("---- context updated ----");
-    console.log(reactions.reactionStatesList);
-  }, [reactions.reactionStatesList])
-
   const fetchReactionStatesList = async (userId: string) => {
     try {
       const reactionData = await API.graphql(graphqlOperation(listReactionsByUserId, {userId}));
