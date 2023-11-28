@@ -55,6 +55,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
     {text: "集会場", url: "/meetingplace"},
     {text: "利用規約", url: "/"},
     {text: "サポート", url: "/"},
+    {text: "使い方ガイド", url: "/introduction"},
   ]
 
   const navigate = useNavigate();

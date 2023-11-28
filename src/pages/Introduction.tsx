@@ -22,12 +22,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useLocation, useNavigate } from 'react-router';
 
 // アプリ初回起動時にモーダル表示する画面。
 // いくつかのページをスワイプできるようになっている。
 const Introduction = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(true);
+
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const swiperRef = useRef<SwiperRef>(null);
 
@@ -51,6 +55,17 @@ const Introduction = () => {
                {text}
             </Typography>
         );
+    }
+
+    // /introductionで表示している場合はホーム画面に遷移する。その他の場合はモーダルを閉じる。
+    const handleLinkClick = (url: string) => {
+        const currentUrl = location.pathname;
+
+        if (currentUrl === "/introduction") {
+            navigate(url);
+        } else {
+            setIsOpen(false);
+        }
     }
 
     const introductionContents: ReactNode[] = [
@@ -254,7 +269,8 @@ const Introduction = () => {
     <>
         <Container>
             <Typography variant='h5'>始めましょう</Typography>
-            <Typography variant="body1">基本的な使い方は以上です。よきEchoNorライフを！</Typography>
+            <Typography variant="body1">基本的な使い方は以上です。よきEchoNorライフを!</Typography>
+            <Button variant={"contained"} onClick={() => handleLinkClick("/")}>ホーム画面へ</Button>
         </Container>
     </>,
     ]
@@ -262,7 +278,7 @@ const Introduction = () => {
 
     return (
         <>
-            <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button>
+            {/* <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button> */}
             <Modal open={isOpen} sx={{m: 2}}>
                 <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
                     <Grid container>
@@ -275,7 +291,7 @@ const Introduction = () => {
                                 >
                                     {introductionContents.map((content) => (
                                         <SwiperSlide>
-                                            <Card>
+                                            <Card sx={{height: "550px"}}>
                                                 <CardContent>
                                                     {content}
                                                 </CardContent>
@@ -296,7 +312,7 @@ const Introduction = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button onClick={() => setIsOpen(false)}>閉じる</Button>
+                            <Button onClick={() => {handleLinkClick("/")}}>閉じる</Button>
                         </Grid>
                     </Grid>
                 </Paper>

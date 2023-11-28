@@ -86,21 +86,20 @@ function App() {
     {
       path: "/introduction",
       element: <>
-        <ButtonAppBar title="EchoNor"/>
         <Introduction/>
       </>
     },
-    {
-      path: "/dummypage",
-      element: <>
-        <ButtonAppBar title="EchoNor"/>
-        {currentButtonNavigation === ButtonNavigationLabel.Home && <DummyPage/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
-        <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
-      </>
-    }
+    // {
+    //   path: "/dummypage",
+    //   element: <>
+    //     <ButtonAppBar title="EchoNor"/>
+    //     {currentButtonNavigation === ButtonNavigationLabel.Home && <DummyPage/>}
+    //     {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
+    //     {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
+    //     {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+    //     <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
+    //   </>
+    // }
   ]);
 
   const [user, setUser] = useState();
