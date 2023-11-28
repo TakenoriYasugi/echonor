@@ -1,9 +1,9 @@
 import * as React from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import { ButtonNavigationLabel } from '../constants/Constants';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
-import { ButtonNavigationLabel } from '../constants/Constants';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
