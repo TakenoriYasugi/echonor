@@ -254,11 +254,17 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     return (
         <>
             {/* <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button> */}
-            <Modal open={isOpen} sx={{m: 2}}>
+            {/* Modalを中央に表示 */}
+            <Modal open={isOpen} 
+                onClose={() => setIsOpen(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                sx={{ display: 'absolute', justifyContent: 'center', alignItems: 'center' }}
+            >
                 <Paper sx={{backgroundColor: "#ADD8E6", p: 2, maxWidth: "500px"}}>
                     <Grid container>
                         <Grid item xs={12}>
-                            <Box sx={{p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", maxHeight: "100%"}}>
+                            <Box sx={{p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", maxHeight: "600px"}}>
                                 <Swiper
                                 spaceBetween={50}
                                 slidesPerView={1}
