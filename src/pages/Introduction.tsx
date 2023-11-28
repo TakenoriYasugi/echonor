@@ -73,7 +73,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
         </Box>
         <Typography variant='h5'>EchoNorへようこそ</Typography>
         <Typography variant="body1">
-            EchoNor（エコノア）は「繋がらないSNS」がコンセプトの、匿名性を重視したSNSです。
+        EchoNor（エコノア）は、「繋がらないSNS」というコンセプトの下、匿名性を重視したSNSです。
         </Typography>
 
     </>,
@@ -82,23 +82,22 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
         <Box sx={{m:1}}>
             <Typography component="div" variant="h6">匿名性保証</Typography>
             <Typography>
-                {/* EchoNorでは、ユーザーの名前や身元が他のユーザーに知られることはありません。 */}
-                あなたの名前や身元は、EchoNorでは完全に秘密です。
+                あなたの名前や身元は、EchoNorでは完全に秘密にされます。
             </Typography>
         </Box>
         <Box sx={{m:1}}>
             <Typography component="div" variant="h6">ユーザ間の非接続性</Typography>
-            <Typography>ユーザ同士を直接繋げる機能はありません。フォローやダイレクトメッセージは存在しません。</Typography>
+            <Typography>ユーザ同士を直接繋げる機能はなく、フォローやダイレクトメッセージも存在しません。</Typography>
         </Box>
         <Box sx={{m:1}}>
             <Typography component="div" variant="h6">プライベートな体験</Typography>
             <Typography>
-                EchoNorで行った全ての行動履歴は他のユーザに知られることはありません。
+            EchoNorでのあなたの全ての行動履歴は、他のユーザーには知られません。
             </Typography>
         </Box>
         <Box sx={{m:1}}>
             <Typography component="div" variant="h6">タイムラインの均等性</Typography>
-            <Typography>ユーザーの投稿は全て同じタイムラインに表示されます。特定のユーザのみ目立つようなことはありません。</Typography>
+            <Typography>すべてのユーザーの投稿は同じタイムライン上に表示され、特定のユーザーが目立つことはありません。</Typography>
         </Box>
 
     </>,
@@ -108,9 +107,8 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             <img src={homeimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
         <Typography variant="body1">
-            ホーム画面では、ユーザーが投稿した内容が表示されます。
-            投稿内容をタップすることでリアクションを送ることができます。
-            画面右下の<ChatIcon/>ボタンをタップすることで、投稿を行うことができます。
+            ホーム画面では、ユーザーによる投稿が表示されます。投稿をタップすることでリアクションを送れます。
+            また、画面右下の<ChatIcon/>ボタンを押すことで新たに投稿することが可能です。
         </Typography>
     </>,
     <>
@@ -119,7 +117,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             <img src={buttonmenuimage} alt="homeimage" width="100%" height="100%"></img>
         </Box>
         <Box>
-            下部のメニューをタップすることで、画面を移動することができます。
+        下部のメニューから、異なる画面に移動できます。
             <Grid container>
                 <Grid item xs={2}>
                     <HomeIcon sx={{m: 1}}/>
@@ -128,7 +126,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
                     <Typography sx={{m: 1}}>ホーム</Typography>
                 </Grid>
                 <Grid item xs={7}>
-                    <Typography sx={{m: 1}}>ユーザが投稿した内容が表示されます。</Typography>
+                    <Typography sx={{m: 1}}>ユーザーの投稿が表示されます。</Typography>
                 </Grid>
 
                 <Grid item xs={2}>
@@ -138,7 +136,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
                     <Typography sx={{m: 1}}>通知</Typography>
                 </Grid>
                 <Grid item xs={7}>
-                    <Typography sx={{m: 1}}>ユーザにリアクションされた投稿や、通知内容が表示されます。</Typography>
+                    <Typography sx={{m: 1}}>ユーザーからのリアクションや通知が表示されます。</Typography>
                 </Grid>
 
                 <Grid item xs={2}>
@@ -148,7 +146,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
                     <Typography sx={{m: 1}}>検索</Typography>
                 </Grid>
                 <Grid item xs={7}>
-                    <Typography sx={{m: 1}}>検索ワードから投稿を検索することができます。</Typography>
+                    <Typography sx={{m: 1}}>キーワードで投稿を検索できます。</Typography>
                 </Grid>
                 
                 <Grid item xs={2}>
@@ -158,11 +156,11 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
                     <Typography sx={{m: 1}}>ブックマーク</Typography>
                 </Grid>
                 <Grid item xs={7}>
-                    <Typography sx={{m: 1}}>ユーザがブックマークした投稿が表示されます。</Typography>
+                    <Typography sx={{m: 1}}>あなたがブックマークした投稿が表示されます。</Typography>
                 </Grid>
             </Grid>
         </Box>
-        <RemarksText text="※検索画面は現在工事中です。各コンテンツは変更される可能性があります。"/>
+        <RemarksText text="※検索画面は現在工事中で、コンテンツが変更される可能性があります。"/>
     </>,
     <>
         <Typography variant='h5'>使い方: マイページ</Typography>
@@ -170,11 +168,10 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             <img src={mypageimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
         <Typography variant="body1">
-            画面上部のMyPageボタンをタップすることで、マイページに移動することができます。
-            マイページでは、自分の投稿した内容を確認できます。
-            また、ここでもブックマークした投稿を確認できます。
+            画面上部のMyPageボタンをタップすることでマイページに移動できます。
+            ここでは、自分が投稿した内容やブックマークした投稿を確認できます。
         </Typography>
-        <RemarksText text="※マイページは現在工事中です。各コンテンツは変更される可能性があります。"/>
+        <RemarksText text="※マイページは現在工事中で、コンテンツが変更される可能性があります。"/>
     </>,
     <>
         <Typography variant='h5'>使い方: メニュー</Typography>
@@ -182,38 +179,38 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             <img src={menuimage} alt="homeimage" width="50%" height="50%"></img>
         </Box>
         <Typography variant="body1">
-            画面右上の<MenuIcon/>ボタンをタップすることで、メニューを表示することができます。
+            画面右上の<MenuIcon/>ボタンをタップするとメニューが表示されます。
             <Box sx={{m: 1}}>
                 <Grid container>
                     <Grid item xs={4}>
                         <Typography>ホーム</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>通常のホーム画面です。</Typography>
+                        <Typography>通常のホーム画面が表示されます。</Typography>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography>集会場</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>集会場画面に移動します。</Typography>
+                        <Typography>集会場画面へ移動します。</Typography>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography>利用規約</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>利用規約を表示します。</Typography>
+                        <Typography>利用規約が表示されます。</Typography>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography>サポート</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>サポート画面に移動します。</Typography>
+                        <Typography>サポート画面へ移動します。</Typography>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography>ログアウト</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>ログアウトします。</Typography>
+                        <Typography>アカウントからログアウトします。</Typography>
                     </Grid>
                 </Grid>
             </Box>
@@ -222,34 +219,32 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
     <>
         <Typography variant='h5'>集会場（工事中）</Typography>
         <Typography variant="body1" sx={{m: 1}}>
-            集会場では１つのトピックについてユーザーが自由に意見を投稿することができます。
-            また、他のユーザーの意見に対してリアクションを送ることもできます。
-            トピックの作成は、ユーザーが自由に行うことができます。
-            作成されたトピックはしばらく更新がない場合、自動的に削除されます。
+            集会場では、ユーザーが1つのトピックに関して自由に意見を投稿できます。
+            他のユーザーの意見にリアクションを送ることも可能です。
+            トピックはユーザーによって自由に作成でき、一定期間更新がない場合は自動で削除されます。
         </Typography>
-        <RemarksText text="※集会場は現在工事中です。各コンテンツは変更される可能性があります。"/>
+        <RemarksText text="※集会場は現在工事中で、コンテンツが変更される可能性があります。"/>
     </>,
     <>
         <Typography variant='h5'>免責事項</Typography>
         <Typography variant="body1" sx={{m: 1}}>
-            EchoNorは、ユーザーが投稿した内容について一切の責任を負いません。
-            また、ユーザーが投稿した内容によって生じた損害についても一切の責任を負いません。
-            ご利用の際は、自己責任にてご利用ください。
+            EchoNorは、ユーザーが投稿した内容に関して一切の責任を負いません。
+            ユーザーの投稿によって生じた損害に対しても責任は負いません。
+            ご利用は自己責任でお願いします。
         </Typography>
         <Typography variant="body1" sx={{m: 1}}>
-            EchoNorは開発中のため、予告なく仕様が変更される可能性があります。
-            作業やメンテナンスによる不定期なデータのリセット、サーバーのダウンなどが発生する可能性があります。
-            ご利用の際は、予めご了承ください。
+            EchoNorは開発中で、予告なしに仕様が変更される可能性があります。
+            また、メンテナンスや作業によるデータのリセットやサーバーのダウンが発生することがありますので、ご了承ください。
         </Typography>
     </>,
     <>
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Typography variant='h5' sx={{m: 5}}>始めましょう</Typography>
-            <Typography>基本的な使い方は以上です</Typography>
-            <Typography sx={{m: 5}}>よきEchoNorライフを!</Typography>
+            <Typography>以上が基本的な使い方です。</Typography>
+            <Typography sx={{m: 5}}>よきEchoNorライフをお楽しみください！</Typography>
             <Button variant={"contained"} onClick={handleClick}>ホーム画面へ</Button>
             <Box sx={{mt: 15}}>
-                <RemarksText text="※このガイドはメニューから「使い方ガイド」を選ぶと再度表示できます。"/>
+                <RemarksText text="※このガイドはいつでもメニューから「使い方ガイド」を選択して再表示できます。"/>
             </Box>
         </Container>
     </>,
