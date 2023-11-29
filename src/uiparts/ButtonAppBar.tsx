@@ -57,12 +57,16 @@ const ButtonAppBar = ({title}: {title: string}) => {
     {text: "ホーム", url: "/"},
     {text: "集会場", url: "/meetingplace"},
     {text: "利用規約", url: "/"},
-    {text: "サポート", url: "/"},
+    {text: "サポート", url: "https://ysfactoryportal.com/contact/"},
   ]
 
   const navigate = useNavigate();
 
   const handleLinkClick = (url: string) => {
+    if (url.startsWith("http")) {
+      window.open(url, '_blank');
+      return;
+    }
     navigate(url);
   }
 
