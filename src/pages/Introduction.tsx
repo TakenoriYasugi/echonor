@@ -47,7 +47,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
         );
     }
 
-    const handleClick = () => {
+    const handleClose = () => {
         if (swiperRef) {
             swiperRef.current?.swiper.slideTo(0);
         }
@@ -237,7 +237,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             <Typography fontSize={30} sx={{m: 5}}>始めましょう</Typography>
             <Typography>以上が基本的な使い方です。</Typography>
             <Typography sx={{m: 3}}>よきEchoNorライフを !</Typography>
-            <Button variant={"contained"} onClick={handleClick} sx={{mt: 5}}>ホーム画面へ</Button>
+            <Button variant={"contained"} onClick={handleClose} sx={{mt: 5}}>ホーム画面へ</Button>
             <Box sx={{mt: 15}}>
                 <RemarksText text="※このガイドはいつでもメニューから「使い方ガイド」を選択して再表示できます。"/>
             </Box>
@@ -251,7 +251,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             {/* <Button onClick={() => setIsOpen(true)}>モーダルを開く</Button> */}
             {/* Modalを中央に表示 */}
             <Modal open={isOpen} 
-                onClose={() => setIsOpen(false)}
+                onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
                 sx={{ display: 'absolute', justifyContent: 'center', alignItems: 'center' }}
@@ -301,7 +301,7 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button onClick={handleClick}>閉じる</Button>
+                            <Button onClick={handleClose}>閉じる</Button>
                         </Grid>
                     </Grid>
                 </Paper>
