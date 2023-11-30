@@ -81,9 +81,8 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   const handleInfoClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // ローカルストレージにYYYY/MM/DD HH:mmで保存する
-    const now = new Date();
-    const nowStr = now.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
-    localStorage.setItem("lastInfoCheck", nowStr);
+    
+    localStorage.setItem("lastInfoCheck", informationsData.length.toString());
     setAnchorEl(event.currentTarget);
     CheckIsInfoUpdated();
   }
@@ -128,21 +127,12 @@ const ButtonAppBar = ({title}: {title: string}) => {
 
   const [isInfoUpdated, setIsInfoUpdated] = useState<boolean>(false);
 
-  // ローカルストレージからlastInfoCheckを取得し、informationsDataの最新の日付と比較する。
+  // 前回お知らせ欄を開いた時のコンテンツ数で判定する
   const CheckIsInfoUpdated = () => {
-      const lastInfoCheck = localStorage.getItem("lastInfoCheck");
-      const lastInfoUpdate = informationsData.sort((a, b) => {
-          if (a.date > b.date) {
-              return -1;
-          } else {
-              return 1;
-          }
-      })[0].date;
+    // numberに変換して比較する
+      const lastInfoCheck = localStorage.getItem("lastInfoCheck") === null ? null : Number(localStorage.getItem("lastInfoCheck"));
+      const lastInfoUpdate = informationsData.length;
       
-      console.log("lastInfoCheck")
-      console.log(lastInfoCheck);
-      console.log(lastInfoUpdate);
-      console.log(lastInfoCheck === null || lastInfoCheck < lastInfoUpdate);
       setIsInfoUpdated(lastInfoCheck === null || lastInfoCheck < lastInfoUpdate);
   }
 
