@@ -17,6 +17,7 @@ import { Link as RouterLink, useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Introduction from '../pages/Introduction';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Informations from '../informations/Informations';
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
@@ -172,16 +173,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
           horizontal: 'left',
         }}
         onClose={handleInfoClose}>
-        <Card sx={{ maxWidth: 345, p: 2}}>
-          <CardActionArea onClick={() => handleLinkClick("https://ysfactoryportal.com/contact/")}>
-            <Typography gutterBottom variant="h5" component="div">
-              お知らせ
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              本サービスはβ版です。ご利用の際は、<a href="https://ysfactoryportal.com/contact/">お問い合わせ</a>よりご連絡ください。
-            </Typography>
-          </CardActionArea>
-        </Card>
+        <Informations/>
       </Popover>
     </>
   );
