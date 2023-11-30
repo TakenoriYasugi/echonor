@@ -11,13 +11,16 @@ import { useEffect, useState } from 'react';
 import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
 import { Info, Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
-import { Avatar, Card, CardActionArea, Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Popover } from '@mui/material';
+import { Avatar, Badge, Card, CardActionArea, Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Popover } from '@mui/material';
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
 import { Link as RouterLink, useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Introduction from '../pages/Introduction';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Informations from '../informations/Informations';
+import InformationBadge from './InformationBadge';
+import InformationBadgeComponent from './InformationBadge';
+import { informationsData } from '../informations/informationsData';
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
@@ -77,7 +80,12 @@ const ButtonAppBar = ({title}: {title: string}) => {
   const id = isInfoOpen ? 'info-popover' : undefined;
 
   const handleInfoClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    // ローカルストレージにYYYY/MM/DD HH:mmで保存する
+    const now = new Date();
+    const nowStr = now.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+    localStorage.setItem("lastInfoCheck", nowStr);
     setAnchorEl(event.currentTarget);
+    CheckIsInfoUpdated();
   }
 
   const handleInfoClose = () => {
@@ -118,6 +126,30 @@ const ButtonAppBar = ({title}: {title: string}) => {
     </>
   );
 
+  const [isInfoUpdated, setIsInfoUpdated] = useState<boolean>(false);
+
+  // ローカルストレージからlastInfoCheckを取得し、informationsDataの最新の日付と比較する。
+  const CheckIsInfoUpdated = () => {
+      const lastInfoCheck = localStorage.getItem("lastInfoCheck");
+      const lastInfoUpdate = informationsData.sort((a, b) => {
+          if (a.date > b.date) {
+              return -1;
+          } else {
+              return 1;
+          }
+      })[0].date;
+      
+      console.log("lastInfoCheck")
+      console.log(lastInfoCheck);
+      console.log(lastInfoUpdate);
+      console.log(lastInfoCheck === null || lastInfoCheck < lastInfoUpdate);
+      setIsInfoUpdated(lastInfoCheck === null || lastInfoCheck < lastInfoUpdate);
+  }
+
+  useEffect(() => {
+      CheckIsInfoUpdated();
+  }, []);
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -136,9 +168,12 @@ const ButtonAppBar = ({title}: {title: string}) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
-            <IconButton onClick={handleInfoClick}>
-              <InfoOutlinedIcon fontSize="large" color="info"/>
-            </IconButton>
+              <IconButton onClick={handleInfoClick}>
+                <InformationBadgeComponent isInfoUpdated={isInfoUpdated}>
+                  <InfoOutlinedIcon fontSize="large" color="info"/>
+                </InformationBadgeComponent>
+              </IconButton>
+              
             <Button sx={{textTransform: 'none'}} color='secondary' variant='outlined' onClick={() => handleLinkClick("/mypage")}>MyPage</Button>
           </Toolbar>
         </AppBar>
