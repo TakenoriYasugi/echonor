@@ -9,19 +9,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { useEffect, useState } from 'react';
 import { CheckUserLoggedIn, GetUserInfo } from '../util/Authenticator';
-import { Logout } from '@mui/icons-material';
+import { Info, Logout } from '@mui/icons-material';
 import LogoutButton from './LogoutButton';
-import { Avatar, Card, CardActionArea, Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Avatar, Card, CardActionArea, Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Popover } from '@mui/material';
 import echonorLogo from '../images/echonor_logo_resize_comp.png'
 import { Link as RouterLink, useNavigate} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Introduction from '../pages/Introduction';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const ButtonAppBar = ({title}: {title: string}) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isIntroductionOpen, setIsIntroductionOpen] = useState<boolean>(false);
 
   useEffect( () => {
     let isMounted = true; // マウント状態を追跡するフラグ
@@ -70,6 +71,18 @@ const ButtonAppBar = ({title}: {title: string}) => {
     navigate(url);
   }
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isInfoOpen = Boolean(anchorEl);
+  const id = isInfoOpen ? 'info-popover' : undefined;
+
+  const handleInfoClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleInfoClose = () => {
+    setAnchorEl(null);
+  };
+
   const drawer = (
     <>
       <Box sx={{p: 2}}>
@@ -94,7 +107,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
             </ListItem>
           ))}
           <ListItem key={"introduction"} disablePadding>
-                <ListItemButton sx={{ textAlign: 'center' }} onClick={() => {setIsOpen(true)}}>
+                <ListItemButton sx={{ textAlign: 'center' }} onClick={() => {setIsIntroductionOpen(true)}}>
                   <ListItemText primary={"使い方ガイド"}/>
                 </ListItemButton>
             </ListItem>
@@ -122,6 +135,9 @@ const ButtonAppBar = ({title}: {title: string}) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
+            <IconButton onClick={handleInfoClick}>
+              <InfoOutlinedIcon fontSize="large" color="info"/>
+            </IconButton>
             <Button sx={{textTransform: 'none'}} color='secondary' variant='outlined' onClick={() => handleLinkClick("/mypage")}>MyPage</Button>
           </Toolbar>
         </AppBar>
@@ -140,7 +156,33 @@ const ButtonAppBar = ({title}: {title: string}) => {
       >
         {drawer}
       </Drawer>
-      <Introduction isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <Introduction isOpen={isIntroductionOpen} setIsOpen={setIsIntroductionOpen}/>
+      
+      {/* お知らせ表示用ポップアップ */}
+      <Popover
+        id={id}
+        open={isInfoOpen}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handleInfoClose}>
+        <Card sx={{ maxWidth: 345, p: 2}}>
+          <CardActionArea onClick={() => handleLinkClick("https://ysfactoryportal.com/contact/")}>
+            <Typography gutterBottom variant="h5" component="div">
+              お知らせ
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              本サービスはβ版です。ご利用の際は、<a href="https://ysfactoryportal.com/contact/">お問い合わせ</a>よりご連絡ください。
+            </Typography>
+          </CardActionArea>
+        </Card>
+      </Popover>
     </>
   );
 }
