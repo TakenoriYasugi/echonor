@@ -33,6 +33,9 @@ import Introduction from './pages/Introduction';
 import CustomAuthenticator from './pages/CustomAuthenticator';
 import GuestButtonAppBar from './guestmode/GuestButtonAppBar';
 import GuestHome from './guestmode/GuestHome';
+import GuestNotifications from './guestmode/GuestNotifications';
+import GuestBookmarks from './guestmode/GuestBookmarks';
+import GuestSerach from './guestmode/GuestSearch';
 
 Amplify.configure(awsExports);
 
@@ -79,9 +82,9 @@ function GuestApp() {
       element: <>
         <GuestButtonAppBar title="EchoNor(Guest)"/>
         {currentButtonNavigation === ButtonNavigationLabel.Home && <GuestHome/>}
-        {/* {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>} */}
-        {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+        {currentButtonNavigation === ButtonNavigationLabel.Notifications && <GuestNotifications/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <GuestBookmarks/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Search && <GuestSerach/>}
         <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
       </>
     }
