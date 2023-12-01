@@ -102,14 +102,12 @@ function App() {
   const[isUpdatedPost, setIsUpdatedPost] = useState(false);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect( () => {
     let subscription: ZenObservable.Subscription | undefined;
     
     GetUserInfo().then((user) => {
       setUser(user);
-      setIsAuthenticated(true);
       // @ts-ignore
       fetchReactionStatesList(user.username);
       subscribePostUpdate(user.username).then((sub) => {
@@ -190,60 +188,43 @@ function App() {
     }
   }
 
-  // ログイン状態を確認し、未ログインの場合はログイン選択画面を表示する
-  const handleSignIn = (method: string) => {
-    if (method === 'login') {
-      // Cognitoのログインページへリダイレクトする
-      Auth.federatedSignIn();
-    } else {
-      // ゲストとして続ける処理
-      setIsAuthenticated(true);
-    }
-  }
-
-  if (!isAuthenticated) {
-    console.log("未ログイン")
-    return <CustomAuthenticator onSignIn={handleSignIn} />; 
-  } else {
-    return (
-      <ThemeProvider theme={theme}>
-        <UserProvider>
-          <div className="App">
-            <CssBaseline/>
-            <header className="App-header">
-            </header>
-            <main>
-              {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
-              <Box sx={{pt: 7, pb: 7}}>
-                <Layout>
-                    <Slide direction="down" in={isUpdatedPost} mountOnEnter unmountOnExit>
-                      <div style={{ position: "fixed", top: 50, left: 0, right: 0, zIndex: 999 }}>
-                        <Alert severity="info">
-                            <AlertTitle>リアクションされました！</AlertTitle>
-                            以下の投稿にリアクションがありました
-                            <Box sx={{m: 1, borderRadius: "10px", backgroundColor: "#FFFFFF"}}>
-                              <Typography variant="body2" fontSize={12} sx={{p: 1}}>
-                                {alertContent}
-                              </Typography>
-                            </Box>
-                        </Alert>
-                      </div>
-                    </Slide>
-                  <RouterProvider router={router} />
-                </Layout>
-              </Box>
-            </main>
-            <footer>
-              
-            </footer>
-            <Introduction isOpen={isOpen} setIsOpen={setIsOpen}/>
-          </div>
-        </UserProvider>
-      </ThemeProvider>
-    );
-  }
-  
+  return (
+    <ThemeProvider theme={theme}>
+      <UserProvider>
+        <div className="App">
+          <CssBaseline/>
+          <header className="App-header">
+          </header>
+          <main>
+            {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
+            <Box sx={{pt: 7, pb: 7}}>
+              <Layout>
+                  <Slide direction="down" in={isUpdatedPost} mountOnEnter unmountOnExit>
+                    <div style={{ position: "fixed", top: 50, left: 0, right: 0, zIndex: 999 }}>
+                      <Alert severity="info">
+                          <AlertTitle>リアクションされました！</AlertTitle>
+                          以下の投稿にリアクションがありました
+                          <Box sx={{m: 1, borderRadius: "10px", backgroundColor: "#FFFFFF"}}>
+                            <Typography variant="body2" fontSize={12} sx={{p: 1}}>
+                              {alertContent}
+                            </Typography>
+                          </Box>
+                      </Alert>
+                    </div>
+                  </Slide>
+                <RouterProvider router={router} />
+              </Layout>
+            </Box>
+          </main>
+          <footer>
+            
+          </footer>
+          <Introduction isOpen={isOpen} setIsOpen={setIsOpen}/>
+        </div>
+      </UserProvider>
+    </ThemeProvider>
+  );
 }
 
-export default App;
+export default withAuthenticator(App);
 
