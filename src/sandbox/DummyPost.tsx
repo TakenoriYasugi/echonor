@@ -40,14 +40,6 @@ const DummyPost = ({id, postId, text, date, initialReactionCounts} : {id: string
       };
     }, []);
 
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-      GetUserInfo().then((user) => {
-        setUser(user);
-      });
-    }, []);
-    
     const [isReactionOpen, setIsReactionOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     

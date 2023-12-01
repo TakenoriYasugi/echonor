@@ -4,7 +4,7 @@ import App from "./App";
 import { GetUserInfo } from "./util/Authenticator";
 import { Auth } from "aws-amplify";
 import CustomAuthenticator from "./pages/CustomAuthenticator";
-import GuestApp from "./guestmode/GuestApp";
+import GuestApp from "./GuestApp";
 
 const defaultReactionStatesListHook: ReactionStatesListHook = {
     reactionStatesList: [],
