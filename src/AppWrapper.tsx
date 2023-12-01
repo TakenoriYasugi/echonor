@@ -4,6 +4,7 @@ import App from "./App";
 import { GetUserInfo } from "./util/Authenticator";
 import { Auth } from "aws-amplify";
 import CustomAuthenticator from "./pages/CustomAuthenticator";
+import GuestApp from "./guestmode/GuestApp";
 
 const defaultReactionStatesListHook: ReactionStatesListHook = {
     reactionStatesList: [],
@@ -17,6 +18,7 @@ const AppWrapper = () => {
     const reactionStatesListHook = useReactionStatesList();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState();
+    const [isGuest, setIsGuest] = useState<boolean>(false);
 
     useEffect(() => {
         GetUserInfo().then((userInfo) => {
@@ -36,6 +38,7 @@ const AppWrapper = () => {
         } else {
             // ゲストとして続ける処理
             console.log("ゲストとして続ける");
+            setIsGuest(true);
             setIsAuthenticated(true);
         }
     }
@@ -44,12 +47,17 @@ const AppWrapper = () => {
         console.log("未ログイン")
         return <CustomAuthenticator onSignIn={handleSignIn} />; 
     } else {
-        return (
-            <ReactionStatesListContext.Provider value={reactionStatesListHook}>
-                <App/>
-            </ReactionStatesListContext.Provider>
-        );
+        if (isGuest) {
+            return <GuestApp/>;
+        } else {
+            return (
+                <ReactionStatesListContext.Provider value={reactionStatesListHook}>
+                    <App/>
+                </ReactionStatesListContext.Provider>
+            );
+        }
     }
+
 }
 
 export default AppWrapper;
