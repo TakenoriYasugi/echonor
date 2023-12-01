@@ -19,6 +19,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Informations from '../informations/Informations';
 import { informationsData } from '../informations/informationsData';
 import InformationBadgeComponent from '../uiparts/InformationBadge';
+import GuestButton, { GuestButtonType } from './GuestButton';
 
 const GuestButtonAppBar = ({title}: {title: string}) => {
 
@@ -140,8 +141,7 @@ const GuestButtonAppBar = ({title}: {title: string}) => {
                   <InfoOutlinedIcon fontSize="large" color="info"/>
                 </InformationBadgeComponent>
               </IconButton>
-              
-            <Button sx={{textTransform: 'none'}} color='secondary' variant='outlined' onClick={() => handleLinkClick("/mypage")}>MyPage</Button>
+            <GuestButton type={GuestButtonType.MyPage}/>              
           </Toolbar>
         </AppBar>
       </Box>

@@ -30,7 +30,6 @@ import ReactionedAlert from './uiparts/ReactionedAlert';
 import { Observable } from 'zen-observable-ts';
 import Notifications from './pages/Notifications';
 import Introduction from './pages/Introduction';
-import DummyPage from './sandbox/DummyPage';
 import CustomAuthenticator from './pages/CustomAuthenticator';
 
 Amplify.configure(awsExports);

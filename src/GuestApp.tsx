@@ -30,9 +30,9 @@ import ReactionedAlert from './uiparts/ReactionedAlert';
 import { Observable } from 'zen-observable-ts';
 import Notifications from './pages/Notifications';
 import Introduction from './pages/Introduction';
-import DummyPage from './sandbox/DummyPage';
 import CustomAuthenticator from './pages/CustomAuthenticator';
 import GuestButtonAppBar from './guestmode/GuestButtonAppBar';
+import GuestHome from './guestmode/GuestHome';
 
 Amplify.configure(awsExports);
 
@@ -78,9 +78,9 @@ function GuestApp() {
       path: "/",
       element: <>
         <GuestButtonAppBar title="EchoNor(Guest)"/>
-        {currentButtonNavigation === ButtonNavigationLabel.Home && <DummyPage/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Home && <GuestHome/>}
+        {/* {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
+        {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>} */}
         {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
         <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
       </>
@@ -106,16 +106,6 @@ function GuestApp() {
   }
 
   const [alertContent, setAlertContent] = useState<string>("");
-  // 通知用のAlertを表示する。５秒間表示し、その後非表示にする。
-  const appearAlert = (content: string) => {
-    setAlertContent(content);
-    setIsUpdatedPost(true);
-    setTimeout(() => {
-      setIsUpdatedPost(false);
-     },
-      3000
-    );
-  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -128,19 +118,6 @@ function GuestApp() {
             {/* AppBarとButtomNavigationの高さ分paddingを調整 */}
             <Box sx={{pt: 7, pb: 7}}>
               <Layout>
-                  <Slide direction="down" in={isUpdatedPost} mountOnEnter unmountOnExit>
-                    <div style={{ position: "fixed", top: 50, left: 0, right: 0, zIndex: 999 }}>
-                      <Alert severity="info">
-                          <AlertTitle>リアクションされました！</AlertTitle>
-                          以下の投稿にリアクションがありました
-                          <Box sx={{m: 1, borderRadius: "10px", backgroundColor: "#FFFFFF"}}>
-                            <Typography variant="body2" fontSize={12} sx={{p: 1}}>
-                              {alertContent}
-                            </Typography>
-                          </Box>
-                      </Alert>
-                    </div>
-                  </Slide>
                 <RouterProvider router={router} />
               </Layout>
             </Box>
