@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import Home from "./Home";
 import { API, graphqlOperation } from "aws-amplify";
@@ -15,7 +15,7 @@ const Search = () => {
     const [searchWords, setSearchWords] = useState<string>("")
     const [posts, setPosts] = useState([]);
     const [searchMode, setSearchMode] = useState<"and" | "or">("and");
-
+    const [isSearched, setIsSearched] = useState<boolean>(false);
     const handleSearchModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchMode((event.target as HTMLInputElement).value as "and" | "or");
     };
@@ -84,11 +84,19 @@ const Search = () => {
                 });
                 setPosts(filteredPosts);
             }
-          
+            setIsSearched(true);
         } catch (err) {
           console.error('Error fetching posts', err);
         }
       }
+
+      const resultInfo = <>
+        <Box sx={{m:1, p: 2, top: 50, left: 0, right: 0, borderRadius: "10px", backgroundColor: "#cceb69"}}>
+            <Typography fontSize={12} textAlign={"center"}>
+                検索結果が見つかりませんでした。キーワードを変えて再度検索してください。
+            </Typography>
+        </Box>
+      </>
 
     return (
         <>
@@ -140,6 +148,8 @@ const Search = () => {
                         <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
                     );
                 })}
+
+                {isSearched && posts.length === 0 && resultInfo}
             </Box>
         </>
     );
