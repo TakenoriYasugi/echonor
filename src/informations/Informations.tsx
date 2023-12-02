@@ -1,4 +1,4 @@
-import { Box, Card, Divider, Typography } from "@mui/material";
+import { Box, Card, Divider, Stack, Typography } from "@mui/material";
 import { informationsData } from "./informationsData";
 
 const Informations = () => {
@@ -19,9 +19,15 @@ const Informations = () => {
             <Box sx={{maxHeight: "300px", overflowY: "auto"}}>
                 {sortedInformationsData.map((data) => (
                     <Card key={data.date} sx={{ p: 1, m: 1 }}>
-                        <Typography fontSize={12} variant="body2">
-                            {data.date}
-                        </Typography>
+                        <Stack direction="row" spacing={1}>
+                            <Typography fontSize={12} variant="body2">
+                                {data.date}
+                            </Typography>
+                            <Typography fontSize={12} variant="body2">
+                                [{data.type}]
+                            </Typography>
+                        </Stack>
+                        
                         <Typography fontSize={15} variant="body2">
                             {data.content}
                         </Typography>
