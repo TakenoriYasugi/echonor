@@ -101,7 +101,7 @@ const Search = () => {
                     sx={{m: 1}} fullWidth/>
                 <Button sx={{m: 1}} variant="contained" onClick={handleSearch}>検索</Button>
             </Box>
-            <Box sx={{m: 2}}>
+            <Box sx={{m: 2, ml: 4}}>
                 <FormControl>
                     <FormLabel>検索設定</FormLabel>
                     <RadioGroup
