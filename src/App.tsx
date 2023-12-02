@@ -31,6 +31,7 @@ import { Observable } from 'zen-observable-ts';
 import Notifications from './pages/Notifications';
 import Introduction from './pages/Introduction';
 import CustomAuthenticator from './pages/CustomAuthenticator';
+import Search from './pages/Search';
 
 Amplify.configure(awsExports);
 
@@ -65,7 +66,7 @@ function App() {
         {currentButtonNavigation === ButtonNavigationLabel.Home && <Home/>}
         {currentButtonNavigation === ButtonNavigationLabel.Notifications && <Notifications/>}
         {currentButtonNavigation === ButtonNavigationLabel.Favorite && <Bookmarks/>}
-        {currentButtonNavigation === ButtonNavigationLabel.Search && <Typography>Search</Typography>}
+        {currentButtonNavigation === ButtonNavigationLabel.Search && <Search/>}
         <ButtonMenu value={currentButtonNavigation} setValue={setCurrentButtonNavigation}/> 
       </>,
     },
