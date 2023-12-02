@@ -27,8 +27,7 @@ export const GetUserInfo = async () => {
     const user = await Auth.currentAuthenticatedUser();
     return user; // ユーザーはログイン済み
   } catch (error) {
-    console.log(error);
-    return false; // ユーザーはログインしていない
+    throw error;
   }
 };
 

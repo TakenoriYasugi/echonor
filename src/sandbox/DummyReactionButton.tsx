@@ -11,14 +11,12 @@ import { ReactionStatesListContext } from "../AppWrapper";
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
 const DummyReactionButton = (
-    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, fetchUpdatePost, fetchUpdateReactionStates, initialIsPushed}: 
+    {variant, reactionCounts, setReactionCounts, setIsReactionOpen, postId, initialIsPushed}: 
     {variant: ReactionType,
         reactionCounts: ReactionCounts,
         setReactionCounts: React.Dispatch<React.SetStateAction<ReactionCounts>>,
         setIsReactionOpen: React.Dispatch<React.SetStateAction<boolean>>,
         postId: string,
-        fetchUpdatePost: (changedReactionCounts: ReactionCounts) => Promise<void>,
-        fetchUpdateReactionStates: (changedReactionStates: IsReactionedStates) => Promise<void>,
         initialIsPushed: boolean
     }) => {        
 

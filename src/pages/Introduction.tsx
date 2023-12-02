@@ -81,8 +81,8 @@ const Introduction = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: React.Di
             </Typography>
         </Box>
         <Box sx={{m:1}}>
-            <Typography variant="h6">ユーザ間の非接続性</Typography>
-            <Typography>ユーザ同士を直接繋げる機能はなく、フォローやダイレクトメッセージも存在しません。</Typography>
+            <Typography variant="h6">ユーザー間の非接続性</Typography>
+            <Typography>ユーザー同士を直接繋げる機能はなく、フォローやダイレクトメッセージも存在しません。</Typography>
         </Box>
         <Box sx={{m:1}}>
             <Typography variant="h6">プライベートな体験</Typography>

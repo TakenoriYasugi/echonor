@@ -10,7 +10,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 import awsExports from "./aws-exports";
-import { API, Amplify, graphqlOperation } from 'aws-amplify';
+import { API, Amplify, Auth, graphqlOperation } from 'aws-amplify';
 import { I18n } from 'aws-amplify';
 import { UserProvider } from './util/UserProvider';
 import {
@@ -30,7 +30,7 @@ import ReactionedAlert from './uiparts/ReactionedAlert';
 import { Observable } from 'zen-observable-ts';
 import Notifications from './pages/Notifications';
 import Introduction from './pages/Introduction';
-import DummyPage from './sandbox/DummyPage';
+import CustomAuthenticator from './pages/CustomAuthenticator';
 
 Amplify.configure(awsExports);
 
@@ -112,6 +112,8 @@ function App() {
       subscribePostUpdate(user.username).then((sub) => {
         subscription = sub;
       });
+    }).catch((error) => {
+      console.log("GetUserInfo error", error);
     });
 
     checkFirstTime();
@@ -184,7 +186,7 @@ function App() {
       console.error('Error fetching reaction states', err);
     }
   }
-  
+
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
