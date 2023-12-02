@@ -98,7 +98,7 @@ const GuestButtonAppBar = ({title, onSignIn}: {title: string, onSignIn: (method:
                 </ListItemButton>
             </ListItem>
         </List>
-        <Button variant="contained">Login</Button>
+        <Button variant="contained" onClick={() => onSignIn('login')}>Login</Button>
       </Box>
     </>
   );
