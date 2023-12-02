@@ -7,21 +7,48 @@ import { MAX_POST_COUNT, ReactionCounts } from "../constants/Constants";
 import { listPosts, listPostsByKeyWords } from "../graphql/queries";
 import Post from "../uiparts/Post";
 import { formatDate } from "../util/Format";
+import { set } from "zod";
 
 const Search = () => {
-    const [searchWord, setSearchWord] = useState<string>("")
+    const [searchWords, setSearchWords] = useState<string>("")
     const [posts, setPosts] = useState([]);
+
     const handleSearch = () => {
-        fetchPosts(searchWord, MAX_POST_COUNT);
+        
+        // searchWordsを半角、全角スペースで区切って、配列にする
+        const searchWordsArray = searchWords.split(/[\s　]+/);
+
+        // 配列の中身が空の場合、何もしない。
+        if (searchWordsArray.length === 0) {
+            return;
+        }
+
+        fetchPosts(searchWordsArray, MAX_POST_COUNT);
     }
 
-    const fetchPosts = async (keyword: string, limit: number) => {
+    const fetchPosts = async (searchWordsArray: string[], limit: number) => {
         try {
-          const postData = await API.graphql(graphqlOperation(listPostsByKeyWords, {keyword: keyword, limit: limit}));
-          // @ts-ignore
-          const posts = postData.data.listPosts.items;
-          posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-          setPosts(posts);
+            const keyword = searchWordsArray[0];
+            const postData = await API.graphql(graphqlOperation(listPostsByKeyWords, {keyword: keyword, limit: limit}));
+            // @ts-ignore
+            const posts = postData.data.listPosts.items;
+            posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+            /* postsから、contentにsearchWordsArrayの単語を含むもののみをfilterする */
+            const filteredPosts = posts.filter((post: any) => {
+                const content = post.content;
+                for (const searchWord of searchWordsArray) {
+                    if (content.includes(searchWord)) {
+                        continue;
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+            });
+            console.log(searchWordsArray);
+            console.log(filteredPosts);
+          
+          setPosts(filteredPosts);
         } catch (err) {
           console.error('Error fetching posts', err);
         }
@@ -33,13 +60,14 @@ const Search = () => {
                 <TextField
                     label="検索ワード"
                     variant="outlined"
-                    value={searchWord}
-                    onChange={(e) => setSearchWord(e.target.value)}
+                    value={searchWords}
+                    onChange={(e) => setSearchWords(e.target.value)}
                     sx={{m: 1}} fullWidth/>
                 <Button sx={{m: 1}} variant="contained" onClick={handleSearch}>検索</Button>
             </Box>
 
             <Box sx={{m: 0}}>
+
                 {posts.map((post: any) => {
                     // @ts-ignore
                     var reactionCounts: ReactionCounts;
