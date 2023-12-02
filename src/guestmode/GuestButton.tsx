@@ -56,7 +56,7 @@ const GuestButton = ({type, onSignIn}: {type: GuestButtonType, onSignIn: (method
                     <CardContent sx={{display:"flex", justifyContent: "center", alignItems: "center"}}>
                         <Stack direction={"column"} alignItems={"center"}>
                             <Typography sx={{m: 2}}>この操作にはログインが必要です</Typography>
-                            <Button variant="contained" onClick={handleLoginClick}>ログイン/サインアップ</Button>
+                            <Button variant="contained" onClick={handleLoginClick}>ログイン / ユーザー登録</Button>
                             <Button variant="text" onClick={handleClose}>閉じる</Button>
                         </Stack>
                     </CardContent>
