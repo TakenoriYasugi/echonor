@@ -43,7 +43,7 @@ Amplify.configure(awsExports);
 I18n.putVocabularies(dict);
 I18n.setLanguage('ja');
 
-function GuestApp() {
+function GuestApp({onSignIn}: {onSignIn: (method: string) => void}) {
   // 画面下部のナビゲーションの状態管理
   const [currentButtonNavigation, setCurrentButtonNavigation] = useState<ButtonNavigationLabel>(ButtonNavigationLabel.Home);
   const reactionStatesListHook = useReactionStatesList();
@@ -66,22 +66,22 @@ function GuestApp() {
     {
       path: "/mypage",
       element: <>
-        <GuestButtonAppBar title="EchoNor"/>
+        <GuestButtonAppBar title="EchoNor" onSignIn={onSignIn}/>
         <MyPage/>
       </>
     },
     {
       path: "/meetingplace",
       element: <>
-        <GuestButtonAppBar title="EchoNor"/>
+        <GuestButtonAppBar title="EchoNor" onSignIn={onSignIn}/>
         <MeetingPlace/>
       </>
     },
     {
       path: "/",
       element: <>
-        <GuestButtonAppBar title="EchoNor(Guest)"/>
-        {currentButtonNavigation === ButtonNavigationLabel.Home && <GuestHome/>}
+        <GuestButtonAppBar title="EchoNor(Guest)" onSignIn={onSignIn}/>
+        {currentButtonNavigation === ButtonNavigationLabel.Home && <GuestHome onSignIn={onSignIn}/>}
         {currentButtonNavigation === ButtonNavigationLabel.Notifications && <GuestNotifications/>}
         {currentButtonNavigation === ButtonNavigationLabel.Favorite && <GuestBookmarks/>}
         {currentButtonNavigation === ButtonNavigationLabel.Search && <GuestSerach/>}

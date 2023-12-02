@@ -34,6 +34,8 @@ const AppWrapper = () => {
     const handleSignIn = (method: string) => {
         if (method === 'login') {
             // Cognitoのログインページへリダイレクトする
+            console.log("ログインページへリダイレクト");
+            setIsGuest(false);
             setIsAuthenticated(true);
         } else {
             // ゲストとして続ける処理
@@ -48,7 +50,7 @@ const AppWrapper = () => {
         return <CustomAuthenticator onSignIn={handleSignIn} />; 
     } else {
         if (isGuest) {
-            return <GuestApp/>;
+            return <GuestApp onSignIn={handleSignIn}/>;
         } else {
             return (
                 <ReactionStatesListContext.Provider value={reactionStatesListHook}>

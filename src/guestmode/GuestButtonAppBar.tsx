@@ -21,7 +21,7 @@ import { informationsData } from '../informations/informationsData';
 import InformationBadgeComponent from '../uiparts/InformationBadge';
 import GuestButton, { GuestButtonType } from './GuestButton';
 
-const GuestButtonAppBar = ({title}: {title: string}) => {
+const GuestButtonAppBar = ({title, onSignIn}: {title: string, onSignIn: (method: string) => void}) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
@@ -141,7 +141,7 @@ const GuestButtonAppBar = ({title}: {title: string}) => {
                   <InfoOutlinedIcon fontSize="large" color="info"/>
                 </InformationBadgeComponent>
               </IconButton>
-            <GuestButton type={GuestButtonType.MyPage}/>              
+            <GuestButton type={GuestButtonType.MyPage} onSignIn={onSignIn}/>              
           </Toolbar>
         </AppBar>
       </Box>

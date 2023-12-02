@@ -15,7 +15,7 @@ import { ReactionStatesListContext } from "../AppWrapper";
 import GuestPost from "./GuestPost";
 import GuestButton, { GuestButtonType } from "./GuestButton";
 
-const GuestHome = () => {
+const GuestHome = ({onSignIn}: {onSignIn: (method: string) => void}) => {
 
   const [posts, setPosts] = useState([]);
 
@@ -71,13 +71,13 @@ const GuestHome = () => {
         }
 
         return (
-            <GuestPost key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
+            <GuestPost key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts} onSignIn={onSignIn}/>
         );
     })}
       </PullToRefresh>
         <Zoom in={true}>
           <Box sx={{position: "fixed", right: 20, bottom: 80}}>
-              <GuestButton type={GuestButtonType.PostFAB}/>
+              <GuestButton type={GuestButtonType.PostFAB} onSignIn={onSignIn}/>
           </Box>
         </Zoom>
     </>

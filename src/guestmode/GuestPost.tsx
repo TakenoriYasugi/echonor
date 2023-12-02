@@ -7,7 +7,7 @@ import { ReactionStates } from "../context/ReactionContext";
 import { ReactionStatesListContext } from "../AppWrapper";
 import GuestButton, { GuestButtonType } from "./GuestButton";
 
-const GuestPost = ({id, postId, text, date, initialReactionCounts} : {id: string, postId: string, text: string, date: string, initialReactionCounts: ReactionCounts}) => {
+const GuestPost = ({id, postId, text, date, initialReactionCounts, onSignIn} : {id: string, postId: string, text: string, date: string, initialReactionCounts: ReactionCounts, onSignIn: (method: string) => void}) => {
 
     const [checked, setChecked] = useState(false);
     const cardRef = useRef(null);
@@ -76,7 +76,7 @@ const GuestPost = ({id, postId, text, date, initialReactionCounts} : {id: string
                     </Grid>
                     <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
                         {/* <GuestButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/> */}
-                        <GuestButton type={GuestButtonType.ReactionBookmark} />
+                        <GuestButton type={GuestButtonType.ReactionBookmark} onSignIn={onSignIn}/>
                         <Typography fontSize={"small"}>{reactionCounts.bookmark || ""}</Typography>
                     </Grid>
                     <CardActionArea onClick={handleClick}>
@@ -90,23 +90,23 @@ const GuestPost = ({id, postId, text, date, initialReactionCounts} : {id: string
                 {isReactioned() && <Divider/>}
                 <Stack direction={"row"}>
                   {reactionCounts.heart > 0 && <>
-                        <GuestButton type={GuestButtonType.ReactionHeart} />
+                        <GuestButton type={GuestButtonType.ReactionHeart} onSignIn={onSignIn}/>
                         <Typography fontSize={"small"}>{reactionCounts.heart}</Typography>
                     </>}
                   {reactionCounts.good > 0 && <>
-                        <GuestButton type={GuestButtonType.ReactionGood} />
+                        <GuestButton type={GuestButtonType.ReactionGood} onSignIn={onSignIn}/>
                         <Typography fontSize={"small"}>{reactionCounts.good}</Typography>
                     </>}
                   {reactionCounts.smile > 0 && <>
-                        <GuestButton type={GuestButtonType.ReactionSmile} />
+                        <GuestButton type={GuestButtonType.ReactionSmile} onSignIn={onSignIn}/>
                         <Typography fontSize={"small"}>{reactionCounts.smile}</Typography>
                     </>}
                   {reactionCounts.sad > 0 && <>
-                        <GuestButton type={GuestButtonType.ReactionSad} />
+                        <GuestButton type={GuestButtonType.ReactionSad} onSignIn={onSignIn}/>
                         <Typography fontSize={"small"}>{reactionCounts.sad}</Typography>
                     </>}
                   {reactionCounts.bad > 0 && <>
-                        <GuestButton type={GuestButtonType.ReactionBad} />
+                        <GuestButton type={GuestButtonType.ReactionBad} onSignIn={onSignIn}/>
                         <Typography fontSize={"small"}>{reactionCounts.bad}</Typography>
                     </>}
                 </Stack>
@@ -130,11 +130,11 @@ const GuestPost = ({id, postId, text, date, initialReactionCounts} : {id: string
           {/* リアクション用のポップ */}
           <Card>
             <CardContent>
-                <GuestButton type={GuestButtonType.ReactionHeart} />
-                <GuestButton type={GuestButtonType.ReactionGood} />
-                <GuestButton type={GuestButtonType.ReactionSmile} />
-                <GuestButton type={GuestButtonType.ReactionSad} />
-                <GuestButton type={GuestButtonType.ReactionBad} />
+                <GuestButton type={GuestButtonType.ReactionHeart} onSignIn={onSignIn}/>
+                <GuestButton type={GuestButtonType.ReactionGood} onSignIn={onSignIn}/>
+                <GuestButton type={GuestButtonType.ReactionSmile} onSignIn={onSignIn}/>
+                <GuestButton type={GuestButtonType.ReactionSad} onSignIn={onSignIn}/>
+                <GuestButton type={GuestButtonType.ReactionBad} onSignIn={onSignIn}/>
             </CardContent>
           </Card>
         </Popover>

@@ -25,7 +25,7 @@ export enum GuestButtonType {
 
 
 // ゲストモード用のデータ。操作にログインが必要な場合は、このコンポーネントを使う。
-const GuestButton = ({type}: {type: GuestButtonType}) => {
+const GuestButton = ({type, onSignIn}: {type: GuestButtonType, onSignIn: (method: string) => void}) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     
     const handleClose = () => {
@@ -33,8 +33,12 @@ const GuestButton = ({type}: {type: GuestButtonType}) => {
     }
     
     const handleClick = () => {
-        console.log("clicked");
         setIsOpen(true);
+    }
+
+    const handleLoginClick = () => {
+        onSignIn("login");
+        setIsOpen(false);
     }
 
     const modal = <>
@@ -52,7 +56,7 @@ const GuestButton = ({type}: {type: GuestButtonType}) => {
                     <CardContent sx={{display:"flex", justifyContent: "center", alignItems: "center"}}>
                         <Stack direction={"column"} alignItems={"center"}>
                             <Typography sx={{m: 2}}>この操作にはログインが必要です</Typography>
-                            <Button variant="contained">ログイン/サインアップ</Button>
+                            <Button variant="contained" onClick={handleLoginClick}>ログイン/サインアップ</Button>
                             <Button variant="text" onClick={handleClose}>閉じる</Button>
                         </Stack>
                     </CardContent>
