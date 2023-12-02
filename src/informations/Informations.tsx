@@ -18,7 +18,7 @@ const Informations = () => {
             <Divider />
             <Box sx={{maxHeight: "300px", overflowY: "auto"}}>
                 {sortedInformationsData.map((data) => (
-                    <Card sx={{ p: 1, m: 1 }}>
+                    <Card key={data.date} sx={{ p: 1, m: 1 }}>
                         <Typography fontSize={12} variant="body2">
                             {data.date}
                         </Typography>
