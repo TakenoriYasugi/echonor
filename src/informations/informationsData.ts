@@ -14,4 +14,5 @@ export const informationsData: InformationsData[] = [
     {date: "2023/11/30 18:58", type: InformationsType.Maintenance, content: "特定の条件下でお知らせ欄のバッヂが表示されない不具合を修正しました。"},
     {date: "2023/12/02 13:11", type: InformationsType.Update, content: "ゲストログイン機能を追加しました。未ログインの状態でもタイムラインの閲覧ができるようになりました。その他の操作にはログインが必要です。"},
     {date: "2023/12/02 19:25", type: InformationsType.Update, content: "検索機能を実装しました。画面下部のアイコンから表示できます。"},
+    {date: "2023/12/02 22:43", type: InformationsType.Update, content: "アプリのアイコンを変更しました。"},
 ];
