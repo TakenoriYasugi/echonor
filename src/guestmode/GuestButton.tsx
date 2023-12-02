@@ -33,6 +33,7 @@ const GuestButton = ({type, onSignIn}: {type: GuestButtonType, onSignIn: (method
     }
     
     const handleClick = () => {
+        console.log("handleClick");
         setIsOpen(true);
     }
 
@@ -67,12 +68,15 @@ const GuestButton = ({type, onSignIn}: {type: GuestButtonType, onSignIn: (method
     switch(type) {
         case GuestButtonType.MyPage:
             return (
-                <Button
-                    sx={{textTransform: 'none'}}
-                    color='secondary' variant='outlined'
-                    onClick={handleClick}>
-                        MyPage
-                </Button>);
+                <>
+                    <Button
+                        sx={{textTransform: 'none'}}
+                        color='secondary' variant='outlined'
+                        onClick={() => handleClick()}>
+                            MyPage
+                    </Button>{modal}
+                </>
+                );
         case GuestButtonType.ReactionGood:
             return <>
                 <IconButton onClick={handleClick}><ThumbUpAltIcon sx={{color: ReactionColor.Good}}/></IconButton>{modal}
@@ -102,6 +106,7 @@ const GuestButton = ({type, onSignIn}: {type: GuestButtonType, onSignIn: (method
                 <Fab color="primary" onClick={handleClick}><ChatIcon /></Fab>{modal}
             </>
         default:
+            return <>error</>;
     }
 
     return (

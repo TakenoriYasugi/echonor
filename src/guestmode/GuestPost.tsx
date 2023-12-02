@@ -75,7 +75,6 @@ const GuestPost = ({id, postId, text, date, initialReactionCounts, onSignIn} : {
                       <Typography fontSize={"small"}>{date}</Typography>
                     </Grid>
                     <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                        {/* <GuestButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/> */}
                         <GuestButton type={GuestButtonType.ReactionBookmark} onSignIn={onSignIn}/>
                         <Typography fontSize={"small"}>{reactionCounts.bookmark || ""}</Typography>
                     </Grid>
@@ -91,6 +90,7 @@ const GuestPost = ({id, postId, text, date, initialReactionCounts, onSignIn} : {
                 <Stack direction={"row"}>
                   {reactionCounts.heart > 0 && <>
                         <GuestButton type={GuestButtonType.ReactionHeart} onSignIn={onSignIn}/>
+                        
                         <Typography fontSize={"small"}>{reactionCounts.heart}</Typography>
                     </>}
                   {reactionCounts.good > 0 && <>
