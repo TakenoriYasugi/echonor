@@ -1,4 +1,4 @@
-import { Button, Fab, Icon } from "@mui/material";
+import { Button, Card, CardContent, Fab, Icon, Modal, Stack, Typography } from "@mui/material";
 import { IconButton } from "@mui/material";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
@@ -22,11 +22,43 @@ export enum GuestButtonType {
     ReactionBookmark,
     PostFAB
 }
+
+
 // ゲストモード用のデータ。操作にログインが必要な場合は、このコンポーネントを使う。
 const GuestButton = ({type}: {type: GuestButtonType}) => {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    
+    const handleClose = () => {
+        setIsOpen(false);
+    }
+    
     const handleClick = () => {
         console.log("clicked");
+        setIsOpen(true);
     }
+
+    const modal = <>
+        <Modal
+            onClose={handleClose}
+            open={isOpen}
+            sx={{
+                display: 'flex', 
+                alignItems: 'center', // 垂直方向の位置を中央に設定
+                justifyContent: 'center', // 水平方向の位置を中央に設定
+                mt: -20 // マージントップをマイナス値にすることで、中央より上にずらす
+            }}
+            >
+                <Card>
+                    <CardContent sx={{display:"flex", justifyContent: "center", alignItems: "center"}}>
+                        <Stack direction={"column"} alignItems={"center"}>
+                            <Typography sx={{m: 2}}>この操作にはログインが必要です</Typography>
+                            <Button variant="contained">ログイン/サインアップ</Button>
+                            <Button variant="text" onClick={handleClose}>閉じる</Button>
+                        </Stack>
+                    </CardContent>
+                </Card>
+        </Modal>
+    </>
 
     switch(type) {
         case GuestButtonType.MyPage:
@@ -38,22 +70,41 @@ const GuestButton = ({type}: {type: GuestButtonType}) => {
                         MyPage
                 </Button>);
         case GuestButtonType.ReactionGood:
-            return <IconButton onClick={handleClick}><ThumbUpAltIcon sx={{color: ReactionColor.Good}}/></IconButton>
+            return <>
+                <IconButton onClick={handleClick}><ThumbUpAltIcon sx={{color: ReactionColor.Good}}/></IconButton>{modal}
+            </>
         case GuestButtonType.ReactionHeart:
-            return <IconButton onClick={handleClick}><FavoriteIcon sx={{color: ReactionColor.Heart}}/></IconButton>
+            return <>
+                <IconButton onClick={handleClick}><FavoriteIcon sx={{color: ReactionColor.Heart}}/></IconButton>{modal}
+            </>
         case GuestButtonType.ReactionSmile:
-            return <IconButton onClick={handleClick}><TagFacesIcon sx={{color: ReactionColor.Smile}}/></IconButton>
+            return <>
+                <IconButton onClick={handleClick}><TagFacesIcon sx={{color: ReactionColor.Smile}}/></IconButton>{modal}
+            </>
         case GuestButtonType.ReactionSad:
-            return <IconButton onClick={handleClick}><SentimentVeryDissatisfiedIcon sx={{color: ReactionColor.Sad}}/></IconButton>
+            return <>
+                <IconButton onClick={handleClick}><SentimentVeryDissatisfiedIcon sx={{color: ReactionColor.Sad}}/></IconButton>{modal}
+            </>
         case GuestButtonType.ReactionBad:
-            return <IconButton onClick={handleClick}><ThumbDownAltIcon sx={{color: ReactionColor.Bad}}/></IconButton>
+            return <>
+                <IconButton onClick={handleClick}><ThumbDownAltIcon sx={{color: ReactionColor.Bad}}/></IconButton>{modal}
+            </>
         case GuestButtonType.ReactionBookmark:
-            return <IconButton onClick={handleClick}><BookmarksIcon sx={{color: ReactionColor.Bookmark}}/></IconButton>
+            return <>
+                <IconButton onClick={handleClick}><BookmarksIcon sx={{color: ReactionColor.Bookmark}}/></IconButton>{modal}
+            </>
         case GuestButtonType.PostFAB:
-            return <Fab color="primary" onClick={handleClick}><ChatIcon /></Fab>
+            return <>
+                <Fab color="primary" onClick={handleClick}><ChatIcon /></Fab>{modal}
+            </>
         default:
-            return <></>
     }
+
+    return (
+        <>
+            
+        </>
+    );
 };
 
 export default GuestButton;
