@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useLayoutEffect, useState } from "react";
 import useReactionStatesList, { ReactionStatesListHook } from "./context/ReactionContext";
 import App from "./App";
 import { GetUserInfo } from "./util/Authenticator";
@@ -20,7 +20,7 @@ const AppWrapper = () => {
     const [user, setUser] = useState();
     const [isGuest, setIsGuest] = useState<boolean>(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         GetUserInfo().then((userInfo) => {
             setUser(userInfo);
             setIsAuthenticated(true);
