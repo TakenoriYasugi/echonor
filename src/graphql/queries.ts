@@ -187,3 +187,28 @@ export const listReactionsByUserId = /* GraphQL */ `query ListReactions(
   APITypes.ListReactionsQueryVariables,
   APITypes.ListReactionsQuery
 >;
+
+export const listPostsByKeyWords = /* GraphQL */ `query ListPosts($keyword: String, $limit: Int, $nextToken: String) {
+  listPosts(filter: {content: {contains: $keyword}}, limit: $limit, nextToken: $nextToken) {
+    items {
+      postId
+      userId
+      content
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
