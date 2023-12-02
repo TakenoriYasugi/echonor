@@ -70,6 +70,9 @@ const CustomAuthenticator = ({onSignIn}: {onSignIn: (method: string) => void}) =
             <Stack direction={'column'} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <StyledButton variant={"contained"} sx={{m: 1}} onClick={() => onSignIn('login')}>ログイン / ユーザー登録</StyledButton>
                 <StyledButton variant={"contained"} sx={{m: 1}} onClick={() => onSignIn('guest')}>ゲストとして続ける</StyledButton>
+                <Typography color={"red"} fontSize={12}>※ゲスト(未登録のユーザー)はタイムラインの閲覧のみ行えます。</Typography>
+                <Typography color={"red"} fontSize={12}>投稿やリアクションにはユーザー登録が必要です。</Typography>
+
             </Stack>
 
             <Typography variant="body1" sx={{m: 3}} textAlign={'center'} >
