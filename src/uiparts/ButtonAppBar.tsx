@@ -63,6 +63,7 @@ const ButtonAppBar = ({title}: {title: string}) => {
     {text: "集会場", url: "/meetingplace"},
     {text: "利用規約", url: "/"},
     {text: "サポート", url: "https://ysfactoryportal.com/contact/"},
+    {text: "ライセンス", url: "/licenses"},
   ]
 
   const navigate = useNavigate();
