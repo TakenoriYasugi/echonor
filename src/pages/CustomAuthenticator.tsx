@@ -93,6 +93,10 @@ const CustomAuthenticator = ({onSignIn}: {onSignIn: (method: string) => void}) =
                     </Grid>
                 ))}
             </Grid>
+
+            {/* <!-- admax --> */}
+                <script src="https://adm.shinobi.jp/s/ea492f162cbda4ac8d8bf88a20cb6eb4"></script>
+            {/* <!-- admax --> */}
         </>
     );
 }
