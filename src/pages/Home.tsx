@@ -12,6 +12,7 @@ import { Card, CardContent, Container, Paper, Typography } from "@mui/material";
 import { formatDate } from "../util/Format";
 import { MAX_POST_COUNT, ReactionCounts } from "../constants/Constants";
 import { ReactionStatesListContext } from "../AppWrapper";
+import AdMax from "../uiparts/AdMax";
 
 const Home = () => {
 
@@ -46,6 +47,7 @@ const Home = () => {
   const reactions = useContext(ReactionStatesListContext);
   return (
       <>
+      <AdMax />
       <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
       {/* @ts-ignore */}
       {posts.map((post: any) => {
