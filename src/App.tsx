@@ -32,6 +32,7 @@ import Notifications from './pages/Notifications';
 import Introduction from './pages/Introduction';
 import CustomAuthenticator from './pages/CustomAuthenticator';
 import Search from './pages/Search';
+import Licenses from './pages/Licenses';
 
 Amplify.configure(awsExports);
 
@@ -82,6 +83,13 @@ function App() {
       element: <>
         <ButtonAppBar title="EchoNor"/>
         <MeetingPlace/>
+      </>
+    },
+    {
+      path: "/licenses",
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        <Licenses/>
       </>
     },
     // {

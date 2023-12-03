@@ -17,4 +17,5 @@ export const informationsData: InformationsData[] = [
     {date: "2023/12/02 22:43", type: InformationsType.Update, content: "アプリのアイコンを変更しました。"},
     {date: "2023/12/02 23:23", type: InformationsType.Update, content: "検索結果が0件の場合に表示されるメッセージを変更しました。"},
     {date: "2023/12/03 21:17", type: InformationsType.Info, content: "現在広告掲載の実験中です。突然広告が表示されることがありますのでご了承ください。"},
+    {date: "2023/12/03 22:33", type: InformationsType.Update, content: "ライセンス情報を追加しました。"},
 ];
