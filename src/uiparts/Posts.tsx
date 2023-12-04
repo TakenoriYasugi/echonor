@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { PostType, ReactionCounts } from "../type/PostType";
 import Post from "./Post";
 import { formatDate } from "../util/Format";
@@ -9,13 +8,10 @@ const Posts = ({ posts }: { posts: PostType[] }) => {
         <>
             {posts.map((post) => {
                 var reactionCounts: ReactionCounts;
-                // @ts-ignore
                 if (!post.reactionCounts) {
-                    // @ts-ignore
                     reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
                 } else {
                     reactionCounts = {
-                        // @ts-ignore
                         good: post.reactionCounts.good,
                         heart: post.reactionCounts.heart,
                         smile: post.reactionCounts.smile,
