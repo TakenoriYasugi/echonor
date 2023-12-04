@@ -5,6 +5,7 @@ import { GetUserInfo } from "./util/Authenticator";
 import { Auth } from "aws-amplify";
 import CustomAuthenticator from "./pages/CustomAuthenticator";
 import GuestApp from "./GuestApp";
+import Loading from "./pages/Loading";
 
 const defaultReactionStatesListHook: ReactionStatesListHook = {
     reactionStatesList: [],
@@ -19,12 +20,15 @@ const AppWrapper = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState();
     const [isGuest, setIsGuest] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useLayoutEffect(() => {
         GetUserInfo().then((userInfo) => {
             setUser(userInfo);
             setIsAuthenticated(true);
+            setIsLoading(false);
         }).catch((error) => {
+            setIsLoading(false);
             setIsAuthenticated(false);
         });
     }, []);
@@ -45,20 +49,25 @@ const AppWrapper = () => {
         }
     }
 
-    if (!isAuthenticated) {
-        console.log("未ログイン")
-        return <CustomAuthenticator onSignIn={handleSignIn} />; 
+    if (isLoading) {
+        return <Loading/>;
     } else {
-        if (isGuest) {
-            return <GuestApp onSignIn={handleSignIn}/>;
+        if (!isAuthenticated) {
+            console.log("未ログイン")
+            return <CustomAuthenticator onSignIn={handleSignIn} />; 
         } else {
-            return (
-                <ReactionStatesListContext.Provider value={reactionStatesListHook}>
-                    <App/>
-                </ReactionStatesListContext.Provider>
-            );
+            if (isGuest) {
+                return <GuestApp onSignIn={handleSignIn}/>;
+            } else {
+                return (
+                    <ReactionStatesListContext.Provider value={reactionStatesListHook}>
+                        <App/>
+                    </ReactionStatesListContext.Provider>
+                );
+            }
         }
     }
+
 
 }
 
