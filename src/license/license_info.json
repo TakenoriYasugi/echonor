@@ -6124,12 +6124,6 @@
     "path": "/Users/takenori/Projects/YsFactory/echonor/node_modules/duplexer",
     "licenseFile": "/Users/takenori/Projects/YsFactory/echonor/node_modules/duplexer/LICENCE"
   },
-  "echonor@0.1.0": {
-    "licenses": "UNLICENSED",
-    "private": true,
-    "path": "/Users/takenori/Projects/YsFactory/echonor",
-    "licenseFile": "/Users/takenori/Projects/YsFactory/echonor/README.md"
-  },
   "ee-first@1.1.1": {
     "licenses": "MIT",
     "repository": "https://github.com/jonathanong/ee-first",
