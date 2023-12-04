@@ -22,11 +22,11 @@ const Home = () => {
 
   useEffect(() => {
     fetchPosts();
-  },[]);
+  }, []);
 
   const fetchPosts = async () => {
     try {
-      const postData = await API.graphql(graphqlOperation(listPosts, {limit: MAX_POST_COUNT}));
+      const postData = await API.graphql(graphqlOperation(listPosts, { limit: MAX_POST_COUNT }));
       // @ts-ignore
       const posts = postData.data.listPosts.items;
       posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
@@ -38,27 +38,27 @@ const Home = () => {
 
   // 更新時に表示するテキスト
   const pullingContent = <>
-    <Paper sx={{backgroundColor: "#ADD8E6", p: 2}}>
-        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Typography>Refresh</Typography>
-        </Container>
+    <Paper sx={{ backgroundColor: "#ADD8E6", p: 2 }}>
+      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Typography>Refresh</Typography>
+      </Container>
     </Paper>
-  
+
   </>
 
   const reactions = useContext(ReactionStatesListContext);
   return (
-      <>
+    <>
       <AdMax />
       <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
-        <Posts posts={posts}/>
+        <Posts posts={posts} />
       </PullToRefresh>
-        <Zoom in={true}>
-          <Box sx={{position: "fixed", right: 20, bottom: 80}}>
-              <PostFAB fetchPosts={fetchPosts}/>
-          </Box>
-        </Zoom>
-      </>
+      <Zoom in={true}>
+        <Box sx={{ position: "fixed", right: 20, bottom: 80 }}>
+          <PostFAB fetchPosts={fetchPosts} />
+        </Box>
+      </Zoom>
+    </>
   );
 }
 
