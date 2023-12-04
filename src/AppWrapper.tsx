@@ -57,7 +57,8 @@ const AppWrapper = () => {
             return <CustomAuthenticator onSignIn={handleSignIn} />; 
         } else {
             if (isGuest) {
-                return <GuestApp onSignIn={handleSignIn}/>;
+                // return <GuestApp onSignIn={handleSignIn}/>;
+                return <Loading/>;
             } else {
                 return (
                     <ReactionStatesListContext.Provider value={reactionStatesListHook}>
