@@ -1,15 +1,12 @@
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import Home from "./Home";
 import { API, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
-import { MAX_POST_COUNT, ReactionCounts } from "../constants/Constants";
+import { MAX_POST_COUNT } from "../constants/Constants";
 import { listPosts, listPostsByKeyWords } from "../graphql/queries";
-import Post from "../uiparts/Post";
-import { formatDate } from "../util/Format";
-import { set } from "zod";
 import { GraphQLResult } from "@aws-amplify/api";
 import Observable from "zen-observable";
+import Posts from "../uiparts/Posts";
 
 const Search = () => {
     const [searchWords, setSearchWords] = useState<string>("")
@@ -123,32 +120,7 @@ const Search = () => {
             </Box>
 
             <Box sx={{m: 0}}>
-
-                {posts.map((post: any) => {
-                    // @ts-ignore
-                    var reactionCounts: ReactionCounts;
-
-                    // @ts-ignore
-                    if (!post.reactionCounts) {
-                        // @ts-ignore
-                        reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
-                    } else {
-                        reactionCounts = {
-                        // @ts-ignore
-                        good: post.reactionCounts.good,
-                        heart: post.reactionCounts.heart,
-                        smile: post.reactionCounts.smile,
-                        sad: post.reactionCounts.sad,
-                        bad: post.reactionCounts.bad,
-                        bookmark: post.reactionCounts.bookmark
-                        } as ReactionCounts;
-                    }
-
-                    return (
-                        <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
-                    );
-                })}
-
+                <Posts posts={posts}/>
                 {isSearched && posts.length === 0 && resultInfo}
             </Box>
         </>

@@ -1,16 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import { ReactionStatesListContext } from '../AppWrapper';
 import { API, graphqlOperation } from 'aws-amplify';
-import { ReactionCounts } from '../constants/Constants';
-import { set } from 'zod';
-import Post from '../uiparts/Post';
-import { getPost, listPostsByPostId } from '../graphql/queries';
-import { formatDate } from '../util/Format';
+import { listPostsByPostId } from '../graphql/queries';
 import dayjs from 'dayjs';
+import { PostType } from '../type/PostType';
+import Posts from '../uiparts/Posts';
 
 const Bookmarks = () => {
     const reactions = useContext(ReactionStatesListContext);
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<PostType[]>([]);
 
     useEffect(() => {
       const bookmarkedPostIds = reactions.reactionStatesList.filter(
@@ -42,30 +40,7 @@ const Bookmarks = () => {
 
     return (
       <>
-        {posts.map((post: any) => {
-          // @ts-ignore
-          var reactionCounts: ReactionCounts;
-
-          // @ts-ignore
-          if (!post.reactionCounts) {
-            // @ts-ignore
-            reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
-          } else {
-            reactionCounts = {
-              // @ts-ignore
-              good: post.reactionCounts.good,
-              heart: post.reactionCounts.heart,
-              smile: post.reactionCounts.smile,
-              sad: post.reactionCounts.sad,
-              bad: post.reactionCounts.bad,
-              bookmark: post.reactionCounts.bookmark
-            } as ReactionCounts;
-          }
-
-          return (
-            <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
-          );
-        })}
+        <Posts posts={posts}/>
       </>
     );
     
