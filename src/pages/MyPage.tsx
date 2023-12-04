@@ -4,16 +4,15 @@ import { useContext, useEffect, useState } from "react";
 import React from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
-import { listPostsByUserId} from "../graphql/queries";
-import Post from "../uiparts/Post";
-import { formatDate } from "../util/Format";
+import { listPostsByUserId } from "../graphql/queries";
 import { ReactionStatesListContext } from "../AppWrapper";
-import { ReactionCounts } from "../constants/Constants";
 import Bookmarks from "./Bookmarks";
+import Posts from "../uiparts/Posts";
+import { PostType } from "../type/PostType";
 
 function MyPage() {
 
-  const [usersPosts, setUsersPosts] = useState([]);
+  const [posts, setPosts] = useState<PostType[]>([]);
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -31,7 +30,7 @@ function MyPage() {
       // @ts-ignore
       const posts = postData.data.listPosts.items;
       posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-      setUsersPosts(posts);
+      setPosts(posts);
     } catch (err) {
       console.error('Error fetching posts', err);
     }
@@ -89,29 +88,7 @@ function MyPage() {
         </Box>
 
         <CustomTabPanel value={value} index={0} >
-          {usersPosts.map((post: any) => {
-          // @ts-ignore
-          var reactionCounts: ReactionCounts;
-
-          // @ts-ignore
-          if (!post.reactionCounts) {
-              // @ts-ignore
-              reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
-          } else {
-              reactionCounts = {
-              // @ts-ignore
-              good: post.reactionCounts.good,
-              heart: post.reactionCounts.heart,
-              smile: post.reactionCounts.smile,
-              sad: post.reactionCounts.sad,
-              bad: post.reactionCounts.bad,
-              bookmark: post.reactionCounts.bookmark
-              } as ReactionCounts;
-          }
-          return (
-            <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
-        )})}
-            
+          <Posts posts={posts} />
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={1}>
@@ -119,7 +96,7 @@ function MyPage() {
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={2}>
-          <Bookmarks/>
+          <Bookmarks />
         </CustomTabPanel>
       </Box>
     </>

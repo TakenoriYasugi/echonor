@@ -12,10 +12,12 @@ import Post from "../uiparts/Post";
 import { listPostsByUserId } from "../graphql/queries";
 import { formatDate } from "../util/Format";
 import { ReactionCounts } from "../constants/Constants";
+import { PostType } from "../type/PostType";
+import Posts from "../uiparts/Posts";
 
 // この際、ReactionCountsが全て0のPostは表示しない。
 const Notifications = () => {
-    const [usersPosts, setUsersPosts] = useState([]);
+    const [posts, setPosts] = useState<PostType[]>([]);
     const [user, setUser] = useState();
 
     useEffect( () => {
@@ -62,7 +64,7 @@ const Notifications = () => {
             return reactionCounts.good > 0 || reactionCounts.heart > 0 || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0 || reactionCounts.bookmark > 0;
           });
           const sortedPosts = reactionedPosts.sort((a: { updatedAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { updatedAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.updatedAt).valueOf() - dayjs(a.updatedAt).valueOf());
-          setUsersPosts(sortedPosts);
+          setPosts(sortedPosts);
         } catch (err) {
           console.error('Error fetching posts', err);
         }
@@ -76,31 +78,7 @@ const Notifications = () => {
                     最近リアクションされたエコーがここに表示されます。
                 </Typography>
             </Box>
-            {/* @ts-ignore */}
-            {usersPosts.map((post: any) => {
-                // @ts-ignore
-                var reactionCounts: ReactionCounts;
-        
-                // @ts-ignore
-                if (!post.reactionCounts) {
-                    // @ts-ignore
-                    reactionCounts = { good: 0, heart: 0, smile: 0, sad: 0, bad: 0, bookmark: 0 } as ReactionCounts;
-                } else {
-                    reactionCounts = {
-                    // @ts-ignore
-                    good: post.reactionCounts.good,
-                    heart: post.reactionCounts.heart,
-                    smile: post.reactionCounts.smile,
-                    sad: post.reactionCounts.sad,
-                    bad: post.reactionCounts.bad,
-                    bookmark: post.reactionCounts.bookmark
-                    } as ReactionCounts;
-                }
-        
-                return (
-                    <Post key={post.postId} id={post.id} postId={post.postId} text={post.content} date={formatDate(post.createdAt)} initialReactionCounts={reactionCounts}/>
-                );
-            })}
+            <Posts posts={posts}/>
         </>
     )
 
