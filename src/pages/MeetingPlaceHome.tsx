@@ -1,5 +1,6 @@
 import { Box, Tabs, Tab, Typography } from "@mui/material";
 import Topic from "../uiparts/Topic";
+import { TopicType } from "../type/MeetingPlaceType";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -37,18 +38,28 @@ const a11yProps = (index: number) => {
 
 const MeetingPlaceHome = ({ tabValue, handleChange }: { tabValue: number, handleChange: (event: React.SyntheticEvent, newValue: number) => void }) => {
 
-    const dummyTopic: string[] = [
-        "あなたの「恥ずかしい失敗談」を共有しよう！",
-        "「最悪のデート体験」を教えて！",
-        "有名人のゴシップ話：最新のうわさは？",
-        "「職場での奇妙な出来事」：あなたの体験談を聞かせて！",
-        "「最もひどい贈り物」：誰かにもらった最悪のプレゼントは？",
-        "「驚くほどの偶然の出来事」：あなたの信じられない偶然体験は？",
-        "「バカバカしい賭け」：参加したことのある一番馬鹿げた賭けは何？",
-        "「猫か犬か」：あなたはどっち派？理由も教えて！",
-        "「最も恥ずかしい学校での思い出」：あなたの学生時代の恥ずかしい話は？",
-        "「意外な趣味を持っている有名人」：知っている意外な事実は？"
-    ];
+    const dummyTopics: TopicType[] = [
+        { title: "今週末の不思議な出来事、何が起こった？", createdAt: "2023/10/02 14:30", updatedAt: "2023/10/03 09:15", postCount: 256 },
+        { title: "近所のカフェ、秘密のメニュー発見！", createdAt: "2023/10/01 20:45", updatedAt: "2023/10/02 10:20", postCount: 198 },
+        { title: "旅行計画、どこに行こうかな？", createdAt: "2023/09/30 23:10", updatedAt: "2023/10/01 08:00", postCount: 340 },
+        { title: "週末のDIYプロジェクト、みんなのアイデアは？", createdAt: "2023/09/29 18:20", updatedAt: "2023/09/30 07:45", postCount: 127 },
+        { title: "地元の伝説、本当の話？", createdAt: "2023/09/28 16:50", updatedAt: "2023/09/29 09:30", postCount: 489 },
+        { title: "健康的な朝食レシピ、共有しよう！", createdAt: "2023/09/27 15:40", updatedAt: "2023/09/28 10:15", postCount: 372 },
+        { title: "突然の仕事の休み、どう過ごす？", createdAt: "2023/09/26 12:30", updatedAt: "2023/09/27 11:05", postCount: 214 },
+        { title: "【衝撃】昨夜の奇妙な天気、何だったの？", createdAt: "2023/09/25 21:15", updatedAt: "2023/09/26 09:50", postCount: 560 },
+        { title: "最近の読書、何を読んでる？", createdAt: "2023/09/24 19:45", updatedAt: "2023/09/25 08:30", postCount: 453 },
+        { title: "新しい趣味を探してるんだけど、おすすめは？", createdAt: "2023/09/23 17:50", updatedAt: "2023/09/24 12:20", postCount: 325 },
+        { title: "【驚報】地域で見つかった古代の遺物！", createdAt: "2023/09/22 20:40", updatedAt: "2023/09/23 11:15", postCount: 688 },
+        { title: "この週末のスポーツイベント、誰が勝つ？", createdAt: "2023/09/21 18:30", updatedAt: "2023/09/22 09:50", postCount: 521 },
+        { title: "おしゃれなインテリアのアイデア、教えて！", createdAt: "2023/09/20 22:15", updatedAt: "2023/09/21 08:40", postCount: 146 },
+        { title: "自宅でのエクササイズ、効果ある？", createdAt: "2023/09/19 13:10", updatedAt: "2023/09/20 07:55", postCount: 399 },
+        { title: "【謎】夜空に浮かぶ謎の光、何だろう？", createdAt: "2023/09/18 15:25", updatedAt: "2023/09/19 10:30", postCount: 230 },
+        { title: "ガーデニングのコツ、教えて！", createdAt: "2023/09/17 11:50", updatedAt: "2023/09/18 09:10", postCount: 311 },
+        { title: "新発売のガジェット、試してみた？", createdAt: "2023/09/16 14:10", updatedAt: "2023/09/17 08:25", postCount: 283 },
+        { title: "仕事のストレス、どうやって解消してる？", createdAt: "2023/09/15 16:45", updatedAt: "2023/09/16 10:05", postCount: 167 },
+        { title: "週末の映画鑑賞、何を見る？", createdAt: "2023/09/14 13:35", updatedAt: "2023/09/15 11:50", postCount: 188 },
+        { title: "友達との集まり、どこでやる？", createdAt: "2023/09/13 19:20", updatedAt: "2023/09/14 09:40", postCount: 100 }
+      ];
 
     return (
         <>
@@ -62,9 +73,9 @@ const MeetingPlaceHome = ({ tabValue, handleChange }: { tabValue: number, handle
                 </Box>
 
                 <CustomTabPanel value={tabValue} index={0}>
-                    {dummyTopic.map((topic, index) => {
+                    {dummyTopics.map((topic, index) => {
                         return (
-                            <Topic key={index} title={topic} createdAt="2022/10/2" postCount={100}/>
+                            <Topic key={index} {...topic}/>
                         );
                     })}
                 </CustomTabPanel>
