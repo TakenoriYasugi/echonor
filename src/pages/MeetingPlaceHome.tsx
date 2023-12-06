@@ -64,7 +64,7 @@ const MeetingPlaceHome = ({ tabValue, handleChange }: { tabValue: number, handle
                 <CustomTabPanel value={tabValue} index={0}>
                     {dummyTopic.map((topic, index) => {
                         return (
-                            <Topic key={index} title={topic} />
+                            <Topic key={index} title={topic} createdAt="2022/10/2" postCount={100}/>
                         );
                     })}
                 </CustomTabPanel>
