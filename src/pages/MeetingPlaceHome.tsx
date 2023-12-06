@@ -53,7 +53,7 @@ const MeetingPlaceHome = ({ tabValue, handleChange }: { tabValue: number, handle
     return (
         <>
             <Box sx={{ width: '100%' }}>
-                <Box sx={{ position: 'fixed', width: '100%', borderBottom: 1, borderColor: 'divider', backgroundColor: "white" }}>
+                <Box sx={{ position: 'fixed', width: '100%', borderBottom: 1, borderColor: 'divider', backgroundColor: "white" , zIndex: 999}}>
                     <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="常設" {...a11yProps(0)} />
                         <Tab label="最新" {...a11yProps(1)} />
