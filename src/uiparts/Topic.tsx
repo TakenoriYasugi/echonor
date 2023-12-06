@@ -11,10 +11,10 @@ const Topic = (props: TopicType) => {
                     <Typography>{props.title}</Typography>
                 </CardContent>
                 <Divider />
-                <Stack direction="row" justifyContent={"space-evenly"}>
-                    <Typography fontSize={12}>作成日: <br/>{props.createdAt}</Typography>
-                    <Typography fontSize={12}>最終投稿日: <br/>{props.updatedAt}</Typography>
-                    <Typography fontSize={12}>投稿数: <br/>{props.postCount}</Typography>
+                <Stack direction="row">
+                    <Typography sx={{ml: 2}} fontSize={12}>作成日: <br/>{props.createdAt}</Typography>
+                    <Typography sx={{ml: 2}} fontSize={12}>最終投稿日: <br/>{props.updatedAt}</Typography>
+                    <Typography sx={{ml: 2}} fontSize={12}>投稿数: <br/>{props.postCount}</Typography>
                 </Stack>
             </CardActionArea>
         </Card>
