@@ -19,4 +19,5 @@ export const informationsData: InformationsData[] = [
     {date: "2023/12/03 21:17", type: InformationsType.Info, content: "現在広告掲載の実験中です。突然広告が表示されることがありますのでご了承ください。"},
     {date: "2023/12/03 22:33", type: InformationsType.Update, content: "ライセンス情報を追加しました。"},
     {date: "2023/12/04 16:19", type: InformationsType.Update, content: "ローディング画面を実装しました。"},
+    {date: "2023/12/07 09:27", type: InformationsType.Info, content: "現在集会場の開発中です。リリースまでしばらくお待ちください。"},
 ];
