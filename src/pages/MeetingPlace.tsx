@@ -21,12 +21,6 @@ const MeetingPlace = () => {
             </Box>
 
             <MeetingPlaceButtonNavigation value={navigationValue} setValue={setNavigationValue} />
-            
-            <Zoom in={true}>
-                <Box sx={{ position: "fixed", right: 20, bottom: 80 }}>
-                <AddTopicFAB />
-                </Box>
-            </Zoom>
         </>
     );
 }

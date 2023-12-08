@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab, Typography } from "@mui/material";
+import { Box, Tabs, Tab, Typography, Zoom } from "@mui/material";
 import Topic from "../uiparts/Topic";
 import { TopicType } from "../type/MeetingPlaceType";
 import { API, graphqlOperation } from "aws-amplify";
@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { MAX_POST_COUNT } from "../constants/Constants";
 import { listPosts, listTopics } from "../graphql/queries";
 import { useEffect, useState } from "react";
+import AddTopicFAB from "../uiparts/AddTopicFAB";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -98,7 +99,9 @@ const MeetingPlaceHome = ({ tabValue, handleChange }: { tabValue: number, handle
                 <CustomTabPanel value={tabValue} index={0}>
                     {topics.map((topic, index) => {
                         return (
-                            <Topic key={index} {...topic}/>
+                            <>
+                                <Topic key={index} {...topic}/>
+                            </>
                         );
                     })}
                 </CustomTabPanel>
@@ -109,6 +112,12 @@ const MeetingPlaceHome = ({ tabValue, handleChange }: { tabValue: number, handle
                     Item Three
                 </CustomTabPanel>
             </Box>
+
+            <Zoom in={true}>
+                <Box sx={{ position: "fixed", right: 20, bottom: 80 }}>
+                <AddTopicFAB />
+                </Box>
+            </Zoom>
         </>
     );
 }
