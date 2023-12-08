@@ -266,3 +266,24 @@ export const onDeleteTopicPost = /* GraphQL */ `subscription OnDeleteTopicPost($
   APITypes.OnDeleteTopicPostSubscriptionVariables,
   APITypes.OnDeleteTopicPostSubscription
 >;
+export const onUpdatePostByUserId = /* GraphQL */ `
+subscription OnUpdatePostByUserId($userId: String!) {
+  onUpdatePost(filter: {userId: {eq: $userId}}) {
+    postId
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedSubscription<
+APITypes.OnUpdatePostSubscriptionVariables,
+APITypes.OnUpdatePostSubscription>;

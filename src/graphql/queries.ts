@@ -176,3 +176,114 @@ export const listTopicPosts = /* GraphQL */ `query ListTopicPosts(
   APITypes.ListTopicPostsQueryVariables,
   APITypes.ListTopicPostsQuery
 >;
+
+export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
+  $userId: String
+  $limit: Int
+  $nextToken: String
+) {
+  listPosts(filter: {userId: {eq: $userId}}, limit: $limit, nextToken: $nextToken) {
+    items {
+      postId
+      userId
+      content
+      id
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
+
+
+export const listPostsByPostId = /* GraphQL */ `query ListPostsByPostId(
+  $postId: ID!
+) {
+  listPosts(filter: {postId: {eq: $postId}}) {
+    items {
+      postId
+      userId
+      content
+      id
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
+
+
+export const listReactionsByUserId = /* GraphQL */ `query ListReactions(
+  $userId: String
+) {
+  listReactions(filter: {userId: {eq: $userId}}) {
+    items {
+      postId
+      reactionStates {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+      id
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReactionsQueryVariables,
+  APITypes.ListReactionsQuery
+>;
+
+export const listPostsByKeyWords = /* GraphQL */ `query ListPosts($keyword: String, $limit: Int, $nextToken: String) {
+  listPosts(filter: {content: {contains: $keyword}}, limit: $limit, nextToken: $nextToken) {
+    items {
+      postId
+      userId
+      content
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
