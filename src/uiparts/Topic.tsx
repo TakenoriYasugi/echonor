@@ -2,6 +2,7 @@
 
 import { Card, CardActionArea, CardContent, Divider, Stack, Typography } from "@mui/material";
 import { TopicType } from "../type/MeetingPlaceType";
+import { formatDate } from "../util/Format";
 
 const Topic = (props: TopicType) => {
     return (
@@ -12,9 +13,9 @@ const Topic = (props: TopicType) => {
                 </CardContent>
                 <Divider />
                 <Stack direction="row">
-                    <Typography sx={{ml: 2}} fontSize={12}>作成日: <br/>{props.createdAt}</Typography>
-                    <Typography sx={{ml: 2}} fontSize={12}>最終投稿日: <br/>{props.updatedAt}</Typography>
-                    <Typography sx={{ml: 2}} fontSize={12}>投稿数: <br/>{props.postCount}</Typography>
+                    <Typography sx={{ml: 2}} fontSize={12}>作成日時: <br/>{formatDate(props.createdAt)}</Typography>
+                    <Typography sx={{ml: 2}} fontSize={12}>更新日時: <br/>{formatDate(props.updatedAt)}</Typography>
+                    <Typography sx={{ml: 2}} fontSize={12}>投稿数: <br/>{props.postCount ?? 1}</Typography>
                 </Stack>
             </CardActionArea>
         </Card>
