@@ -1,9 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Zoom } from "@mui/material";
 import MeetingPlaceButtonNavigation from "../uiparts/MeetingPlaceButtonNavigation";
 import { useState } from "react";
 import { ButtonNavigationLabel } from "../constants/Constants";
 import React from "react";
 import MeetingPlaceHome from "./MeetingPlaceHome";
+import AddTopicFAB from "../uiparts/AddTopicFAB";
 
 const MeetingPlace = () => {
     const [navigationValue, setNavigationValue] = useState<ButtonNavigationLabel>(ButtonNavigationLabel.Home);
@@ -20,6 +21,12 @@ const MeetingPlace = () => {
             </Box>
 
             <MeetingPlaceButtonNavigation value={navigationValue} setValue={setNavigationValue} />
+            
+            <Zoom in={true}>
+                <Box sx={{ position: "fixed", right: 20, bottom: 80 }}>
+                <AddTopicFAB />
+                </Box>
+            </Zoom>
         </>
     );
 }
