@@ -42,6 +42,15 @@ export const listPosts = /* GraphQL */ `query ListPosts(
       id
       createdAt
       updatedAt
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
       __typename
     }
     nextToken
