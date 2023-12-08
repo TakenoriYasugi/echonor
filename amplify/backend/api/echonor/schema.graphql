@@ -32,3 +32,16 @@ type ReactionStates {
   bad: Boolean
   bookmark: Boolean
 }
+
+type Topic {
+  title: String!
+  postCount: Int
+  createdBy: String!
+}
+
+type TopicPost {
+  userId: String!
+  content: String!
+  reactionCounts: ReactionCounts
+  to: String
+}
