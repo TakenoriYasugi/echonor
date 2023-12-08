@@ -149,11 +149,53 @@ export const onDeleteReaction = /* GraphQL */ `subscription OnDeleteReaction($fi
   APITypes.OnDeleteReactionSubscriptionVariables,
   APITypes.OnDeleteReactionSubscription
 >;
-
-export const onUpdatePostByUserId = /* GraphQL */ `
-subscription OnUpdatePostByUserId($userId: String!) {
-  onUpdatePost(filter: {userId: {eq: $userId}}) {
-    postId
+export const onCreateTopic = /* GraphQL */ `subscription OnCreateTopic($filter: ModelSubscriptionTopicFilterInput) {
+  onCreateTopic(filter: $filter) {
+    title
+    postCount
+    createdBy
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateTopicSubscriptionVariables,
+  APITypes.OnCreateTopicSubscription
+>;
+export const onUpdateTopic = /* GraphQL */ `subscription OnUpdateTopic($filter: ModelSubscriptionTopicFilterInput) {
+  onUpdateTopic(filter: $filter) {
+    title
+    postCount
+    createdBy
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTopicSubscriptionVariables,
+  APITypes.OnUpdateTopicSubscription
+>;
+export const onDeleteTopic = /* GraphQL */ `subscription OnDeleteTopic($filter: ModelSubscriptionTopicFilterInput) {
+  onDeleteTopic(filter: $filter) {
+    title
+    postCount
+    createdBy
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTopicSubscriptionVariables,
+  APITypes.OnDeleteTopicSubscription
+>;
+export const onCreateTopicPost = /* GraphQL */ `subscription OnCreateTopicPost($filter: ModelSubscriptionTopicPostFilterInput) {
+  onCreateTopicPost(filter: $filter) {
     userId
     content
     reactionCounts {
@@ -165,9 +207,62 @@ subscription OnUpdatePostByUserId($userId: String!) {
       bookmark
       __typename
     }
+    to
+    id
+    createdAt
+    updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-APITypes.OnUpdatePostSubscriptionVariables,
-APITypes.OnUpdatePostSubscription>;
+  APITypes.OnCreateTopicPostSubscriptionVariables,
+  APITypes.OnCreateTopicPostSubscription
+>;
+export const onUpdateTopicPost = /* GraphQL */ `subscription OnUpdateTopicPost($filter: ModelSubscriptionTopicPostFilterInput) {
+  onUpdateTopicPost(filter: $filter) {
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    to
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTopicPostSubscriptionVariables,
+  APITypes.OnUpdateTopicPostSubscription
+>;
+export const onDeleteTopicPost = /* GraphQL */ `subscription OnDeleteTopicPost($filter: ModelSubscriptionTopicPostFilterInput) {
+  onDeleteTopicPost(filter: $filter) {
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    to
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTopicPostSubscriptionVariables,
+  APITypes.OnDeleteTopicPostSubscription
+>;

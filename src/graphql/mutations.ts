@@ -167,3 +167,138 @@ export const deleteReaction = /* GraphQL */ `mutation DeleteReaction(
   APITypes.DeleteReactionMutationVariables,
   APITypes.DeleteReactionMutation
 >;
+export const createTopic = /* GraphQL */ `mutation CreateTopic(
+  $input: CreateTopicInput!
+  $condition: ModelTopicConditionInput
+) {
+  createTopic(input: $input, condition: $condition) {
+    title
+    postCount
+    createdBy
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateTopicMutationVariables,
+  APITypes.CreateTopicMutation
+>;
+export const updateTopic = /* GraphQL */ `mutation UpdateTopic(
+  $input: UpdateTopicInput!
+  $condition: ModelTopicConditionInput
+) {
+  updateTopic(input: $input, condition: $condition) {
+    title
+    postCount
+    createdBy
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateTopicMutationVariables,
+  APITypes.UpdateTopicMutation
+>;
+export const deleteTopic = /* GraphQL */ `mutation DeleteTopic(
+  $input: DeleteTopicInput!
+  $condition: ModelTopicConditionInput
+) {
+  deleteTopic(input: $input, condition: $condition) {
+    title
+    postCount
+    createdBy
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteTopicMutationVariables,
+  APITypes.DeleteTopicMutation
+>;
+export const createTopicPost = /* GraphQL */ `mutation CreateTopicPost(
+  $input: CreateTopicPostInput!
+  $condition: ModelTopicPostConditionInput
+) {
+  createTopicPost(input: $input, condition: $condition) {
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    to
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateTopicPostMutationVariables,
+  APITypes.CreateTopicPostMutation
+>;
+export const updateTopicPost = /* GraphQL */ `mutation UpdateTopicPost(
+  $input: UpdateTopicPostInput!
+  $condition: ModelTopicPostConditionInput
+) {
+  updateTopicPost(input: $input, condition: $condition) {
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    to
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateTopicPostMutationVariables,
+  APITypes.UpdateTopicPostMutation
+>;
+export const deleteTopicPost = /* GraphQL */ `mutation DeleteTopicPost(
+  $input: DeleteTopicPostInput!
+  $condition: ModelTopicPostConditionInput
+) {
+  deleteTopicPost(input: $input, condition: $condition) {
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    to
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteTopicPostMutationVariables,
+  APITypes.DeleteTopicPostMutation
+>;

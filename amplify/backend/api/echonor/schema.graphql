@@ -33,13 +33,13 @@ type ReactionStates {
   bookmark: Boolean
 }
 
-type Topic {
+type Topic @model {
   title: String!
   postCount: Int
   createdBy: String!
 }
 
-type TopicPost {
+type TopicPost @model {
   userId: String!
   content: String!
   reactionCounts: ReactionCounts
