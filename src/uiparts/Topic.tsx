@@ -5,7 +5,6 @@ import { TopicType } from "../type/MeetingPlaceType";
 import { formatDate } from "../util/Format";
 import { useNavigate } from "react-router-dom";
 
-
 const Topic = (props: TopicType) => {
     const navigate = useNavigate();
     const handleClick = () => {
