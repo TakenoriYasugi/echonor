@@ -76,11 +76,8 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
         ));
     
         if (reactionedPost) {
-            console.log("Reaction detected.");
-            console.log(reactionedPost);
             return reactionedPost;
         } else {
-            // console.log("Reaction undetected.");
             return null;
         }
     }
