@@ -9,6 +9,7 @@ import { IsReactionedStates, ReactionColor, ReactionCounts, ReactionType } from 
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { ReactionStatesListContext } from "../AppWrapper";
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import { ReactionStates } from "../context/ReactionContext";
 
 
 const ReactionButton = (
@@ -25,48 +26,49 @@ const ReactionButton = (
 
     const [isPushed, setIsPushed] = useState<boolean>(initialIsPushed);
     const [icon, setIcon] = useState<ReactNode>();
-
-    const reactions = useContext(ReactionStatesListContext);
     
     useLayoutEffect(() => {
-        const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
+        const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
+        console.log('ReactionButton useLayoutEffect')
+        const state = localReactionStatesList.find((reaction) => (reaction.postId === postId));
         // TODO: 処理に無駄が多そうなので何とかする
         switch(variant) {
             case ReactionType.Heart:
                 setIcon(<FavoriteIcon sx={isPushed ? {color: ReactionColor.Heart} : {color: ReactionColor.Default}}/>);
-                setIsPushed(state?.states.heart || false)
+                setIsPushed(state?.states?.heart || false)
                 break;
     
             case ReactionType.Good:
                 setIcon(<ThumbUpAltIcon sx={isPushed ? {color: ReactionColor.Good} : {color: ReactionColor.Default}}/>);
-                setIsPushed(state?.states.good || false)
+                setIsPushed(state?.states?.good || false)
                 break;
             
             case ReactionType.Smile:
                 setIcon(<TagFacesIcon sx={isPushed ? {color: ReactionColor.Smile} : {color: ReactionColor.Default}}/>);
-                setIsPushed(state?.states.smile || false)
+                setIsPushed(state?.states?.smile || false)
                 break;
             
             case ReactionType.Sad:
                 setIcon(<SentimentVeryDissatisfiedIcon sx={isPushed ? {color: ReactionColor.Sad} : {color: ReactionColor.Default}}/>);
-                setIsPushed(state?.states.sad || false)
+                setIsPushed(state?.states?.sad || false)
                 break;
     
             case ReactionType.Bad:
                 setIcon(<ThumbDownAltIcon sx={isPushed ? {color: ReactionColor.Bad} : {color: ReactionColor.Default}}/>);
-                setIsPushed(state?.states.bad || false)
+                setIsPushed(state?.states?.bad || false)
                 break;
             
             case ReactionType.Bookmark:
                 setIcon(<BookmarksIcon sx={isPushed ? {color: ReactionColor.Bookmark} : {color: ReactionColor.Default}}/>);
-                setIsPushed(state?.states.bookmark || false)
+                setIsPushed(state?.states?.bookmark || false)
                 break;
                 
             default:
                 console.log("リアクションアイコン表示エラー")
                 break;
         }
-    }, [isPushed, reactions]);
+        console.log('isPushed: ' + isPushed);
+    }, [isPushed]);
     
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -81,8 +83,8 @@ const ReactionButton = (
             bad: 0,
             bookmark: 0
         };
-        
-        const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
+        const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
+        const state = localReactionStatesList.find((reaction) => (reaction.postId === postId));
 
         const blankStates = {
             good: false,
@@ -162,19 +164,20 @@ const ReactionButton = (
                 break;
         }
 
-        setIsPushed(!isPushed);
         setIsReactionOpen(false);
         fetchUpdatePost(changedReactionCounts);
         fetchUpdateReactionStates(changedReactionStates);
         setReactionCounts(changedReactionCounts);
-        const changedReactions = reactions.reactionStatesList.map((reaction) => {
+        const changedReactions = localReactionStatesList.map((reaction) => {
             if (reaction.postId === postId) {
                 return {...reaction, states: changedReactionStates}
             } else {
                 return reaction;
             }
         })
-        reactions.setReactionStatesList(changedReactions);
+        // ローカルストレージに保存
+        localStorage.setItem("reactionStatesList", JSON.stringify(changedReactions));
+        setIsPushed(!isPushed);
     }
 
     return (

@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
-import { ReactionStatesListContext } from '../AppWrapper';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPostsByPostId } from '../graphql/queries';
 import dayjs from 'dayjs';
 import { PostType } from '../type/PostType';
 import Posts from '../uiparts/Posts';
+import { ReactionStates } from '../context/ReactionContext';
 
 const Bookmarks = () => {
-    const reactions = useContext(ReactionStatesListContext);
     const [posts, setPosts] = useState<PostType[]>([]);
+    const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
 
     useEffect(() => {
-      const bookmarkedPostIds = reactions.reactionStatesList.filter(
+      const bookmarkedPostIds = localReactionStatesList.filter(
         (reaction) => reaction.states.bookmark === true
       ).map( (bookmarked) => (bookmarked.postId));
       fetchPostByPostIds(bookmarkedPostIds);

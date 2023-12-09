@@ -171,3 +171,53 @@ subscription OnUpdatePostByUserId($userId: String!) {
 ` as GeneratedSubscription<
 APITypes.OnUpdatePostSubscriptionVariables,
 APITypes.OnUpdatePostSubscription>;
+
+export const onUpdateReactionByUserId = /* GraphQL */
+ `subscription OnUpdateReactionByUserId($userId: String!) {
+  onUpdateReaction(filter: {userId: {eq: $userId}}) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateReactionSubscriptionVariables,
+  APITypes.OnUpdateReactionSubscription
+>;
+
+export const onCreateReactionByUserId = /* GraphQL */ 
+`subscription OnCreateReaction($userId: String!) {
+  onCreateReaction(filter: {userId: {eq: $userId}}) {
+    userId
+    postId
+    reactionStates {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateReactionSubscriptionVariables,
+  APITypes.OnCreateReactionSubscription
+>;

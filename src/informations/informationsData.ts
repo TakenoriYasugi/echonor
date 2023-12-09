@@ -20,4 +20,5 @@ export const informationsData: InformationsData[] = [
     {date: "2023/12/03 22:33", type: InformationsType.Update, content: "ライセンス情報を追加しました。"},
     {date: "2023/12/04 16:19", type: InformationsType.Update, content: "ローディング画面を実装しました。"},
     {date: "2023/12/07 09:27", type: InformationsType.Info, content: "現在集会場の開発中です。リリースまでしばらくお待ちください。"},
+    {date: "2023/12/10 04:04", type: InformationsType.Maintenance, content: "リアクションの履歴が更新されない不具合を修正しました。"},
 ];
