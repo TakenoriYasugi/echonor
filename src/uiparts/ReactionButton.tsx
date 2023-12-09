@@ -9,6 +9,7 @@ import { IsReactionedStates, ReactionColor, ReactionCounts, ReactionType } from 
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { ReactionStatesListContext } from "../AppWrapper";
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import { ReactionStates } from "../context/ReactionContext";
 
 
 const ReactionButton = (
@@ -27,9 +28,10 @@ const ReactionButton = (
     const [icon, setIcon] = useState<ReactNode>();
 
     const reactions = useContext(ReactionStatesListContext);
+    const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
     
     useLayoutEffect(() => {
-        const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
+        const state = localReactionStatesList.find((reaction) => (reaction.postId === postId));
         // TODO: 処理に無駄が多そうなので何とかする
         switch(variant) {
             case ReactionType.Heart:
@@ -82,7 +84,7 @@ const ReactionButton = (
             bookmark: 0
         };
         
-        const state = reactions.reactionStatesList.find((reaction) => (reaction.postId === postId));
+        const state = localReactionStatesList.find((reaction) => (reaction.postId === postId));
 
         const blankStates = {
             good: false,
@@ -167,14 +169,15 @@ const ReactionButton = (
         fetchUpdatePost(changedReactionCounts);
         fetchUpdateReactionStates(changedReactionStates);
         setReactionCounts(changedReactionCounts);
-        const changedReactions = reactions.reactionStatesList.map((reaction) => {
+        const changedReactions = localReactionStatesList.map((reaction) => {
             if (reaction.postId === postId) {
                 return {...reaction, states: changedReactionStates}
             } else {
                 return reaction;
             }
         })
-        reactions.setReactionStatesList(changedReactions);
+        // ローカルストレージに保存
+        localStorage.setItem("reactionStatesList", JSON.stringify(changedReactions));
     }
 
     return (

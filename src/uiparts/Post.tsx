@@ -66,11 +66,12 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
     const isReactioned = () => {
       return (reactionCounts.heart > 0 || reactionCounts.good > 0 || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
     }
-
-    const reactions = useContext(ReactionStatesListContext);
-
+    
+    // ローカルストレージから取得
+    const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
+    
     const getReactionStates = (postId: string) : ReactionStates | null => {
-        const reactionedPost = reactions.reactionStatesList.find( (reaction) => (
+        const reactionedPost = localReactionStatesList.find( (reaction) => (
             postId === reaction.postId
         ));
     
@@ -96,8 +97,9 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           }
           const createdReactionData = await API.graphql(graphqlOperation(createReaction, { input } ));
           console.log('Created Reaction:', createdReactionData);
+          const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
           // @ts-ignore
-          reactions.setReactionStatesList([...reactions.reactionStatesList, {id: createdReactionData.data.createReaction.id, postId: postId, states: changedReactionStates}])
+          localStorage.setItem("reactionStatesList", JSON.stringify([...localReactionStatesList, {id: createdReactionData.data.createReaction.id, postId: postId, states: changedReactionStates}]));
         } catch (error) {
           console.error('Error creating reaction state:', error);
         }
@@ -121,7 +123,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           const updatedReactionData = await API.graphql(graphqlOperation(updateReaction, { input } ));
           console.log('Updated Reaction:', updatedReactionData);
 
-          const changedReactions = reactions.reactionStatesList.map( (reaction) => {
+          const changedReactions = localReactionStatesList.map( (reaction) => {
             if (reaction.postId === postId) {
               return {...reaction, states: {...sanitizedReactionStates}}
             } else {
@@ -129,7 +131,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
             }
           })
 
-          reactions.setReactionStatesList(changedReactions);
+          localStorage.setItem("reactionStatesList", JSON.stringify(changedReactions));
 
         } catch (error) {
           console.error('Error updated reaction state:', error);
