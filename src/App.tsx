@@ -204,19 +204,25 @@ function App() {
     }
   }
 
-  const updateLocalReactionStatesList = (data: any) => {
+  const updateLocalReactionStatesList = (data: ReactionStates) => {
 
     // ローカルストレージからreactionStatesListを取得
     const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem('reactionStatesList') || '[]');
-    const newReactionStatesList: ReactionStates[] = localReactionStatesList.map((reactionStates) => {
-      if (reactionStates.postId === data.postId) {
-        return data;
-      } else {
-        return reactionStates;
-      }
-    });
-    console.log("-- newReactionStatesList --")
-    console.log(newReactionStatesList);
+    const isExists = localReactionStatesList.some((reactionStates) => reactionStates.postId === data.postId);
+
+    if (isExists) {
+      const newReactionStatesList: ReactionStates[] = localReactionStatesList.map((reactionStates) => {
+        if (reactionStates.postId === data.postId) {
+          return data;
+        } else {
+          return reactionStates;
+        }
+      });
+      localStorage.setItem('reactionStatesList', JSON.stringify(newReactionStatesList));
+    } else {
+      const newReactionStatesList: ReactionStates[] = [...localReactionStatesList, data];
+      localStorage.setItem('reactionStatesList', JSON.stringify(newReactionStatesList));
+    }
   }
 
   const subscribeUpdateReactionStates = async (userId: string) : Promise<ZenObservable.Subscription> => {

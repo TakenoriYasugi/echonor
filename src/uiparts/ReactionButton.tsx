@@ -26,8 +26,6 @@ const ReactionButton = (
 
     const [isPushed, setIsPushed] = useState<boolean>(initialIsPushed);
     const [icon, setIcon] = useState<ReactNode>();
-
-    const reactions = useContext(ReactionStatesListContext);
     const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
     
     useLayoutEffect(() => {
@@ -68,7 +66,7 @@ const ReactionButton = (
                 console.log("リアクションアイコン表示エラー")
                 break;
         }
-    }, [isPushed, reactions]);
+    }, [isPushed]);
     
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
