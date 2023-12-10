@@ -66,19 +66,18 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
     const isReactioned = () => {
       return (reactionCounts.heart > 0 || reactionCounts.good > 0 || reactionCounts.smile > 0 || reactionCounts.sad > 0 || reactionCounts.bad > 0);
     }
-
-    const reactions = useContext(ReactionStatesListContext);
-
+    
+    // ローカルストレージから取得
+    const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
+    
     const getReactionStates = (postId: string) : ReactionStates | null => {
-        const reactionedPost = reactions.reactionStatesList.find( (reaction) => (
+        const reactionedPost = localReactionStatesList.find( (reaction) => (
             postId === reaction.postId
         ));
     
         if (reactionedPost) {
-            // console.log("Reaction detected.");
             return reactionedPost;
         } else {
-            // console.log("Reaction undetected.");
             return null;
         }
     }
@@ -96,8 +95,9 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           }
           const createdReactionData = await API.graphql(graphqlOperation(createReaction, { input } ));
           console.log('Created Reaction:', createdReactionData);
+          const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
           // @ts-ignore
-          reactions.setReactionStatesList([...reactions.reactionStatesList, {id: createdReactionData.data.createReaction.id, postId: postId, states: changedReactionStates}])
+          localStorage.setItem("reactionStatesList", JSON.stringify([...localReactionStatesList, {id: createdReactionData.data.createReaction.id, postId: postId, states: changedReactionStates}]));
         } catch (error) {
           console.error('Error creating reaction state:', error);
         }
@@ -121,7 +121,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           const updatedReactionData = await API.graphql(graphqlOperation(updateReaction, { input } ));
           console.log('Updated Reaction:', updatedReactionData);
 
-          const changedReactions = reactions.reactionStatesList.map( (reaction) => {
+          const changedReactions = localReactionStatesList.map( (reaction) => {
             if (reaction.postId === postId) {
               return {...reaction, states: {...sanitizedReactionStates}}
             } else {
@@ -129,7 +129,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
             }
           })
 
-          reactions.setReactionStatesList(changedReactions);
+          localStorage.setItem("reactionStatesList", JSON.stringify(changedReactions));
 
         } catch (error) {
           console.error('Error updated reaction state:', error);
@@ -167,7 +167,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
                       <Typography fontSize={"small"}>{date}</Typography>
                     </Grid>
                     <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bookmark || false}/>
+                        <ReactionButton variant={ReactionType.Bookmark} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states?.bookmark || false}/>
                         <Typography fontSize={"small"}>{reactionCounts.bookmark || ""}</Typography>
                     </Grid>
                     <CardActionArea onClick={handleClick}>
@@ -181,23 +181,23 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
                 {isReactioned() && <Divider/>}
                 <Stack direction={"row"}>
                   {reactionCounts.heart > 0 && <>
-                        <ReactionButton variant={ReactionType.Heart} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.heart || false}/>
+                        <ReactionButton variant={ReactionType.Heart} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states?.heart || false}/>
                         <Typography fontSize={"small"}>{reactionCounts.heart}</Typography>
                     </>}
                   {reactionCounts.good > 0 && <>
-                        <ReactionButton variant={ReactionType.Good} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states.good || false}/>
+                        <ReactionButton variant={ReactionType.Good} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states?.good || false}/>
                         <Typography fontSize={"small"}>{reactionCounts.good}</Typography>
                     </>}
                   {reactionCounts.smile > 0 && <>
-                        <ReactionButton variant={ReactionType.Smile} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states.smile || false}/>
+                        <ReactionButton variant={ReactionType.Smile} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states?.smile || false}/>
                         <Typography fontSize={"small"}>{reactionCounts.smile}</Typography>
                     </>}
                   {reactionCounts.sad > 0 && <>
-                        <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states.sad || false}/>
+                        <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states?.sad || false}/>
                         <Typography fontSize={"small"}>{reactionCounts.sad}</Typography>
                     </>}
                   {reactionCounts.bad > 0 && <>
-                        <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states.bad || false}/>
+                        <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates}  initialIsPushed={getReactionStates(postId)?.states?.bad || false}/>
                         <Typography fontSize={"small"}>{reactionCounts.bad}</Typography>
                     </>}
                 </Stack>
@@ -221,11 +221,11 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           {/* リアクション用のポップ */}
           <Card>
             <CardContent>
-              <ReactionButton variant={ReactionType.Heart} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.heart || false}/>
-              <ReactionButton variant={ReactionType.Good} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.good || false}/>
-              <ReactionButton variant={ReactionType.Smile} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.smile || false}/>
-              <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.sad || false}/>
-              <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states.bad || false}/>
+              <ReactionButton variant={ReactionType.Heart} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states?.heart || false}/>
+              <ReactionButton variant={ReactionType.Good} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states?.good || false}/>
+              <ReactionButton variant={ReactionType.Smile} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states?.smile || false}/>
+              <ReactionButton variant={ReactionType.Sad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states?.sad || false}/>
+              <ReactionButton variant={ReactionType.Bad} reactionCounts={reactionCounts} setReactionCounts={setReactionCounts} setIsReactionOpen={setIsReactionOpen} postId={postId} fetchUpdatePost={fetchUpdatePost} fetchUpdateReactionStates={fetchUpdateReactionStates} initialIsPushed={getReactionStates(postId)?.states?.bad || false}/>
             </CardContent>
           </Card>
         </Popover>

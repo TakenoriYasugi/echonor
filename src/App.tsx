@@ -25,7 +25,7 @@ import { listReactions, listReactionsByUserId } from './graphql/queries';
 import { GetUserInfo } from './util/Authenticator';
 import { ReactionStatesListContext } from './AppWrapper';
 import Bookmarks from './pages/Bookmarks';
-import { onUpdatePostByUserId } from './graphql/subscriptions';
+import { onCreateReactionByUserId, onUpdatePostByUserId, onUpdateReaction, onUpdateReactionByUserId } from './graphql/subscriptions';
 import ReactionedAlert from './uiparts/ReactionedAlert';
 import { Observable } from 'zen-observable-ts';
 import Notifications from './pages/Notifications';
@@ -121,14 +121,20 @@ function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect( () => {
-    let subscription: ZenObservable.Subscription | undefined;
+    let subscription: ZenObservable.Subscription[] = [];
     
     GetUserInfo().then((user) => {
       setUser(user);
       // @ts-ignore
       fetchReactionStatesList(user.username);
       subscribePostUpdate(user.username).then((sub) => {
-        subscription = sub;
+        subscription[0] = sub;
+      });
+      subscribeUpdateReactionStates(user.username).then((sub) => {
+        subscription[1] = sub;
+      });
+      subscribeCreateReactionStates(user.username).then((sub) => {
+        subscription[2] = sub;
       });
     }).catch((error) => {
       console.log("GetUserInfo error", error);
@@ -138,7 +144,9 @@ function App() {
 
     return () => {
       if (subscription) {
-        subscription.unsubscribe();
+        subscription.map((sub: ZenObservable.Subscription) => {
+          sub.unsubscribe();
+        });
       }
     }
   }, []);
@@ -181,8 +189,6 @@ function App() {
     );
   }
 
-  const reactions = useContext(ReactionStatesListContext);
-
   const fetchReactionStatesList = async (userId: string) => {
     try {
       const reactionData = await API.graphql(graphqlOperation(listReactionsByUserId, {userId}));
@@ -196,13 +202,69 @@ function App() {
           states: reaction.reactionStates
         }]
       })
-      
-      // @ts-ignore
-      reactions.setReactionStatesList(tempReactionStatesList);
-      
+
+      console.log("-- fetchReactionStatesList tempReactionStatesList --");
+      console.log(tempReactionStatesList);
+
+      // ローカルストレージにtempReactionStatesListを保存
+      localStorage.setItem('reactionStatesList', JSON.stringify(tempReactionStatesList));
     } catch (err) {
       console.error('Error fetching reaction states', err);
     }
+  }
+
+  const updateLocalReactionStatesList = (data: ReactionStates) => {
+
+    // ローカルストレージからreactionStatesListを取得
+    const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem('reactionStatesList') || '[]');
+    const isExists = localReactionStatesList.some((reactionStates) => reactionStates.postId === data.postId);
+
+    if (isExists) {
+      const newReactionStatesList: ReactionStates[] = localReactionStatesList.map((reactionStates) => {
+        if (reactionStates.postId === data.postId) {
+          return data;
+        } else {
+          return reactionStates;
+        }
+      });
+      localStorage.setItem('reactionStatesList', JSON.stringify(newReactionStatesList));
+    } else {
+      const newReactionStatesList: ReactionStates[] = [...localReactionStatesList, data];
+      localStorage.setItem('reactionStatesList', JSON.stringify(newReactionStatesList));
+    }
+  }
+
+  const subscribeUpdateReactionStates = async (userId: string) : Promise<ZenObservable.Subscription> => {
+    return API.graphql(
+      graphqlOperation(onUpdateReactionByUserId, { userId: userId })
+      // @ts-ignore
+    ).subscribe({
+      next: (data: any) => {
+        console.log('Reaction updated:', data);
+        const newReactionStates: ReactionStates = data.value.data.onUpdateReaction;
+        
+        updateLocalReactionStatesList(newReactionStates);
+      },
+      error: (error: any) => {
+        console.error('Error with subscription:', error);
+      },
+    }) as ZenObservable.Subscription;
+  }
+
+  const subscribeCreateReactionStates  = async (userId: string) : Promise<ZenObservable.Subscription> => {
+    return API.graphql(
+      graphqlOperation(onCreateReactionByUserId, { userId: userId })
+      // @ts-ignore
+    ).subscribe({
+      next: (data: any) => {
+        console.log('Reaction created:', data);
+        const newReactionStates: ReactionStates = data.value.data.onCreateReaction;
+        updateLocalReactionStatesList(newReactionStates);
+      },
+      error: (error: any) => {
+        console.error('Error with subscription:', error);
+      },
+    }) as ZenObservable.Subscription;
   }
 
   return (
