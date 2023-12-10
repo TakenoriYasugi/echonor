@@ -5,6 +5,7 @@ import { ButtonNavigationLabel } from "../constants/Constants";
 import React from "react";
 import MeetingPlaceHome from "./MeetingPlaceHome";
 import AddTopicFAB from "../uiparts/AddTopicFAB";
+import UnderConstruction from "./UnderConstruction";
 
 const MeetingPlace = () => {
     const [navigationValue, setNavigationValue] = useState<ButtonNavigationLabel>(ButtonNavigationLabel.Home);
@@ -17,7 +18,9 @@ const MeetingPlace = () => {
     return (
         <>
             <Box>
-                {navigationValue === ButtonNavigationLabel.Home && <MeetingPlaceHome tabValue={tabValue} handleChange={handleChange} />}
+                {/* {navigationValue === ButtonNavigationLabel.Home && <MeetingPlaceHome tabValue={tabValue} handleChange={handleChange} />} */}
+                {navigationValue === ButtonNavigationLabel.Home && <UnderConstruction />}
+
             </Box>
 
             <MeetingPlaceButtonNavigation value={navigationValue} setValue={setNavigationValue} />
