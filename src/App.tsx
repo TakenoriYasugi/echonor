@@ -33,6 +33,7 @@ import Introduction from './pages/Introduction';
 import CustomAuthenticator from './pages/CustomAuthenticator';
 import Search from './pages/Search';
 import Licenses from './pages/Licenses';
+import TopicDiscussionPage from './pages/TopicDiscussionPage';
 
 Amplify.configure(awsExports);
 
@@ -92,6 +93,14 @@ function App() {
         <Licenses/>
       </>
     },
+    {
+      path: "/meetingplace/topic/:topicId",
+      element: <>
+        <ButtonAppBar title="EchoNor"/>
+        <TopicDiscussionPage/>
+      </>,
+    },
+
     // {
     //   path: "/dummypage",
     //   element: <>

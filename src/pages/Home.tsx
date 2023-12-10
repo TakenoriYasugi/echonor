@@ -9,7 +9,6 @@ import dayjs from "dayjs";
 import { Container, Paper, Typography } from "@mui/material";
 import { MAX_POST_COUNT } from "../constants/Constants";
 import { ReactionStatesListContext } from "../AppWrapper";
-import AdMax from "../uiparts/AdMax";
 import { PostType } from "../type/PostType";
 import Posts from "../uiparts/Posts";
 
@@ -46,7 +45,6 @@ const Home = () => {
   const reactions = useContext(ReactionStatesListContext);
   return (
     <>
-      <AdMax />
       <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
         <Posts posts={posts} />
       </PullToRefresh>

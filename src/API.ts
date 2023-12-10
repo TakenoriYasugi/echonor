@@ -172,6 +172,95 @@ export type DeleteReactionInput = {
   id: string,
 };
 
+export type CreateTopicInput = {
+  title: string,
+  postCount?: number | null,
+  createdBy: string,
+  id?: string | null,
+};
+
+export type ModelTopicConditionInput = {
+  title?: ModelStringInput | null,
+  postCount?: ModelIntInput | null,
+  createdBy?: ModelStringInput | null,
+  and?: Array< ModelTopicConditionInput | null > | null,
+  or?: Array< ModelTopicConditionInput | null > | null,
+  not?: ModelTopicConditionInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Topic = {
+  __typename: "Topic",
+  title: string,
+  postCount?: number | null,
+  createdBy: string,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateTopicInput = {
+  title?: string | null,
+  postCount?: number | null,
+  createdBy?: string | null,
+  id: string,
+};
+
+export type DeleteTopicInput = {
+  id: string,
+};
+
+export type CreateTopicPostInput = {
+  userId: string,
+  content: string,
+  reactionCounts?: ReactionCountsInput | null,
+  to?: string | null,
+  id?: string | null,
+};
+
+export type ModelTopicPostConditionInput = {
+  userId?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  to?: ModelStringInput | null,
+  and?: Array< ModelTopicPostConditionInput | null > | null,
+  or?: Array< ModelTopicPostConditionInput | null > | null,
+  not?: ModelTopicPostConditionInput | null,
+};
+
+export type TopicPost = {
+  __typename: "TopicPost",
+  userId: string,
+  content: string,
+  reactionCounts?: ReactionCounts | null,
+  to?: string | null,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateTopicPostInput = {
+  userId?: string | null,
+  content?: string | null,
+  reactionCounts?: ReactionCountsInput | null,
+  to?: string | null,
+  id: string,
+};
+
+export type DeleteTopicPostInput = {
+  id: string,
+};
+
 export type ModelPostFilterInput = {
   postId?: ModelIDInput | null,
   userId?: ModelStringInput | null,
@@ -198,6 +287,36 @@ export type ModelReactionFilterInput = {
 export type ModelReactionConnection = {
   __typename: "ModelReactionConnection",
   items:  Array<Reaction | null >,
+  nextToken?: string | null,
+};
+
+export type ModelTopicFilterInput = {
+  title?: ModelStringInput | null,
+  postCount?: ModelIntInput | null,
+  createdBy?: ModelStringInput | null,
+  and?: Array< ModelTopicFilterInput | null > | null,
+  or?: Array< ModelTopicFilterInput | null > | null,
+  not?: ModelTopicFilterInput | null,
+};
+
+export type ModelTopicConnection = {
+  __typename: "ModelTopicConnection",
+  items:  Array<Topic | null >,
+  nextToken?: string | null,
+};
+
+export type ModelTopicPostFilterInput = {
+  userId?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  to?: ModelStringInput | null,
+  and?: Array< ModelTopicPostFilterInput | null > | null,
+  or?: Array< ModelTopicPostFilterInput | null > | null,
+  not?: ModelTopicPostFilterInput | null,
+};
+
+export type ModelTopicPostConnection = {
+  __typename: "ModelTopicPostConnection",
+  items:  Array<TopicPost | null >,
   nextToken?: string | null,
 };
 
@@ -244,6 +363,34 @@ export type ModelSubscriptionReactionFilterInput = {
   postId?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionReactionFilterInput | null > | null,
   or?: Array< ModelSubscriptionReactionFilterInput | null > | null,
+};
+
+export type ModelSubscriptionTopicFilterInput = {
+  title?: ModelSubscriptionStringInput | null,
+  postCount?: ModelSubscriptionIntInput | null,
+  createdBy?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionTopicFilterInput | null > | null,
+  or?: Array< ModelSubscriptionTopicFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionTopicPostFilterInput = {
+  userId?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  to?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionTopicPostFilterInput | null > | null,
+  or?: Array< ModelSubscriptionTopicPostFilterInput | null > | null,
 };
 
 export type CreatePostMutationVariables = {
@@ -399,6 +546,135 @@ export type DeleteReactionMutation = {
   } | null,
 };
 
+export type CreateTopicMutationVariables = {
+  input: CreateTopicInput,
+  condition?: ModelTopicConditionInput | null,
+};
+
+export type CreateTopicMutation = {
+  createTopic?:  {
+    __typename: "Topic",
+    title: string,
+    postCount?: number | null,
+    createdBy: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateTopicMutationVariables = {
+  input: UpdateTopicInput,
+  condition?: ModelTopicConditionInput | null,
+};
+
+export type UpdateTopicMutation = {
+  updateTopic?:  {
+    __typename: "Topic",
+    title: string,
+    postCount?: number | null,
+    createdBy: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteTopicMutationVariables = {
+  input: DeleteTopicInput,
+  condition?: ModelTopicConditionInput | null,
+};
+
+export type DeleteTopicMutation = {
+  deleteTopic?:  {
+    __typename: "Topic",
+    title: string,
+    postCount?: number | null,
+    createdBy: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateTopicPostMutationVariables = {
+  input: CreateTopicPostInput,
+  condition?: ModelTopicPostConditionInput | null,
+};
+
+export type CreateTopicPostMutation = {
+  createTopicPost?:  {
+    __typename: "TopicPost",
+    userId: string,
+    content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    to?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateTopicPostMutationVariables = {
+  input: UpdateTopicPostInput,
+  condition?: ModelTopicPostConditionInput | null,
+};
+
+export type UpdateTopicPostMutation = {
+  updateTopicPost?:  {
+    __typename: "TopicPost",
+    userId: string,
+    content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    to?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteTopicPostMutationVariables = {
+  input: DeleteTopicPostInput,
+  condition?: ModelTopicPostConditionInput | null,
+};
+
+export type DeleteTopicPostMutation = {
+  deleteTopicPost?:  {
+    __typename: "TopicPost",
+    userId: string,
+    content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    to?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetPostQueryVariables = {
   id: string,
 };
@@ -483,6 +759,91 @@ export type ListReactionsQuery = {
       __typename: "Reaction",
       userId: string,
       postId: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetTopicQueryVariables = {
+  id: string,
+};
+
+export type GetTopicQuery = {
+  getTopic?:  {
+    __typename: "Topic",
+    title: string,
+    postCount?: number | null,
+    createdBy: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListTopicsQueryVariables = {
+  filter?: ModelTopicFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListTopicsQuery = {
+  listTopics?:  {
+    __typename: "ModelTopicConnection",
+    items:  Array< {
+      __typename: "Topic",
+      title: string,
+      postCount?: number | null,
+      createdBy: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetTopicPostQueryVariables = {
+  id: string,
+};
+
+export type GetTopicPostQuery = {
+  getTopicPost?:  {
+    __typename: "TopicPost",
+    userId: string,
+    content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    to?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListTopicPostsQueryVariables = {
+  filter?: ModelTopicPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListTopicPostsQuery = {
+  listTopicPosts?:  {
+    __typename: "ModelTopicPostConnection",
+    items:  Array< {
+      __typename: "TopicPost",
+      userId: string,
+      content: string,
+      to?: string | null,
       id: string,
       createdAt: string,
       updatedAt: string,
@@ -632,6 +993,129 @@ export type OnDeleteReactionSubscription = {
       bad?: boolean | null,
       bookmark?: boolean | null,
     } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateTopicSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicFilterInput | null,
+};
+
+export type OnCreateTopicSubscription = {
+  onCreateTopic?:  {
+    __typename: "Topic",
+    title: string,
+    postCount?: number | null,
+    createdBy: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateTopicSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicFilterInput | null,
+};
+
+export type OnUpdateTopicSubscription = {
+  onUpdateTopic?:  {
+    __typename: "Topic",
+    title: string,
+    postCount?: number | null,
+    createdBy: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteTopicSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicFilterInput | null,
+};
+
+export type OnDeleteTopicSubscription = {
+  onDeleteTopic?:  {
+    __typename: "Topic",
+    title: string,
+    postCount?: number | null,
+    createdBy: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateTopicPostSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicPostFilterInput | null,
+};
+
+export type OnCreateTopicPostSubscription = {
+  onCreateTopicPost?:  {
+    __typename: "TopicPost",
+    userId: string,
+    content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    to?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateTopicPostSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicPostFilterInput | null,
+};
+
+export type OnUpdateTopicPostSubscription = {
+  onUpdateTopicPost?:  {
+    __typename: "TopicPost",
+    userId: string,
+    content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    to?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteTopicPostSubscriptionVariables = {
+  filter?: ModelSubscriptionTopicPostFilterInput | null,
+};
+
+export type OnDeleteTopicPostSubscription = {
+  onDeleteTopicPost?:  {
+    __typename: "TopicPost",
+    userId: string,
+    content: string,
+    reactionCounts?:  {
+      __typename: "ReactionCounts",
+      good?: number | null,
+      heart?: number | null,
+      smile?: number | null,
+      sad?: number | null,
+      bad?: number | null,
+      bookmark?: number | null,
+    } | null,
+    to?: string | null,
     id: string,
     createdAt: string,
     updatedAt: string,

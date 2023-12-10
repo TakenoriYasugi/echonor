@@ -14,6 +14,7 @@ import { formatDate } from "../util/Format";
 import { ReactionCounts } from "../constants/Constants";
 import { PostType } from "../type/PostType";
 import Posts from "../uiparts/Posts";
+import RemarksCard from "../uiparts/RemarksCard";
 
 // この際、ReactionCountsが全て0のPostは表示しない。
 const Notifications = () => {
@@ -72,12 +73,9 @@ const Notifications = () => {
 
     return (
         <>
-            {/* モダンなスタイリング */}
-            <Box sx={{m:1, p: 2, top: 50, left: 0, right: 0, borderRadius: "10px", backgroundColor: "#cceb69"}}>
-                <Typography fontSize={12} textAlign={"center"}>
-                    最近リアクションされたエコーがここに表示されます。
-                </Typography>
-            </Box>
+            <RemarksCard>
+                最近リアクションされたエコーがここに表示されます。
+            </RemarksCard>
             <Posts posts={posts}/>
         </>
     )
