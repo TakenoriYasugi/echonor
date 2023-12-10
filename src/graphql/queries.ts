@@ -39,6 +39,9 @@ export const listPosts = /* GraphQL */ `query ListPosts(
       postId
       userId
       content
+      id
+      createdAt
+      updatedAt
       reactionCounts {
         good
         heart
@@ -48,9 +51,6 @@ export const listPosts = /* GraphQL */ `query ListPosts(
         bookmark
         __typename
       }
-      id
-      createdAt
-      updatedAt
       __typename
     }
     nextToken
@@ -103,6 +103,89 @@ export const listReactions = /* GraphQL */ `query ListReactions(
   APITypes.ListReactionsQueryVariables,
   APITypes.ListReactionsQuery
 >;
+export const getTopic = /* GraphQL */ `query GetTopic($id: ID!) {
+  getTopic(id: $id) {
+    title
+    postCount
+    createdBy
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetTopicQueryVariables, APITypes.GetTopicQuery>;
+export const listTopics = /* GraphQL */ `query ListTopics(
+  $filter: ModelTopicFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      title
+      postCount
+      createdBy
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListTopicsQueryVariables,
+  APITypes.ListTopicsQuery
+>;
+export const getTopicPost = /* GraphQL */ `query GetTopicPost($id: ID!) {
+  getTopicPost(id: $id) {
+    userId
+    content
+    reactionCounts {
+      good
+      heart
+      smile
+      sad
+      bad
+      bookmark
+      __typename
+    }
+    to
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetTopicPostQueryVariables,
+  APITypes.GetTopicPostQuery
+>;
+export const listTopicPosts = /* GraphQL */ `query ListTopicPosts(
+  $filter: ModelTopicPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTopicPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      userId
+      content
+      to
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListTopicPostsQueryVariables,
+  APITypes.ListTopicPostsQuery
+>;
+
 export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
   $userId: String
   $limit: Int
@@ -132,6 +215,7 @@ export const listPostsByUserId = /* GraphQL */ `query ListPostsByUserId(
   }
 }
 ` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
+
 
 export const listPostsByPostId = /* GraphQL */ `query ListPostsByPostId(
   $postId: ID!

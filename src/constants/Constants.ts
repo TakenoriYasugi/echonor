@@ -36,6 +36,8 @@ export type ReactionCounts = {
 
 
 export const MAX_POST_LENGTH = 140;
+export const MAX_TOPIC_TITLE_LENGTH = 30;
+
 
 // 一度に取得する投稿数
 export const MAX_POST_COUNT = 100;

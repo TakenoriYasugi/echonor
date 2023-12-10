@@ -7,6 +7,7 @@ import { listPosts, listPostsByKeyWords } from "../graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api";
 import Observable from "zen-observable";
 import Posts from "../uiparts/Posts";
+import RemarksCard from "../uiparts/RemarksCard";
 
 const Search = () => {
     const [searchWords, setSearchWords] = useState<string>("")
@@ -88,11 +89,9 @@ const Search = () => {
       }
 
       const resultInfo = <>
-        <Box sx={{m:1, p: 2, top: 50, left: 0, right: 0, borderRadius: "10px", backgroundColor: "#cceb69"}}>
-            <Typography fontSize={12} textAlign={"center"}>
-                検索結果が見つかりませんでした。キーワードを変えて再度検索してください。
-            </Typography>
-        </Box>
+        <RemarksCard>
+            検索結果が見つかりませんでした。キーワードを変えて再度検索してください。
+        </RemarksCard>
       </>
 
     return (

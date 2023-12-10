@@ -21,4 +21,5 @@ export const informationsData: InformationsData[] = [
     {date: "2023/12/04 16:19", type: InformationsType.Update, content: "ローディング画面を実装しました。"},
     {date: "2023/12/07 09:27", type: InformationsType.Info, content: "現在集会場の開発中です。リリースまでしばらくお待ちください。"},
     {date: "2023/12/10 04:04", type: InformationsType.Maintenance, content: "リアクションの履歴が更新されない不具合を修正しました。"},
+    {date: "2023/12/10 14:23", type: InformationsType.Bug, content: "１つの投稿に連続して同じリアクションができてしまう不具合が確認されています。対応中ですのでしばらくお待ちください。"},
 ];
