@@ -6,7 +6,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listPosts } from "../graphql/queries";
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
-import { Container, Paper, Typography } from "@mui/material";
+import { CircularProgress, Container, Paper, Typography } from "@mui/material";
 import { MAX_POST_COUNT } from "../constants/Constants";
 import { ReactionStatesListContext } from "../AppWrapper";
 import { PostType } from "../type/PostType";
@@ -72,7 +72,7 @@ const Home = () => {
     <InfiniteScroll
       loadMore={() => fetchPosts(false)}
       hasMore={hasMore}
-      loader={<div key={0}>Loading ...</div>}
+      loader={<Container key={0} sx={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}><CircularProgress /></Container>}
     >
       <PullToRefresh onRefresh={() => fetchPosts(true)} pullingContent={pullingContent}>
         <Posts posts={posts} />
