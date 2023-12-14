@@ -40,7 +40,7 @@ export const MAX_TOPIC_TITLE_LENGTH = 30;
 
 
 // 一度に取得する投稿数
-export const MAX_POST_COUNT = 100;
+export const MAX_POST_COUNT = 20;
 
 export type ReactionStates = {
     postId: string,
