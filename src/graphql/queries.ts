@@ -296,3 +296,32 @@ export const listPostsByKeyWords = /* GraphQL */ `query ListPosts($keyword: Stri
     __typename
   }
 }` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
+export const listPostsByCreatedAt = /* GraphQL */ `query ListPostsByCreatedAt(
+  $createdAt: AWSDateTime
+  $sortDirection: ModelSortDirection
+  $limit: Int
+  $nextToken: String
+) {
+  listPostsByCreatedAt(
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      postId
+      userId
+      content
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListPostsByCreatedAtQueryVariables,
+  APITypes.ListPostsByCreatedAtQuery
+>;

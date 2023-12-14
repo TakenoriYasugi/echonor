@@ -261,6 +261,18 @@ export type DeleteTopicPostInput = {
   id: string,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
+export type PostConnection = {
+  __typename: "PostConnection",
+  items?:  Array<Post | null > | null,
+  nextToken?: string | null,
+};
+
 export type ModelPostFilterInput = {
   postId?: ModelIDInput | null,
   userId?: ModelStringInput | null,
@@ -672,6 +684,29 @@ export type DeleteTopicPostMutation = {
     id: string,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type ListPostsByCreatedAtQueryVariables = {
+  createdAt?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPostsByCreatedAtQuery = {
+  listPostsByCreatedAt?:  {
+    __typename: "PostConnection",
+    items?:  Array< {
+      __typename: "Post",
+      postId: string,
+      userId: string,
+      content: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
   } | null,
 };
 
