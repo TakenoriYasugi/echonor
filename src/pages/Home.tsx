@@ -3,7 +3,7 @@ import PostFAB from "../uiparts/PostFAB";
 import Zoom from "@mui/material/Zoom";
 import { useContext, useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { listPosts } from "../graphql/queries";
+import { listPosts, listPostsByCreatedAt } from "../graphql/queries";
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
 import { CircularProgress, Container, Paper, Typography } from "@mui/material";
@@ -27,7 +27,11 @@ const Home = () => {
   const fetchPosts = async (isRefresh: boolean) => {
     if (isRefresh) {
       try {
-        const postData = await API.graphql(graphqlOperation(listPosts, { limit: MAX_POST_COUNT}));
+        const postData = await API.graphql(graphqlOperation(listPosts, {
+          // createdAt: dayjs().format(),
+          // sortDirection: 'DESC',
+          limit: MAX_POST_COUNT
+        }));
         // @ts-ignore
         const newPosts = postData.data.listPosts.items;
         newPosts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
@@ -41,7 +45,12 @@ const Home = () => {
       }
     } else {
       try {
-        const postData = await API.graphql(graphqlOperation(listPosts, { limit: MAX_POST_COUNT, nextToken: nextToken }));
+        const postData = await API.graphql(graphqlOperation(listPosts, {
+          //今日の日付をISO8601形式で渡す
+          // sortDirection: 'DESC',
+          limit: MAX_POST_COUNT,
+          nextToken: nextToken 
+        }));
         // @ts-ignore
         const newPosts = postData.data.listPosts.items;
         newPosts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
@@ -72,7 +81,7 @@ const Home = () => {
     <InfiniteScroll
       loadMore={() => fetchPosts(false)}
       hasMore={hasMore}
-      loader={<Container key={0} sx={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}><CircularProgress /></Container>}
+      loader={<Container key={0} sx={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}><CircularProgress size={20}/></Container>}
     >
       <PullToRefresh onRefresh={() => fetchPosts(true)} pullingContent={pullingContent}>
         <Posts posts={posts} />
