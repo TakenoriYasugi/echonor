@@ -27,38 +27,41 @@ const Home = () => {
   const fetchPosts = async (isRefresh: boolean) => {
     if (isRefresh) {
       try {
-        const postData = await API.graphql(graphqlOperation(listPosts, {
-          // createdAt: dayjs().format(),
-          // sortDirection: 'DESC',
+        const postData = await API.graphql(graphqlOperation(listPostsByCreatedAt, {
+          createdAt: dayjs().toISOString(),
+          sortDirection: 'DESC',
           limit: MAX_POST_COUNT
         }));
+        console.log(dayjs().toISOString());
+        console.log(postData);
         // @ts-ignore
-        const newPosts = postData.data.listPosts.items;
+        const newPosts = postData.data.listPostsByCreatedAt.items;
         newPosts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
         setPosts(newPosts);
         // @ts-ignore
-        setHasMore(postData.data.listPosts.nextToken !== null);
+        setHasMore(postData.data.listPostsByCreatedAt.nextToken !== null);
         // @ts-ignore
-        setNextToken(postData.data.listPosts.nextToken);
+        setNextToken(postData.data.listPostsByCreatedAt.nextToken);
       } catch (err) {
         console.error('Error fetching posts', err);
       }
     } else {
       try {
-        const postData = await API.graphql(graphqlOperation(listPosts, {
+        const postData = await API.graphql(graphqlOperation(listPostsByCreatedAt, {
           //今日の日付をISO8601形式で渡す
-          // sortDirection: 'DESC',
+          createdAt: dayjs().toISOString(),
+          sortDirection: 'DESC',
           limit: MAX_POST_COUNT,
-          nextToken: nextToken 
+          nextToken: nextToken
         }));
         // @ts-ignore
-        const newPosts = postData.data.listPosts.items;
+        const newPosts = postData.data.listPostsByCreatedAt.items;
         newPosts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
         setPosts([...posts, ...newPosts]);
         // @ts-ignore
-        setHasMore(postData.data.listPosts.nextToken !== null);
+        setHasMore(postData.data.listPostsByCreatedAt.nextToken !== null);
         // @ts-ignore
-        setNextToken(postData.data.listPosts.nextToken);
+        setNextToken(postData.data.listPostsByCreatedAt.nextToken);
       } catch (err) {
         console.error('Error fetching posts', err);
       }

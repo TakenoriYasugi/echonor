@@ -303,6 +303,7 @@ export const listPostsByCreatedAt = /* GraphQL */ `query ListPostsByCreatedAt(
   $nextToken: String
 ) {
   listPostsByCreatedAt(
+    __typename: "Post"
     createdAt: $createdAt
     sortDirection: $sortDirection
     limit: $limit

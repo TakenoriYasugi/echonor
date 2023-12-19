@@ -48,6 +48,7 @@ type TopicPost @model {
 
 type Query {
   listPostsByCreatedAt(
+    __typename: String
     createdAt: AWSDateTime
     sortDirection: ModelSortDirection
     limit: Int
