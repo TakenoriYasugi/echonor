@@ -3,32 +3,68 @@ import PostFAB from "../uiparts/PostFAB";
 import Zoom from "@mui/material/Zoom";
 import { useContext, useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { listPosts } from "../graphql/queries";
+import { listPosts, listPostsByCreatedAt } from "../graphql/queries";
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import dayjs from "dayjs";
-import { Container, Paper, Typography } from "@mui/material";
+import { CircularProgress, Container, Paper, Typography } from "@mui/material";
 import { MAX_POST_COUNT } from "../constants/Constants";
 import { ReactionStatesListContext } from "../AppWrapper";
 import { PostType } from "../type/PostType";
 import Posts from "../uiparts/Posts";
+import InfiniteScroll from 'react-infinite-scroller';
+import { isTypeReferenceNode } from "typescript";
 
 const Home = () => {
 
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [nextToken, setNextToken] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(true);
   }, []);
 
-  const fetchPosts = async () => {
-    try {
-      const postData = await API.graphql(graphqlOperation(listPosts, { limit: MAX_POST_COUNT }));
-      // @ts-ignore
-      const posts = postData.data.listPosts.items;
-      posts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-      setPosts(posts);
-    } catch (err) {
-      console.error('Error fetching posts', err);
+  const fetchPosts = async (isRefresh: boolean) => {
+    if (isRefresh) {
+      try {
+        const postData = await API.graphql(graphqlOperation(listPostsByCreatedAt, {
+          createdAt: dayjs().toISOString(),
+          sortDirection: 'DESC',
+          limit: MAX_POST_COUNT
+        }));
+        console.log(dayjs().toISOString());
+        console.log(postData);
+        // @ts-ignore
+        const newPosts = postData.data.listPostsByCreatedAt.items;
+        newPosts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+        setPosts(newPosts);
+        // @ts-ignore
+        setHasMore(postData.data.listPostsByCreatedAt.nextToken !== null);
+        // @ts-ignore
+        setNextToken(postData.data.listPostsByCreatedAt.nextToken);
+      } catch (err) {
+        console.error('Error fetching posts', err);
+      }
+    } else {
+      try {
+        const postData = await API.graphql(graphqlOperation(listPostsByCreatedAt, {
+          //今日の日付をISO8601形式で渡す
+          createdAt: dayjs().toISOString(),
+          sortDirection: 'DESC',
+          limit: MAX_POST_COUNT,
+          nextToken: nextToken
+        }));
+        // @ts-ignore
+        const newPosts = postData.data.listPostsByCreatedAt.items;
+        newPosts.sort((a: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }, b: { createdAt: string | number | Date | dayjs.Dayjs | null | undefined; }) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+        setPosts([...posts, ...newPosts]);
+        // @ts-ignore
+        setHasMore(postData.data.listPostsByCreatedAt.nextToken !== null);
+        // @ts-ignore
+        setNextToken(postData.data.listPostsByCreatedAt.nextToken);
+      } catch (err) {
+        console.error('Error fetching posts', err);
+      }
     }
   }
 
@@ -45,9 +81,15 @@ const Home = () => {
   const reactions = useContext(ReactionStatesListContext);
   return (
     <>
-      <PullToRefresh onRefresh={fetchPosts} pullingContent={pullingContent}>
+    <InfiniteScroll
+      loadMore={() => fetchPosts(false)}
+      hasMore={hasMore}
+      loader={<Container key={0} sx={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}><CircularProgress size={20}/></Container>}
+    >
+      <PullToRefresh onRefresh={() => fetchPosts(true)} pullingContent={pullingContent}>
         <Posts posts={posts} />
       </PullToRefresh>
+    </InfiniteScroll>
       <Zoom in={true}>
         <Box sx={{ position: "fixed", right: 20, bottom: 80 }}>
           <PostFAB fetchPosts={fetchPosts} />

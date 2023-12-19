@@ -45,3 +45,23 @@ type TopicPost @model {
   reactionCounts: ReactionCounts
   to: String
 }
+
+type Query {
+  listPostsByCreatedAt(
+    __typename: String
+    createdAt: AWSDateTime
+    sortDirection: ModelSortDirection
+    limit: Int
+    nextToken: String
+  ): PostConnection
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type PostConnection {
+  items: [Post]
+  nextToken: String
+}

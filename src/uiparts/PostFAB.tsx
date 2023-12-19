@@ -12,7 +12,7 @@ import { createPost } from '../graphql/mutations';
 import { useUser } from '../util/UserProvider';
 import { PostSchema } from '../varidations/VaridationSchema';
 
-const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
+const PostFAB = ({fetchPosts}: {fetchPosts: (isRefresh: boolean) => Promise<void>}) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -53,7 +53,7 @@ const PostFAB = ({fetchPosts}: {fetchPosts: () => Promise<void>}) => {
         } catch (e) {
             console.log(e);
         }
-        fetchPosts();
+        fetchPosts(true);
 
     }
 

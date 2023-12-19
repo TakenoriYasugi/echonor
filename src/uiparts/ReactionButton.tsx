@@ -29,7 +29,7 @@ const ReactionButton = (
     
     useLayoutEffect(() => {
         const localReactionStatesList: ReactionStates[] = JSON.parse(localStorage.getItem("reactionStatesList") || "{}");
-        console.log('ReactionButton useLayoutEffect')
+        // console.log('ReactionButton useLayoutEffect')
         const state = localReactionStatesList.find((reaction) => (reaction.postId === postId));
         // TODO: 処理に無駄が多そうなので何とかする
         switch(variant) {
@@ -67,7 +67,7 @@ const ReactionButton = (
                 console.log("リアクションアイコン表示エラー")
                 break;
         }
-        console.log('isPushed: ' + isPushed);
+        // console.log('isPushed: ' + isPushed);
     }, [isPushed]);
     
 

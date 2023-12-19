@@ -24,4 +24,5 @@ export const informationsData: InformationsData[] = [
     {date: "2023/12/10 14:23", type: InformationsType.Bug, content: "１つの投稿に連続して同じリアクションができてしまう不具合が確認されています。対応中ですのでしばらくお待ちください。"},
     {date: "2023/12/12 12:00", type: InformationsType.Info, content: "エコー総数が100件を超えました！取得件数制限の関係上、一部のエコーが表示されなくなっています。追加の更新処理を実装できるまで暫くお待ちください。"},
     {date: "2023/12/17 16:55", type: InformationsType.Info, content: "もうリアクションは複数投稿できることを仕様にします。その方針で調整します。"},
+    {date: "2023/12/20 16:55", type: InformationsType.Update, content: "無限スクロールを実装しました。画面下部までスクロールすると、過去の投稿を読み込むことができます。"},
 ];

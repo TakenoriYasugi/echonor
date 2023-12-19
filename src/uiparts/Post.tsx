@@ -26,17 +26,19 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
           }
         },
         {
-          threshold: 0.1, // 10%の要素が見えたらトリガー
+          threshold: 0.1, // 1%の要素が見えたらトリガー
         }
       );
   
-      const { current } = cardRef;
-      if (current) {
-        observer.observe(current);
-      }
+    // コンポーネントの ref を監視
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
   
       return () => {
-        observer.disconnect();
+        if (cardRef.current) {
+          observer.disconnect();
+        }
       };
     }, []);
 
@@ -159,7 +161,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
     return (
       <>
         <div ref={cardRef}>
-          <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}>
+          {/* <Zoom in={checked} style={{ transformOrigin: "left" }} timeout={800}> */}
               <Card className="post" sx={{p: 0.5, m: 3}}>
                 <CardContent sx={{p: 1, pt: 0}}>
                   <Grid container>
@@ -202,7 +204,7 @@ const Post = ({id, postId, text, date, initialReactionCounts} : {id: string, pos
                     </>}
                 </Stack>
               </Card>
-          </Zoom>
+          {/* </Zoom> */}
         </div>
 
         <Popover
