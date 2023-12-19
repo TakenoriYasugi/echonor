@@ -317,6 +317,15 @@ export const listPostsByCreatedAt = /* GraphQL */ `query ListPostsByCreatedAt(
       createdAt
       updatedAt
       __typename
+      reactionCounts {
+        good
+        heart
+        smile
+        sad
+        bad
+        bookmark
+        __typename
+      }
     }
     nextToken
     __typename
