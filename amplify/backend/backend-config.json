@@ -7,7 +7,9 @@
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDate": "2025-07-14T09:42:20.703Z",
+              "apiKeyExpirationDays": 365,
+              "description": "echonor-appsync-api-key"
             },
             "authenticationType": "API_KEY"
           }

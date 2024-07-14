@@ -5,7 +5,11 @@
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2025-07-14T09:42:20.703Z",
+      "keyDescription": "echonor-appsync-api-key"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
   }
 }
