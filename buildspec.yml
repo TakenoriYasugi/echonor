@@ -2,13 +2,12 @@ version: 0.2
 
 env:
   variables:
-    AWS_APP_SYNC_API_KEY: "da2-rlau7flfyvgl7laobgqdkn3f2e"
+    APP_SYNC_API_KEY: "da2-rlau7flfyvgl7laobgqdkn3f2e"
 
 phases:
   preBuild:
     commands:
       - echo "Setting up API Key"
-      - export AWS_APP_SYNC_API_KEY=da2-rlau7flfyvgl7laobgqdkn3f2e
   build:
     commands:
       - echo Build started on `date`
