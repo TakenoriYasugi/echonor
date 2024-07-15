@@ -20,31 +20,46 @@
     }
   },
   "auth": {
-    "echonorc9e152e6": {
+    "echonor17a7e2e0": {
       "customAuth": false,
       "dependsOn": [],
-      "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
-        },
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito"
+      "service": "Cognito",
+      "serviceType": "imported"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_echonor17a7e2e0_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "echonor17a7e2e0"
+        }
+      ]
+    },
+    "AMPLIFY_auth_echonor17a7e2e0_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "echonor17a7e2e0"
+        }
+      ]
+    },
+    "AMPLIFY_auth_echonor17a7e2e0_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "echonor17a7e2e0"
+        }
+      ]
+    },
+    "AMPLIFY_auth_echonor17a7e2e0_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "echonor17a7e2e0"
+        }
+      ]
     }
   }
 }

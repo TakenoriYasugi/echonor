@@ -33,11 +33,16 @@
       "AmplifyAppId": "d1ig4he0v1p80g"
     },
     "categories": {
-      "auth": {
-        "echonorc9e152e6": {}
-      },
       "api": {
         "echonor": {}
+      },
+      "auth": {
+        "echonor17a7e2e0": {
+          "userPoolId": "ap-northeast-1_8Dplbu8sh",
+          "userPoolName": "echonorc9e152e6_userpool_c9e152e6-dev",
+          "webClientId": "6j156kat1f7veh8k122fjbs8pt",
+          "nativeClientId": "6j156kat1f7veh8k122fjbs8pt"
+        }
       }
     }
   }

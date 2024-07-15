@@ -1,0 +1,20 @@
+{
+  "authSelections": "userPoolOnly",
+  "resourceName": "echonor17a7e2e0",
+  "serviceType": "imported",
+  "region": "ap-northeast-1",
+  "usernameAttributes": [
+    "email"
+  ],
+  "authProvidersUserPool": [],
+  "requiredAttributes": [
+    "email"
+  ],
+  "passwordPolicyMinLength": 8,
+  "passwordPolicyCharacters": [],
+  "mfaConfiguration": "OFF",
+  "autoVerifiedAttributes": [
+    "email"
+  ],
+  "mfaTypes": []
+}
